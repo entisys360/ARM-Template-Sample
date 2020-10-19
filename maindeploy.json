@@ -92,32 +92,114 @@
             "metadata": {
                 "description": "Storage Account To Hold Variables"
             }
+        },
+        
+        "ManagedIdentityName": {
+            "type": "string",
+            "defaultValue": "entisysidentity001",
+            "metadata": {
+                "description": "Managed Identity Name"
+            }
         }
     },
     "functions": [],
     "variables": {
+        "resourceGroupName": "[resourceGroup().name]",
+        "Owner": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')]"
         
-
 
     },
     "resources": [
         {
-            "name": "storageaccount1",
+            "name": "[parameters('StorageAccountName')]",
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2019-06-01",
             "tags": {
-                "displayName": "storageaccount1"
+                "displayName": "[parameters('StorageAccountName')]"
             },
             "location": "[resourceGroup().location]",
             "kind": "StorageV2",
             "sku": {
-                "name": "Premium_LRS",
-                "tier": "Premium"
-            }
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('ManagedIdentityName'))]"
+            ]
+        },
+
+        {
+            "name": "[parameters('virtualNetworkName')]",
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2019-11-01",
+            "location": "[resourceGroup().location]",
+            
+            "tags": {
+                "displayName": "[parameters('virtualNetworkName')]"
+            },
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[parameters('virtualNetworkAddressPrefixes')]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[parameters('subnet0Name')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('subnet0Prefix')]"
+                        }
+                    },
+                    {
+                        "name": "[parameters('subnet1Name')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('subnet1Prefix')]"
+                        }
+                    },
+                    {
+                        "name": "[parameters('subnet2Name')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('subnet2Prefix')]"
+                        }
+                    },
+                    {
+                        "name": "[parameters('subnet3Name')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('subnet3Prefix')]"
+                        }
+                    }
+                ]
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('ManagedIdentityName'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+            "name": "[parameters('ManagedIdentityName')]",
+            "apiVersion": "2018-11-30",
+            "location": "[resourceGroup().location]"
+        },
+        {
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2018-09-01-preview",
+            "name": "[newGuid()]",
+            "properties": {
+                "roleDefinitionId": "[variables('Owner')]",
+                "principalId": "[resourceId(variables('resourceGroupName'),'Microsoft.ManagedIdentity/userAssignedIdentities',parameters('ManagedIdentityName'))]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('ManagedIdentityName'))]"
+            ]
         }
-        
 
 
     ],
-    "outputs": {}
+    "outputs": {
+        "vnet_id": {
+            "type": "string",
+            "value": "[resourceId(variables('resourceGroupName'),'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
+        }
+
+    }
 }
