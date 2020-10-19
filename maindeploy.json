@@ -100,14 +100,20 @@
             "metadata": {
                 "description": "Managed Identity Name"
             }
+        },
+        "role_guid_Assignment": {
+            "type": "string",
+            "defaultValue": "[newGuid()]",
+            "metadata": {
+                "description": "description"
+            }
         }
     },
     "functions": [],
     "variables": {
         "resourceGroupName": "[resourceGroup().name]",
-        "Owner": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')]",
-        "role_guid_Assignment": "[newGuid()]"
-
+        "Owner": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')]"
+    
     },
     "resources": [
         {
@@ -183,7 +189,7 @@
         {
             "type": "Microsoft.Authorization/roleAssignments",
             "apiVersion": "2018-09-01-preview",
-            "name": "[variables('role_guid_Assignment')]",
+            "name": "[parameters('role_guid_Assignment')]",
             "properties": {
                 "roleDefinitionId": "[variables('Owner')]",
                 "principalId": "[resourceId(variables('resourceGroupName'),'Microsoft.ManagedIdentity/userAssignedIdentities',parameters('ManagedIdentityName'))]"
