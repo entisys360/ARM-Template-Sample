@@ -1,0 +1,123 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualNetworkResourceGroupName": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().name]",
+            "metadata": {
+                "description": "Name of the resource group for the existing virtual network"
+            }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "Location for the resources."
+            }
+        },
+        "virtualNetworkName": {
+            "type": "string",
+            "defaultValue": "Citrix-Vnet",
+            "metadata": {
+                "description": "Name of the Virtual Network (VNET)"
+            }
+        },
+        "virtualNetworkAddressPrefixes": {
+            "type": "array",
+            "defaultValue": "[array('192.168.0.0/16')]",
+            "metadata": {
+                "description": "Virtual network address CIDR"
+            }
+        },
+        "subnet0Name": {
+            "type": "string",
+            "defaultValue": "AnsibleSubnet",
+            "metadata": {
+                "description": "Subnet for Management"
+            }
+        },
+        "subnet1Name": {
+            "type": "string",
+            "defaultValue": "Managment",
+            "metadata": {
+                "description": "Subnet For Domain Controller and Cloud Connectors"
+            }
+        },
+        "subnet2Name": {
+            "type": "string",
+            "defaultValue": "GatewaySubnet",
+            "metadata": {
+                "description": "Subnet For Azure Gateway"
+            }
+        },
+        "subnet3Name": {
+            "type": "string",
+            "defaultValue": "VirtualDesktops",
+            "metadata": {
+                "description": "Subnet For VDI/ Virtual Desktops"
+            }
+        },
+        "subnet0Prefix": {
+            "type": "string",
+            "defaultValue": "192.168.0.0/24",
+            "metadata": {
+                "description": "AnsibleSubnet subnet CIDR"
+            }
+        },
+        "subnet1Prefix": {
+            "type": "string",
+            "defaultValue": "192.168.1.0/24",
+            "metadata": {
+                "description": "Managment subnet CIDR"
+            }
+        },
+        "subnet2Prefix": {
+            "type": "string",
+            "defaultValue": "192.168.2.0/24",
+            "metadata": {
+                "description": "GatewaySubnet subnet CIDR"
+            }
+        },
+        "subnet3Prefix": {
+            "type": "string",
+            "defaultValue": "192.168.2.0/24",
+            "metadata": {
+                "description": "VirtualDesktops subnet CIDR"
+            }
+        },
+        "StorageAccountName": {
+            "type": "string",
+            "defaultValue": "entisys001",
+            "metadata": {
+                "description": "Storage Account To Hold Variables"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {
+        
+
+
+    },
+    "resources": [
+        {
+            "name": "storageaccount1",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "tags": {
+                "displayName": "storageaccount1"
+            },
+            "location": "[resourceGroup().location]",
+            "kind": "StorageV2",
+            "sku": {
+                "name": "Premium_LRS",
+                "tier": "Premium"
+            }
+        }
+        
+
+
+    ],
+    "outputs": {}
+}
