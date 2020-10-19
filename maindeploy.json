@@ -2,6 +2,13 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "vmSize": {
+            "type": "string",
+            "defaultValue": "Standard_A2_v2",
+            "metadata": {
+                "description": "Size for the Virtual Machine."
+            }
+        },
         "virtualNetworkResourceGroupName": {
             "type": "string",
             "defaultValue": "[resourceGroup().name]",
@@ -93,12 +100,48 @@
                 "description": "Storage Account To Hold Variables"
             }
         },
-        
+        "adminUsername": {
+            "type": "string",
+            "metadata": {
+                "description": "Admin username for all VMs"
+            }
+        },
+        "_artifactsLocation": {
+            "type": "string",
+            "metadata": {
+                "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
+            },
+            "defaultValue": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/301-multi-vmss-linux/"
+        },
+        "_artifactsLocationSasToken": {
+            "type": "securestring",
+            "metadata": {
+                "description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated."
+            },
+            "defaultValue": ""
+        },
         "ManagedIdentityName": {
             "type": "string",
-            "defaultValue": "entisysidentity001",
+            "defaultValue": "entisysidentity002",
             "metadata": {
                 "description": "Managed Identity Name"
+            }
+        },
+        "authenticationType": {
+            "type": "string",
+            "defaultValue": "sshPublicKey",
+            "allowedValues": [
+                "sshPublicKey",
+                "password"
+            ],
+            "metadata": {
+                "description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
+            }
+        },
+        "adminPasswordOrKey": {
+            "type": "securestring",
+            "metadata": {
+                "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
             }
         },
         "role_guid_Assignment": {
@@ -112,8 +155,19 @@
     "functions": [],
     "variables": {
         "resourceGroupName": "[resourceGroup().name]",
-        "Owner": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')]"
-    
+        "Owner": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')]",
+        "AnsibleHostName": "AnsibleOrch001",
+        "linuxConfiguration": {
+        "disablePasswordAuthentication": true,
+            "ssh": {
+                "publicKeys": [
+                {
+                    "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+                    "keyData": "[parameters('adminPasswordOrKey')]"
+                }
+                ]
+            }
+        }
     },
     "resources": [
         {
@@ -186,23 +240,107 @@
             "apiVersion": "2018-11-30",
             "location": "[resourceGroup().location]"
         },
+        // {
+        //     "type": "Microsoft.Authorization/roleAssignments",
+        //     "apiVersion": "2018-09-01-preview",
+        //     "name": "[parameters('role_guid_Assignment')]",
+        //     "properties": {
+        //         "roleDefinitionId": "[variables('Owner')]",
+        //         "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',parameters('ManagedIdentityName')),'2018-11-30').principalId]",
+        //         "scope": "[subscription().id]"
+        //     },
+        //     "dependsOn": [
+        //         "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('ManagedIdentityName'))]"
+        //     ]
+
+        // },
         {
-            "type": "Microsoft.Authorization/roleAssignments",
-            "apiVersion": "2018-09-01-preview",
-            "name": "[parameters('role_guid_Assignment')]",
-            "properties": {
-                "roleDefinitionId": "[variables('Owner')]",
-                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',parameters('ManagedIdentityName')),'2018-11-30').principalId]",
-                "scope": "[resourceGroup().id]"
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('ManagedIdentityName'))]"
-            ]
-
+        "type": "Microsoft.Resources/deploymentScripts",
+        "apiVersion": "2019-10-01-preview",
+        "name": "scriptInTemplate2",
+        "location": "[resourceGroup().location]",
+        "kind": "AzurePowerShell",
+        "identity": {
+            "type": "userAssigned",
+            "userAssignedIdentities": {
+            "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',parameters('ManagedIdentityName'))]": {
+            }
+            }
+        },
+        "properties": {
+            "forceUpdateTag": "1",
+            "azPowerShellVersion": "3.0",
+            "timeout": "PT1H",
+            "scriptContent": "pwd",
+            "cleanupPreference": "OnSuccess",
+            "retentionInterval": "P1D"
         }
-
-
-    ],
+    },
+    {
+      "apiVersion": "2020-05-01",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[concat(variables('AnsibleHostName'),'-nic')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
+        
+      ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks/subnets/', parameters('virtualNetworkName'), parameters('subnet0Name'))]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2020-06-01",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[variables('AnsibleHostName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[parameters('storageAccountName')]",
+        "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces', concat(variables('AnsibleHostName'),'-nic'))]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('vmSize')]"
+        },
+        "osProfile": {
+          "computerName": "[variables('AnsibleHostName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPasswordOrKey')]",
+          "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), variables('linuxConfiguration'))]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "Canonical",
+            "offer": "UbuntuServer",
+            "sku": "16.04-LTS",
+            "version": "latest"
+          },
+          "osDisk": {
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces', concat(variables('AnsibleHostName'),'-nic'))]"
+            }
+          ]
+        }
+      }
+    }
+  ],
     "outputs": {
         "vnet_id": {
             "type": "string",
