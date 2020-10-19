@@ -25,7 +25,7 @@
         },
         "virtualNetworkAddressPrefixes": {
             "type": "array",
-            "defaultValue": "[array('192.168.0.0/16')]",
+            "defaultValue": "192.168.0.0/16",
             "metadata": {
                 "description": "Virtual network address CIDR"
             }
@@ -192,11 +192,13 @@
             "name": "[parameters('role_guid_Assignment')]",
             "properties": {
                 "roleDefinitionId": "[variables('Owner')]",
-                "principalId": "[resourceId(variables('resourceGroupName'),'Microsoft.ManagedIdentity/userAssignedIdentities',parameters('ManagedIdentityName'))]"
+                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',parameters('ManagedIdentityName')),'2018-11-30').principalId]",
+                "scope": "[subscription().id]"
             },
             "dependsOn": [
                 "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('ManagedIdentityName'))]"
             ]
+
         }
 
 
@@ -209,3 +211,4 @@
 
     }
 }
+
