@@ -105,8 +105,8 @@
     "functions": [],
     "variables": {
         "resourceGroupName": "[resourceGroup().name]",
-        "Owner": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')]"
-        
+        "Owner": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')]",
+        "role_guid_Assignment": "[newGuid()]"
 
     },
     "resources": [
@@ -183,7 +183,7 @@
         {
             "type": "Microsoft.Authorization/roleAssignments",
             "apiVersion": "2018-09-01-preview",
-            "name": "[newGuid()]",
+            "name": "[variables('role_guid_Assignment')]",
             "properties": {
                 "roleDefinitionId": "[variables('Owner')]",
                 "principalId": "[resourceId(variables('resourceGroupName'),'Microsoft.ManagedIdentity/userAssignedIdentities',parameters('ManagedIdentityName'))]"
