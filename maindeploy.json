@@ -81,7 +81,7 @@
         },
         "subnet3Prefix": {
             "type": "string",
-            "defaultValue": "192.168.2.0/24",
+            "defaultValue": "192.168.3.0/24",
             "metadata": {
                 "description": "VirtualDesktops subnet CIDR"
             }
@@ -193,7 +193,7 @@
             "properties": {
                 "roleDefinitionId": "[variables('Owner')]",
                 "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',parameters('ManagedIdentityName')),'2018-11-30').principalId]",
-                "scope": "[subscription().id]"
+                "scope": "[resourceGroup().id]"
             },
             "dependsOn": [
                 "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('ManagedIdentityName'))]"
