@@ -1,0 +1,119 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualNetworkName": {
+            "type": "string",
+            "defaultValue": "Citrix-Vnet",
+            "metadata": {
+                "description": "Name of the Virtual Network (VNET)"
+            }
+        },
+        "AnsibleSubnet": {
+            "type": "string",
+            "defaultValue": "AnsibleSubnet",
+            "metadata": {
+                "description": "Subnet for Management"
+            }
+        },
+        "adminUsername": {
+            "type": "string",
+            "defaultValue": "admin",
+            "metadata": {
+                "description": "Admin username for all VMs"
+            }
+        },
+        "authenticationType": {
+            "type": "string",
+            "defaultValue": "sshPublicKey",
+            "allowedValues": [
+                "sshPublicKey",
+                "password"
+            ],
+            "metadata": {
+                "description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
+            }
+        },
+        "adminPasswordOrKey": {
+            "type": "securestring",
+            "metadata": {
+                "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
+            }
+        },
+        "ansible": {
+            "type": "object",
+            "metadata": {
+                "description": "description"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+        "apiVersion": "2020-05-01",
+        "type": "Microsoft.Network/networkInterfaces",
+        "name": "[concat(parameters('ansible').AnsibleHostName,'-nic')]",
+        "location": "[resourceGroup().location]",
+        "dependsOn": [
+            
+            "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
+            
+        ],
+        "properties": {
+            "ipConfigurations": [
+            {
+                "name": "ipconfig1",
+                "properties": {
+                "privateIPAllocationMethod": "Dynamic",
+                "subnet": {
+                    "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks/subnets/', parameters('virtualNetworkName'), parameters('AnsibleSubnet'))]"
+                }
+                }
+            }
+            ]
+        }
+    },
+            {
+            "apiVersion": "2020-06-01",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('ansible').AnsibleHostName]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                
+                "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces', concat(parameters('ansible').AnsibleHostName,'-nic'))]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                "vmSize": "[parameters('ansible').AnsibleVMSize]"
+                },
+                "osProfile": {
+                "computerName": "[parameters('ansible').AnsibleHostName]",
+                "adminUsername": "[parameters('adminUsername')]",
+                "adminPassword": "[parameters('adminPasswordOrKey')]",
+                "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), parameters('ansible').linuxConfiguration)]"
+                },
+                "storageProfile": {
+                "imageReference": {
+                    "publisher": "Canonical",
+                    "offer": "UbuntuServer",
+                    "sku": "16.04-LTS",
+                    "version": "latest"
+                },
+                "osDisk": {
+                    "caching": "ReadWrite",
+                    "createOption": "FromImage"
+                }
+                },
+                "networkProfile": {
+                "networkInterfaces": [
+                    {
+                    "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces', concat(parameters('ansible').AnsibleHostName,'-nic'))]"
+                    }
+                ]
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
