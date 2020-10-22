@@ -104,7 +104,7 @@
         },
         "adminUsername": {
             "type": "string",
-            "defaultValue": "sysadmin",
+            "defaultValue": "faadmin",
             "metadata": {
                 "description": "Admin username for all VMs"
             }
@@ -140,7 +140,8 @@
             "type": "securestring",
             "metadata": {
                 "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
-            }
+            },
+            "defaultValue": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtdT9c3sPJH3n75w/sEI/mV1tHABIT8ikjwxBtARX17eKmmUd/feLQYZNW0hPsIrZIpL3ppW4e/Uc7wmWGnOrMaUCsvbXkpV2zkofttqi3Ni/6qVhMv/+IuZmk7h53ITI2DZO0Kel3ZIV+xUpZxnPITUiHYkFLy6u9HcBoFSxDwtQNisuNaghSoPTVwV98QJToPwFDDcWDARHGUm4AxBzU5QY4yOqKyGJU+vEaEwWjA/0/5CAk7kCd1SSy58QDduhlLDmVLuiLtyu4DtstXy3QAlSg1zYK1zryCm6CM3MvjlKH+LgHGOcZWNGhWgjiEcTmCLmKSJ02WnE96T9Hne6b vinay.sanjivaiah@entisys360.com"
         }
     },
     "functions": [],
@@ -150,6 +151,8 @@
         "ansible": {
             "AnsibleHostName": "AnsibleOrch001",
             "AnsibleVMSize" : "Standard_A2_v2",
+            "AnsibleUserName": "[parameters('adminUsername')]",
+            "AnsiblePassword": "[parameters('adminPasswordOrKey')]",
             "linuxConfiguration": {
                 "disablePasswordAuthentication": true,
                 "ssh": {

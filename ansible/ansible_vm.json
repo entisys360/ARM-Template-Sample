@@ -16,13 +16,6 @@
                 "description": "Subnet for Management"
             }
         },
-        "adminUsername": {
-            "type": "string",
-            "defaultValue": "admin",
-            "metadata": {
-                "description": "Admin username for all VMs"
-            }
-        },
         "authenticationType": {
             "type": "string",
             "defaultValue": "sshPublicKey",
@@ -32,12 +25,6 @@
             ],
             "metadata": {
                 "description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
-            }
-        },
-        "adminPasswordOrKey": {
-            "type": "securestring",
-            "metadata": {
-                "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
             }
         },
         "ansible": {
@@ -85,15 +72,15 @@
                 },
                 "osProfile": {
                 "computerName": "[parameters('ansible').AnsibleHostName]",
-                "adminUsername": "[parameters('adminUsername')]",
-                "adminPassword": "[parameters('adminPasswordOrKey')]",
+                "adminUsername": "[parameters('ansible').AnsibleUserName]",
+                "adminPassword": "[parameters('ansible').AnsiblePassword]",
                 "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), parameters('ansible').linuxConfiguration)]"
                 },
                 "storageProfile": {
                 "imageReference": {
-                    "publisher": "Canonical",
-                    "offer": "UbuntuServer",
-                    "sku": "16.04-LTS",
+                    "publisher": "OpenLogic",
+                    "offer": "CentOS",
+                    "sku": "7.5",
                     "version": "latest"
                 },
                 "osDisk": {
