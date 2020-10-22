@@ -1,0 +1,9 @@
+{
+    "virtualNetwork": "vnet1",
+    "resourcegroupname": "rg1",
+    "subnet1Name": "AnsibeSubnet",
+    "AnsibleVMName": "Ansvm001",
+    "DeliveryGroupName": "DG1"
+    
+}
+
