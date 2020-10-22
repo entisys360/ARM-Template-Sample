@@ -17,6 +17,3 @@ This template allows deploying a linux VM using new or existing resources for th
 This template contains extra parameters to allow for the existing resources use cases, which is a common scenario for Azure Applications in the Azure Marketplace.
 
   `Tags: new, exiting, resource, vm, condition, conditional`
-
-
-https://raw.githubusercontent.com/entisys360/ARM-Template-Sample/master/maindeploy.json?token=AOLIENSE6EP5CNADGJJY2WC7SZ6MK
