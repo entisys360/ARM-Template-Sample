@@ -124,7 +124,7 @@
           
           "settings": {
               "fileUris": [
-                  "[concat('artifactsLocation', 'ansible/scripts/install_vm.sh')]"
+                  "[concat(parameters('ansible')._artifactsLocation, 'ansible/scripts/install_vm.sh')]"
               ],
               "commandToExecute": "[concat('sh install_vm.sh ',parameters('ansibleVars'))]"
           },

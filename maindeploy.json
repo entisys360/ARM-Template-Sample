@@ -306,6 +306,7 @@
             "AnsibleVMSize" : "Standard_A2_v2",
             "AnsibleUserName": "[parameters('adminUsername')]",
             "AnsiblePassword": "[parameters('adminPasswordOrKey')]",
+            "_artifactsLocation": "[parameters('_artifactsLocation')]",
             "linuxConfiguration": {
                 "disablePasswordAuthentication": true,
                 "ssh": {
