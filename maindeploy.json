@@ -286,7 +286,7 @@
 
             },
             "HostingConnection": {
-                "connectionName": "[concat('HC-','WVD-',parameters('virtualNetworkName'),'Resource')]",
+                "connectionName": "[concat('HC-','WVD-',parameters('virtualNetworkName'),'-Resource')]",
                 "azureRegion": "West US 2",
                 "azureResourceGroup": "[resourceGroup().name]",
                 "azureVNet": "[parameters('virtualNetworkName')]",
@@ -406,15 +406,15 @@
                     "value": "[parameters('subnet0Name')]"
                 },
                 "ansibleVars": {
-                    "value": {}
+                    "value": "[reference('PopulateVariables').outputs.JsonMachineCatalog.value]"
                 }
 
                 
             }
         },
         "dependsOn": [
-            "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]"
-            // "[resourceId('Microsoft.Resources/deployments','PopulateVariables')]"
+            "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
+            "[resourceId('Microsoft.Resources/deployments','PopulateVariables')]"
         ]
     },
     {
