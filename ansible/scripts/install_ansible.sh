@@ -53,7 +53,7 @@ main() {
 
   ansible_execute_func
   touch /tmp/ansible_hosting_var.json
-  $1 > /tmp/ansible_hosting_var.json
+  echo $1 > /tmp/ansible_hosting_var.json
 }
 
 main "$@"
