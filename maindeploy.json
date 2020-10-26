@@ -252,18 +252,10 @@
                 "description": "Time Zone for VDI"
             },
             "defaultValue": ""
-        },
-        "ADAssignedGroup": {
-            "type": "string",
-            "metadata": {
-                "description": "AD Grops which need access to VDI"
-            },
-            "defaultValue": ""
         }
     },
     "functions": [],
     "variables": {
-        "resourceGroupName": "[resourceGroup().name]",
         "VirtualDesktopSettings": {
             "MachineCatalog": {
                 "Name": "[parameters('MachineCatalogName')]",
@@ -437,7 +429,7 @@
             },
             "parameters": {
                 "input": {
-                    "value": "[variables('VirtualDesktopSettings')]"
+                    "value": "[variables('VirtualDesktopSettings').HostingConnection.applicationId]"
                 }
             }
         }
