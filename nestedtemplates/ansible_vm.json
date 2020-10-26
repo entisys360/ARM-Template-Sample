@@ -62,6 +62,11 @@
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[parameters('ansible').AnsibleHostName]",
             "location": "[resourceGroup().location]",
+            "plan": {
+                "name": "centos-8-2",
+                "product": "centos-8-2",
+                "publisher": "cognosys"
+            },
             "dependsOn": [
                 
                 "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces', concat(parameters('ansible').AnsibleHostName,'-nic'))]"
@@ -78,9 +83,9 @@
                 },
                 "storageProfile": {
                 "imageReference": {
-                    "publisher": "OpenLogic",
-                    "offer": "CentOS",
-                    "sku": "8.2",
+                    "publisher": "cognosys",
+                    "offer": "centos-8-2",
+                    "sku": "centos-8-2",
                     "version": "latest"
                 },
                 "osDisk": {
@@ -98,12 +103,12 @@
             }
         },
   {
-      "name": "ubuntuVM1/customScript1",
+      "name": "ansible/install_ansible",
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "apiVersion": "2019-07-01",
       "location": "[resourceGroup().location]",
       "tags": {
-          "displayName": "customScript1 for Linux VM"
+          "displayName": "Prepare Ansible VM"
       },
       "dependsOn": [
           "[resourceId('Microsoft.Compute/virtualMachines', parameters('ansible').AnsibleHostName)]"
@@ -121,9 +126,7 @@
               "commandToExecute": "sh customScript.sh"
           },
           "protectedSettings": {
-              "storageAccountKey": "",
-              "storageAccountName": "",
-              "commandToExecute": ""
+             
           }
 
       }

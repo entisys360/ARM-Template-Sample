@@ -138,121 +138,127 @@
             "type": "string",
             "metadata": {
                 "description": "Citrix Cloud Zone Name if given zone does not exist new zone will be created in Citrix Cloud"
-            }
+            },
+            "defaultValue": "E360-Labs"
         },
         "DomainName": {
             "type": "string",
             "metadata": {
                 "description": "Domain Name Zone will Be configured with"
-            }
+            },
+            "defaultValue": "e360labs.local"
         },
         "MachineCatalogName": {
             "type": "string",
             "metadata": {
                 "description": "Machine Catalog Name"
-            }
+            },
+            "defaultValue": "MC001"
         },
         "MachineCatalogDescription": {
             "type": "string",
             "metadata": {
                 "description": "Machine Catalog Description"
-            }
+            },
+            "defaultValue": "MC001"
         },
         "ADOrgUnit": {
             "type": "string",
             "metadata": {
                 "description": "Orginization Unit where VDI stays"
-            }
+            },
+            "defaultValue": "OU=test,DC=e360labs,dc=local"
+        },
+        "VDINamingScheme": {
+            "type": "string",
+            "metadata": {
+                "description": "Naming convention for VDI's"
+            },
+            "defaultValue": "VM###"
         },
         "VDIAllocationMethod": {
             "type": "string",
             "metadata": {
                 "description": "Allocation Method for VDI"
-            }
-        },
-        "persistChanges": {
-            "type": "bool",
-            "metadata": {
-                "description": "Persist Changes after Reboot"
-            }
+            },
+            "defaultValue": "Random"
         },
         "VDIVMSize": {
             "type": "string",
             "metadata": {
                 "description": "Size of VDI's"
-            }
+            },
+            "defaultValue": "Standard_B2ms"
         },
         "VDIAdminUserName": {
             "type": "string",
             "metadata": {
                 "description": "User Name which has Permission to join and create computer account in a OU"
-            }
+            },
+            "defaultValue": "e360labs\\admin"
         },
         "VDIAdminPassword": {
             "type": "string",
             "metadata": {
                 "description": "User Name which has Permission to join and create computer account in a OU"
-            }
+            },
+            "defaultValue": "1234567890"
         },
         "VDICount": {
-            "type": "securestring",
+            "type": "string",
             "metadata": {
                 "description": "Number Of VDI in machine Catalog"
-            }
-        },
-        "HostingConnectionName": {
-            "type": "string",
-            "metadata": {
-                "description": "Citrix Cloud Hosting ConnectionName"
-            }
-        },
-        "HostingUnitName": {
-            "type": "string",
-            "metadata": {
-                "description": "Citrix Cloud Hosting Unit Name/ Hosting Connection Resource Name"
-            }
+            },
+            "defaultValue": "1"
         },
         "AzureApplicationId": {
             "type": "string",
             "metadata": {
                 "description": "Azure Application ID/ SP ID which has Contributer Role in Subscription"
-            }
+            },
+            "defaultValue": "39c2b520-442e-4ea6-8901-9789ca9b5da2"
         },
         "AzureApplicationPassword": {
             "type": "securestring",
             "metadata": {
                 "description": "Azure Application ID Secret "
-            }
+            },
+            "defaultValue": ""
         },
         "VDIdesktopGroupName": {
             "type": "string",
             "metadata": {
                 "description": "Citrix Delivery Group Name"
-            }
+            },
+            "defaultValue": ""
         },
         "VDIdesktopGroupDesc": {
             "type": "string",
             "metadata": {
                 "description": "Description of Delivery Group"
-            }
+            },
+            "defaultValue": ""
         },
         "VDIcolorDepth": {
             "type": "string",
             "metadata": {
                 "description": "description"
-            }
+            },
+            "defaultValue": ""
         },
         "timeZone": {
             "type": "string",
             "metadata": {
                 "description": "Time Zone for VDI"
-            }
+            },
+            "defaultValue": ""
         },
         "ADAssignedGroup": {
             "type": "string",
             "metadata": {
                 "description": "AD Grops which need access to VDI"
-            }
+            },
+            "defaultValue": ""
         }
     },
     "functions": [],
@@ -265,12 +271,40 @@
                 "ZoneName": "[parameters('ctxZoneName')]",
                 "DomainName": "[parameters('DomainName')]",
                 "OrgUnit": "[parameters('ADOrgUnit')]",
-                "namingScheme": "[parameters('sc')]"
+                "namingScheme": "[parameters('VDINamingScheme')]",
+                "VDINamingSchemeType": "Numeric",
+                "allocType": "[parameters('VDIAllocationMethod')]",
+                "persistChanges": "Discard",
+                "sessionSupport": "MultiSession",
+                "SnapshotRGName": "rg-baseimages",
+                "SnapshotName": "VDIBaseImage",
+                "VDIVMSize": "[parameters('VDIVMSize')]",
+                "MinimumFunctionalLevel": "L7_20",
+                "VDIAdminUserName": "[parameters('VDIAdminUserName')]",
+                "VDIAdminPassword": "[parameters('VDIAdminPassword')]",
+                "VDICount": "[parameters('VDICount')]",
+                "HostingUnitName": "[concat('WVD-',parameters('virtualNetworkName'),'Resource')]",
+                "VDIResourceGroupName": "rg-virtualdesktops",
+                "NetworkResourceGroupName": "[resourceGroup().name]",
+                "VirtualNetworkName": "[parameters('virtualNetworkName')]",
+                "VirtualDesktopSubnets": "[parameters('subnet3Name')]"
+
             },
             "deliveryGroup": {
 
             },
             "HostingConnection": {
+                "connectionName": "[concat('HC-','WVD-',parameters('virtualNetworkName'),'Resource')]",
+                "azureRegion": "West US 2",
+                "azureResourceGroup": "[resourceGroup().name]",
+                "azureVNet": "[parameters('virtualNetworkName')]",
+                "VDISubnet": "[parameters('subnet3Name')]",
+                "applicationId": "[parameters('AzureApplicationId')]",
+                "applicationPassword": "[parameters('AzureApplicationPassword')]",
+                "subscriptionId": "[subscription().subscriptionId]",
+                "subscriptionName": "[subscription().displayName]",
+                "tenantId": "[subscription().tenantId]",
+                "ZoneName": "[parameters('ctxZoneName')]"
 
             }
         },
@@ -292,11 +326,6 @@
                 }
             }
 
-        },
-        "CloudConnectors": {
-            "CloudConnectors_Avilablity_Setname": "avail-citrix-CloudConnectors",
-            "CloudConnectorsVMSize": "[parameters('CloudConnectorsVMSize')]",
-            "CloudConnectorsVMName": "[parameters('CloudConnectorVMName')]"
         }
     },
     "resources": [
@@ -358,48 +387,7 @@
                 ]
             }
         },
-        // {
-        //     "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
-        //     "name": "[parameters('ManagedIdentityName')]",
-        //     "apiVersion": "2018-11-30",
-        //     "location": "[resourceGroup().location]"
-        // },
-        // {
-        //     "type": "Microsoft.Authorization/roleAssignments",
-        //     "apiVersion": "2018-09-01-preview",
-        //     "name": "[guid(resourceGroup().id)]",
-        //     "properties": {
-        //         "roleDefinitionId": "[variables('Owner')]",
-        //         "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',parameters('ManagedIdentityName')),'2018-11-30').principalId]",
-        //         "scope": "[resourceGroup().id]"
-        //     },
-        //     "dependsOn": [
-        //         "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('ManagedIdentityName'))]"
-        //     ]
 
-        // },
-    //     {
-    //     "type": "Microsoft.Resources/deploymentScripts",
-    //     "apiVersion": "2019-10-01-preview",
-    //     "name": "Deployment",
-    //     "location": "[resourceGroup().location]",
-    //     "kind": "AzurePowerShell",
-    //     "identity": {
-    //         "type": "userAssigned",
-    //         "userAssignedIdentities": {
-    //         "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',parameters('ManagedIdentityName'))]": {
-    //         }
-    //         }
-    //     },
-    //     "properties": {
-    //         "forceUpdateTag": "1",
-    //         "azPowerShellVersion": "3.0",
-    //         "timeout": "PT1H",
-    //         "scriptContent": "pwd",
-    //         "cleanupPreference": "OnSuccess",
-    //         "retentionInterval": "P1D"
-    //     }
-    // },
     //Deployment of ansible VM
     {
         "name": "AnsibleVMDeployment",
@@ -424,22 +412,42 @@
                 },
                 "AnsibleSubnet": {
                     "value": "[parameters('subnet0Name')]"
+                },
+                "ansibleVars": {
+                    "value": "[reference('PopulateVariables').outputs.JsonMachineCatalog.value]"
                 }
 
                 
             }
         },
         "dependsOn": [
-            "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]"
+            "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
+            "[resourceId('Microsoft.Resources/deployments','PopulateVariables')]"
         ]
+    },
+    {
+        "name": "PopulateVariables",
+        "type": "Microsoft.Resources/deployments",
+        "apiVersion": "2019-10-01",
+        "properties": {
+            "mode": "Incremental",
+            "templateLink": {
+                "uri": "[concat(parameters('_artifactsLocation'), '/helper/helper.json',parameters('_artifactsLocationSasToken'))]",
+                "contentVersion": "1.0.0.0"
+            },
+            "parameters": {
+                "inputs": {
+                    "value": "[variables('VirtualDesktopSettings')]"
+                }
+            }
+        }
     }
   ],
     "outputs": {
-        "vnet_id": {
+        "outputjq": {
             "type": "string",
-            "value": "[resourceId(variables('resourceGroupName'),'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
+            "value": "[reference('PopulateVariables').outputs.JsonMachineCatalog.value]"
         }
-
     }
 }
 
