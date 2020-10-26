@@ -436,7 +436,7 @@
                 "contentVersion": "1.0.0.0"
             },
             "parameters": {
-                "inputs": {
+                "input": {
                     "value": "[variables('VirtualDesktopSettings')]"
                 }
             }
