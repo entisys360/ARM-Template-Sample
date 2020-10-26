@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "input": {
-            "type": "string",
+            "type": "object",
             "metadata": {
                 "description": "description"
             }

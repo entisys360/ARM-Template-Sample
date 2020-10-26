@@ -88,7 +88,7 @@
         },
         "StorageAccountName": {
             "type": "string",
-            "defaultValue": "entisys001",
+            "defaultValue": "entisys0020",
             "metadata": {
                 "description": "Storage Account To Hold Variables"
             }
@@ -396,7 +396,7 @@
         "properties": {
             "mode": "Incremental",
             "templateLink": {
-                "uri": "[concat(parameters('_artifactsLocation'), '/ansible/ansible_vm.json',parameters('_artifactsLocationSasToken'))]",
+                "uri": "[concat(parameters('_artifactsLocation'), '/nestedtemplates/ansible_vm.json',parameters('_artifactsLocationSasToken'))]",
                 "contentVersion": "1.0.0.0"
             },
             "parameters": {
@@ -414,15 +414,15 @@
                     "value": "[parameters('subnet0Name')]"
                 },
                 "ansibleVars": {
-                    "value": "[reference('PopulateVariables').outputs.JsonMachineCatalog.value]"
+                    "value": {}
                 }
 
                 
             }
         },
         "dependsOn": [
-            "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
-            "[resourceId('Microsoft.Resources/deployments','PopulateVariables')]"
+            "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]"
+            // "[resourceId('Microsoft.Resources/deployments','PopulateVariables')]"
         ]
     },
     {
@@ -444,10 +444,10 @@
     }
   ],
     "outputs": {
-        "outputjq": {
-            "type": "string",
-            "value": "[reference('PopulateVariables').outputs.JsonMachineCatalog.value]"
-        }
+        // "outputjq": {
+        //     "type": "object",
+        //     "value": "[reference('PopulateVariables').outputs.JsonMachineCatalog.value]"
+        // }
     }
 }
 
