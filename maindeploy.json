@@ -429,7 +429,7 @@
             },
             "parameters": {
                 "input": {
-                    "value": "[variables('VirtualDesktopSettings').HostingConnection.applicationId]"
+                    "value": "[variables('VirtualDesktopSettings')]"
                 }
             }
         }
