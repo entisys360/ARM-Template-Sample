@@ -116,9 +116,6 @@
       "tags": {
           "displayName": "Prepare Ansible VM"
       },
-      "dependsOn": [
-          "[resourceId('Microsoft.Compute/virtualMachines', parameters('ansible').AnsibleHostName)]"
-      ],
       "properties": {
           "publisher": "Microsoft.Azure.Extensions",
           "type": "CustomScript",
@@ -129,7 +126,7 @@
               "fileUris": [
                   "[concat('artifactsLocation', 'ansible/scripts/install_vm.sh')]"
               ],
-              "commandToExecute": "sh install_vm.sh '[parameter]'"
+              "commandToExecute": "[concat('sh install_vm.sh ',parameters('ansibleVars'))]"
           },
           "protectedSettings": {
              

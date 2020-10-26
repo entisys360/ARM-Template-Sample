@@ -413,8 +413,7 @@
             }
         },
         "dependsOn": [
-            "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
-            "[resourceId('Microsoft.Resources/deployments','PopulateVariables')]"
+            "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]"
         ]
     },
     {
