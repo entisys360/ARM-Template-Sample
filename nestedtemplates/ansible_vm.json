@@ -34,7 +34,7 @@
             }
         },
         "ansibleVars": {
-            "type": "string",
+            "type": "object",
             "metadata": {
                 "description": "description"
             }
