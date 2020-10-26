@@ -109,7 +109,7 @@
             }
         },
   {
-      "name": "ansible/install_ansible",
+      "name": "[concat(parameters('ansible').AnsibleHostName,'/','install_ansible')]",
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "apiVersion": "2019-07-01",
       "location": "[resourceGroup().location]",
