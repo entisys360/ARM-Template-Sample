@@ -2,15 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        
-        "AnsiblevmSize": {
-            "type": "string",
-            "defaultValue": "Standard_A2_v2",
-            "metadata": {
-                "description": "Size for the Virtual Machine."
-            }
-            
-        },
         "CloudConnectorVMName": {
             "type": "string",
             "defaultValue": "entisyscc",
@@ -142,11 +133,147 @@
                 "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
             },
             "defaultValue": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtdT9c3sPJH3n75w/sEI/mV1tHABIT8ikjwxBtARX17eKmmUd/feLQYZNW0hPsIrZIpL3ppW4e/Uc7wmWGnOrMaUCsvbXkpV2zkofttqi3Ni/6qVhMv/+IuZmk7h53ITI2DZO0Kel3ZIV+xUpZxnPITUiHYkFLy6u9HcBoFSxDwtQNisuNaghSoPTVwV98QJToPwFDDcWDARHGUm4AxBzU5QY4yOqKyGJU+vEaEwWjA/0/5CAk7kCd1SSy58QDduhlLDmVLuiLtyu4DtstXy3QAlSg1zYK1zryCm6CM3MvjlKH+LgHGOcZWNGhWgjiEcTmCLmKSJ02WnE96T9Hne6b vinay.sanjivaiah@entisys360.com"
+        },
+        "ctxZoneName": {
+            "type": "string",
+            "metadata": {
+                "description": "Citrix Cloud Zone Name if given zone does not exist new zone will be created in Citrix Cloud"
+            }
+        },
+        "DomainName": {
+            "type": "string",
+            "metadata": {
+                "description": "Domain Name Zone will Be configured with"
+            }
+        },
+        "MachineCatalogName": {
+            "type": "string",
+            "metadata": {
+                "description": "Machine Catalog Name"
+            }
+        },
+        "MachineCatalogDescription": {
+            "type": "string",
+            "metadata": {
+                "description": "Machine Catalog Description"
+            }
+        },
+        "ADOrgUnit": {
+            "type": "string",
+            "metadata": {
+                "description": "Orginization Unit where VDI stays"
+            }
+        },
+        "VDIAllocationMethod": {
+            "type": "string",
+            "metadata": {
+                "description": "Allocation Method for VDI"
+            }
+        },
+        "persistChanges": {
+            "type": "bool",
+            "metadata": {
+                "description": "Persist Changes after Reboot"
+            }
+        },
+        "VDIVMSize": {
+            "type": "string",
+            "metadata": {
+                "description": "Size of VDI's"
+            }
+        },
+        "VDIAdminUserName": {
+            "type": "string",
+            "metadata": {
+                "description": "User Name which has Permission to join and create computer account in a OU"
+            }
+        },
+        "VDIAdminPassword": {
+            "type": "string",
+            "metadata": {
+                "description": "User Name which has Permission to join and create computer account in a OU"
+            }
+        },
+        "VDICount": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Number Of VDI in machine Catalog"
+            }
+        },
+        "HostingConnectionName": {
+            "type": "string",
+            "metadata": {
+                "description": "Citrix Cloud Hosting ConnectionName"
+            }
+        },
+        "HostingUnitName": {
+            "type": "string",
+            "metadata": {
+                "description": "Citrix Cloud Hosting Unit Name/ Hosting Connection Resource Name"
+            }
+        },
+        "AzureApplicationId": {
+            "type": "string",
+            "metadata": {
+                "description": "Azure Application ID/ SP ID which has Contributer Role in Subscription"
+            }
+        },
+        "AzureApplicationPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Azure Application ID Secret "
+            }
+        },
+        "VDIdesktopGroupName": {
+            "type": "string",
+            "metadata": {
+                "description": "Citrix Delivery Group Name"
+            }
+        },
+        "VDIdesktopGroupDesc": {
+            "type": "string",
+            "metadata": {
+                "description": "Description of Delivery Group"
+            }
+        },
+        "VDIcolorDepth": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "timeZone": {
+            "type": "string",
+            "metadata": {
+                "description": "Time Zone for VDI"
+            }
+        },
+        "ADAssignedGroup": {
+            "type": "string",
+            "metadata": {
+                "description": "AD Grops which need access to VDI"
+            }
         }
     },
     "functions": [],
     "variables": {
         "resourceGroupName": "[resourceGroup().name]",
+        "VirtualDesktopSettings": {
+            "MachineCatalog": {
+                "Name": "[parameters('MachineCatalogName')]",
+                "MachineCatalogDescription": "[parameters('MachineCatalogDescription')]",
+                "ZoneName": "[parameters('ctxZoneName')]",
+                "DomainName": "[parameters('DomainName')]",
+                "OrgUnit": "[parameters('ADOrgUnit')]",
+                "namingScheme": "[parameters('sc')]"
+            },
+            "deliveryGroup": {
+
+            },
+            "HostingConnection": {
+
+            }
+        },
         //"Owner": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')]",
         "ansible": {
             "AnsibleHostName": "AnsibleOrch001",
@@ -288,14 +415,9 @@
                 "virtualNetworkName": {
                     "value": "[parameters('virtualNetworkName')]"
                 },
-                "adminUsername": {
-                    "value": "[parameters('adminUsername')]"
-                },
+                
                 "authenticationType": {
                     "value": "[parameters('authenticationType')]"
-                },
-                "adminPasswordOrKey": {
-                    "value": "[parameters('adminPasswordOrKey')]"
                 },
                 "ansible": {
                     "value": "[variables('ansible')]"
