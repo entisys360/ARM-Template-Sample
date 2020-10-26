@@ -132,7 +132,9 @@
              
           }
 
-      }
+        
+      },
+      "dependsOn": ["[resourceId('Microsoft.Compute/virtualMachines', parameters('ansible').AnsibleHostName)]"]
   }
     ],
     "outputs": {}
