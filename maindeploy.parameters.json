@@ -2,14 +2,20 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "CloudConnectorVMName": {
+        "CloudConnectorVMNamePrefix": {
             "value": "entisyscc"
         },
         "CloudConnectorsVMSize": {
             "value": "Standard_A2_v2"
         },
+        "DCVMNamePrefix": {
+            "value": "entisysDC"
+        },
+        "DCVMSize": {
+            "value": "Standard_A2_v2"
+        },
         "virtualNetworkName": {
-            "value": "Citrix-Vnet2"
+            "value": "Citrix-Vnet"
         },
         "virtualNetworkAddressPrefixes": {
             "value": "192.168.0.0/16"
@@ -93,19 +99,19 @@
             "value": "39c2b520-442e-4ea6-8901-9789ca9b5da2"
         },
         "AzureApplicationPassword": {
-            "value": "kjfhgdksfghdfjhlfg"
+            "value": ""
         },
         "VDIdesktopGroupName": {
-            "value": "ksljdfghkdfsjhgdsigdjsf"
+            "value": ""
         },
         "VDIdesktopGroupDesc": {
-            "value": "dsirygoriet"
+            "value": ""
         },
         "VDIcolorDepth": {
-            "value": "sdrygortei"
+            "value": ""
         },
         "timeZone": {
-            "value": "siryirth"
+            "value": ""
         }
     }
 }

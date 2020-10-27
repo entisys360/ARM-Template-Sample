@@ -18,7 +18,7 @@
         },
         "DCVMNamePrefix": {
             "type": "string",
-            "defaultValue": "entisyscc",
+            "defaultValue": "entisysDC",
             "metadata": {
                 "description": "description"
             }
