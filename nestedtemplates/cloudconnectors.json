@@ -112,7 +112,7 @@
             "name": "[concat(parameters('CloudConnectorsNamePrefix'),copyIndex(1))]",
             "createOption": "FromImage",
             "managedDisk": {
-              "storageAccountType": "Premium_LRS"
+              //"storageAccountType": "Premium_LRS"
             },
             "caching": "ReadWrite"
           }
