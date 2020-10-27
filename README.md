@@ -12,17 +12,17 @@
 [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fentisys360%2FARM-Template-Sample%2Fvinay-dev%2Fmaindeploy.json%3Ftoken%3DAOLIENSE6EP5CNADGJJY2WC7SZ6MK)
 
 
-##Introduction 
+## Introduction 
 
 To ease the manual delivery of computing of Citrix cloud over Azure solutions, Entisys360 has come up with a solution which can streamline these end user computing by automating the Citrix cloud over Azure delivery solution. The end product will be leveraging the Azure market place. The first phase the Minimum Viable Product designed will be released with from Github repos. 
 
  
 
-##The following steps outlines the features that will be released as part of the first phase (Beta release). 
+## The following steps outlines the features that will be released as part of the first phase (Beta release). 
 
  
 
-###Step 1  
+### Step 1  
 
 Description : Click on the Github Button. 
 
@@ -36,7 +36,7 @@ Roles involved: Customer
 
 Output: The Customer will be redirected to the Azure portal 
 
-###Step 2 
+### Step 2 
 
 Description: Azure portal ARM template 
 
@@ -66,7 +66,7 @@ The form once submitted will execute the next steps in 2 phases
 
  
 
-###Step 3 
+### Step 3 
 
 Description: ARM Phase one execution 
 
