@@ -300,26 +300,6 @@
 
             }
         },
-
-        "CloudConnectors": {
-            "availabilitySet": {
-                "availabilitySetName": "avl-cloudConnectors",
-                "availabilitySetPlatformFaultDomainCount": 2,
-                "availabilitySetPlatformUpdateDomainCount": 2
-            },
-            "VMConfig": {
-                "VMPrefix": "[parameters('CloudConnectorVMName')]",
-                "VMSize": "[parameters('CloudConnectorsVMSize')]",
-                "storageAccountType": "Premium_LRS",
-                "VMAdminUserName": "entisysAdmin",
-                "VMAdminPassword": "rit123ABC!@#$%^&*()"
-
-            }
-            
-
-        },
-        //"Owner": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')]",
-
         "ansible": {
             "AnsibleHostName": "AnsibleOrch001",
             "AnsibleVMSize" : "Standard_A2_v2",
@@ -337,7 +317,7 @@
                     ]
                 }
             },
-            "customData": "[concat('{\"CloudConnectorVMName\":\"', parameters('CloudConnectorVMName'), '\",\"CloudConnectorsVMSize\":\"', parameters('CloudConnectorsVMSize'), '\",\"virtualNetworkName\":\"', parameters('virtualNetworkName'), '\",\"virtualNetworkAddressPrefixes\":\"', parameters('virtualNetworkAddressPrefixes'), '\",\"subnet0Name\":\"', parameters('subnet0Name'), '\",\"subnet1Name\":\"', parameters('subnet1Name'), '\",\"subnet2Name\":\"', parameters('subnet2Name'), '\",\"subnet3Name\":\"', parameters('subnet3Name'), '\",\"subnet0Prefix\":\"', parameters('subnet0Prefix'), '\",\"subnet1Prefix\":\"', parameters('subnet1Prefix'), '\",\"subnet2Prefix\":\"', parameters('subnet2Prefix'), '\",\"subnet3Prefix\":\"', parameters('subnet3Prefix'), '\",\"StorageAccountName\":\"', parameters('StorageAccountName'), '\",\"adminUsername\":\"', parameters('adminUsername'), '\",\"_artifactsLocation\":\"', parameters('_artifactsLocation'), '\",\"_artifactsLocationSasToken\":\"', parameters('_artifactsLocationSasToken'), '\",\"authenticationType\":\"', parameters('authenticationType'), '\",\"adminPasswordOrKey\":\"', parameters('adminPasswordOrKey'), '\",\"ctxZoneName\":\"', parameters('ctxZoneName'), '\",\"DomainName\":\"', parameters('DomainName'), '\",\"MachineCatalogName\":\"', parameters('MachineCatalogName'), '\",\"MachineCatalogDescription\":\"', parameters('MachineCatalogDescription'), '\",\"ADOrgUnit\":\"', parameters('ADOrgUnit'), '\",\"VDINamingScheme\":\"', parameters('VDINamingScheme'), '\",\"VDIAllocationMethod\":\"', parameters('VDIAllocationMethod'), '\",\"VDIVMSize\":\"', parameters('VDIVMSize'), '\",\"VDIAdminUserName\":\"', parameters('VDIAdminUserName'), '\",\"VDIAdminPassword\":\"', parameters('VDIAdminPassword'), '\",\"VDICount\":\"', parameters('VDICount'), '\",\"AzureApplicationId\":\"', parameters('AzureApplicationId'), '\",\"AzureApplicationPassword\":\"', parameters('AzureApplicationPassword'), '\",\"VDIdesktopGroupName\":\"', parameters('VDIdesktopGroupName'), '\",\"VDIdesktopGroupDesc\":\"', parameters('VDIdesktopGroupDesc'), '\",\"VDIcolorDepth\":\"', parameters('VDIcolorDepth'), '\",\"timeZone\":\"', parameters('timeZone'), '\"}')]"
+            "customData": "[VARSPLATSTRING]"
 
         }
     },
@@ -377,7 +357,6 @@
                         "name": "[parameters('subnet0Name')]",
                         "properties": {
                             "addressPrefix": "[parameters('subnet0Prefix')]"
-                            
                         }
                     },
                     {
@@ -452,61 +431,7 @@
                     "value": "[variables('VirtualDesktopSettings')]"
                 }
             }
-        },
-        "dependsOn": ["[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-            "[resourceId('Microsoft.Storage/storageAccounts', parameters('StorageAccountName'))]",
-            "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnet3Name'))]",
-            "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnet0Name'))]",
-            "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnet1Name'))]",
-            "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnet2Name'))]",
-            "[resourceId('Microsoft.Resources/deployments', 'AnsibleVMDeployment')]"
-        ]
-
-
-    },
-    {
-      "name": "[concat('cloudconnectorsDeployment')]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-10-01",
-      "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), '/nestedtemplates/cloudconnectors.json', parameters('_artifactsLocationSasToken'))]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "CloudConnectorsNamePrefix": {
-            "value": "[variables('CloudConnectors').VMConfig.VMPrefix]"
-          },
-          "availabilitySetName": {
-              "value": "[variables('CloudConnectors').availabilitySet.availabilitySetName]"
-          },
-          "availabilitySetPlatformFaultDomainCount": {
-              "value": "[variables('CloudConnectors').availabilitySet.availabilitySetPlatformFaultDomainCount]"
-          },
-          "availabilitySetPlatformUpdateDomainCount": {
-              "value": "[variables('CloudConnectors').availabilitySet.availabilitySetPlatformUpdateDomainCount]"
-          },
-          "CloudConnectorvirtualMachineSize": {
-              "value": "[variables('CloudConnectors').VMConfig.VMSize]"
-          },
-          "virtualNetworkName": {
-            "value": "[parameters('virtualNetworkName')]"
-          },
-          "CloudConnectorSubnetName": {
-            "value": "[parameters('subnet1Name')]"
-          },
-          "virtualMachineAdminUserName": {
-            "value": "[variables('CloudConnectors').VMConfig.VMAdminUserName]"
-          },
-          "virtualMachineAdminPassword": {
-            "value": "[variables('CloudConnectors').VMConfig.VMAdminPassword]"
-          }
         }
-      }
     }
   ]
 }

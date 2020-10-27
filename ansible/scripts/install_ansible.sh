@@ -10,17 +10,15 @@ add_packages_func() {
   sudo dnf makecache
   sudo dnf update && sudo dnf upgrade -y
   sudo dnf install epel-release -y
-  for package in \
-    ansible \
-    git
-  do 
-    sudo dnf install $package -y
-  done
+  sudo dnf install -y \
+    git \
+    ansible
 }
 
 # Create ansible dir and clone github repo in newly created dir
 clone_ansible_repo_func() {
   sudo mkdir /opt/ansible
+  sudo chown -R :adm /opt/ansible/
   sudo git clone https://github.com/entisys360/mvp-ansible.git /opt/ansible
   sudo chown -R :adm /opt/ansible/
 }
