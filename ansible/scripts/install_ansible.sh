@@ -13,6 +13,11 @@ add_packages_func() {
   sudo dnf install -y \
     git \
     ansible
+    mkdir ~/{terraform_0.13.5,packer_1.6.4}
+    cd ~/terraform_0.13.5 && curl -O https://releases.hashicorp.com/terraform/0.13.5/terraform_0.13.5_linux_amd64.zip
+    cd ~/packer_packer_1.6.4 && curl -O https://releases.hashicorp.com/packer/1.6.4/packer_1.6.4_linux_amd64.zip
+    cd ~/terraform_0.13.5 && unzip terraform_0.13.5_linux_amd64.zip && sudo ln -s ~/terraform_0.13.5/terraform /usr/bin/terraform
+    cd ~/packer_packer_1.6.4 && unzip packer_1.6.4_linux_amd64.zip && sudo ln -s ~/packer_1.6.4/packer /usr/bin/packer
 }
 
 # Create ansible dir and clone github repo in newly created dir
