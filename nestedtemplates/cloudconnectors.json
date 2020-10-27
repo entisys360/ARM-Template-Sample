@@ -109,7 +109,7 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "[concat(parameters('CloudConnectorsNamePrefix'),copyIndex(1))]",
+            "name": "[concat(parameters('CloudConnectorsNamePrefix'),copyIndex(1),'-OSDisk')]",
             "createOption": "FromImage",
             "managedDisk": {
               //"storageAccountType": "Premium_LRS"
