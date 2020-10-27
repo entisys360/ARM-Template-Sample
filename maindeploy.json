@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "CloudConnectorVMName": {
+        "CloudConnectorVMNamePrefix": {
             "type": "string",
             "defaultValue": "entisyscc",
             "metadata": {
@@ -10,6 +10,20 @@
             }
         },
         "CloudConnectorsVMSize": {
+            "type": "string",
+            "defaultValue": "Standard_A2_v2",
+            "metadata": {
+                "description": "Size of Cloud Connectors VM Size"
+            }
+        },
+        "DCVMNamePrefix": {
+            "type": "string",
+            "defaultValue": "entisyscc",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "DCVMSize": {
             "type": "string",
             "defaultValue": "Standard_A2_v2",
             "metadata": {
@@ -256,6 +270,9 @@
     },
     "functions": [],
     "variables": {
+        "Global": {
+            "Password": "[concat('P', uniqueString(resourceGroup().id, '224F5A8B-51DB-46A3-A7C8-59B0DD584A41'), 'x', '!')]"
+        },
         "VirtualDesktopSettings": {
             "MachineCatalog": {
                 "Name": "[parameters('MachineCatalogName')]",
@@ -300,7 +317,21 @@
 
             }
         },
+        "DomainControllers": {
+           "availabilitySet": {
+                "availabilitySetName": "avl-DomainControllers",
+                "availabilitySetPlatformFaultDomainCount": 2,
+                "availabilitySetPlatformUpdateDomainCount": 2
+            }, 
+            "VMConfig": {
+                "VMPrefix": "[parameters('DCVMNamePrefix')]",
+                "VMSize": "[parameters('DCVMSize')]",
+                "storageAccountType": "Premium_LRS",
+                "VMAdminUserName": "entisysAdmin",
+                "VMAdminPassword": "[variables('Global').Password]"
 
+            }
+        },
         "CloudConnectors": {
             "availabilitySet": {
                 "availabilitySetName": "avl-cloudConnectors",
@@ -308,11 +339,11 @@
                 "availabilitySetPlatformUpdateDomainCount": 2
             },
             "VMConfig": {
-                "VMPrefix": "[parameters('CloudConnectorVMName')]",
+                "VMPrefix": "[parameters('CloudConnectorVMNamePrefix')]",
                 "VMSize": "[parameters('CloudConnectorsVMSize')]",
                 "storageAccountType": "Premium_LRS",
                 "VMAdminUserName": "entisysAdmin",
-                "VMAdminPassword": "rit123ABC!@#$%^&*()"
+                "VMAdminPassword": "[variables('Global').Password]"
 
             }
             
@@ -336,8 +367,8 @@
                         }
                     ]
                 }
-            },
-            "customData": "[concat('{\"CloudConnectorVMName\":\"', parameters('CloudConnectorVMName'), '\",\"CloudConnectorsVMSize\":\"', parameters('CloudConnectorsVMSize'), '\",\"virtualNetworkName\":\"', parameters('virtualNetworkName'), '\",\"virtualNetworkAddressPrefixes\":\"', parameters('virtualNetworkAddressPrefixes'), '\",\"subnet0Name\":\"', parameters('subnet0Name'), '\",\"subnet1Name\":\"', parameters('subnet1Name'), '\",\"subnet2Name\":\"', parameters('subnet2Name'), '\",\"subnet3Name\":\"', parameters('subnet3Name'), '\",\"subnet0Prefix\":\"', parameters('subnet0Prefix'), '\",\"subnet1Prefix\":\"', parameters('subnet1Prefix'), '\",\"subnet2Prefix\":\"', parameters('subnet2Prefix'), '\",\"subnet3Prefix\":\"', parameters('subnet3Prefix'), '\",\"StorageAccountName\":\"', parameters('StorageAccountName'), '\",\"adminUsername\":\"', parameters('adminUsername'), '\",\"_artifactsLocation\":\"', parameters('_artifactsLocation'), '\",\"_artifactsLocationSasToken\":\"', parameters('_artifactsLocationSasToken'), '\",\"authenticationType\":\"', parameters('authenticationType'), '\",\"adminPasswordOrKey\":\"', parameters('adminPasswordOrKey'), '\",\"ctxZoneName\":\"', parameters('ctxZoneName'), '\",\"DomainName\":\"', parameters('DomainName'), '\",\"MachineCatalogName\":\"', parameters('MachineCatalogName'), '\",\"MachineCatalogDescription\":\"', parameters('MachineCatalogDescription'), '\",\"ADOrgUnit\":\"', parameters('ADOrgUnit'), '\",\"VDINamingScheme\":\"', parameters('VDINamingScheme'), '\",\"VDIAllocationMethod\":\"', parameters('VDIAllocationMethod'), '\",\"VDIVMSize\":\"', parameters('VDIVMSize'), '\",\"VDIAdminUserName\":\"', parameters('VDIAdminUserName'), '\",\"VDIAdminPassword\":\"', parameters('VDIAdminPassword'), '\",\"VDICount\":\"', parameters('VDICount'), '\",\"AzureApplicationId\":\"', parameters('AzureApplicationId'), '\",\"AzureApplicationPassword\":\"', parameters('AzureApplicationPassword'), '\",\"VDIdesktopGroupName\":\"', parameters('VDIdesktopGroupName'), '\",\"VDIdesktopGroupDesc\":\"', parameters('VDIdesktopGroupDesc'), '\",\"VDIcolorDepth\":\"', parameters('VDIcolorDepth'), '\",\"timeZone\":\"', parameters('timeZone'), '\"}')]"
+            }
+            //"customData": "[concat('{\"CloudConnectorVMName\":\"', parameters('CloudConnectorVMName'), '\",\"CloudConnectorsVMSize\":\"', parameters('CloudConnectorsVMSize'), '\",\"virtualNetworkName\":\"', parameters('virtualNetworkName'), '\",\"virtualNetworkAddressPrefixes\":\"', parameters('virtualNetworkAddressPrefixes'), '\",\"subnet0Name\":\"', parameters('subnet0Name'), '\",\"subnet1Name\":\"', parameters('subnet1Name'), '\",\"subnet2Name\":\"', parameters('subnet2Name'), '\",\"subnet3Name\":\"', parameters('subnet3Name'), '\",\"subnet0Prefix\":\"', parameters('subnet0Prefix'), '\",\"subnet1Prefix\":\"', parameters('subnet1Prefix'), '\",\"subnet2Prefix\":\"', parameters('subnet2Prefix'), '\",\"subnet3Prefix\":\"', parameters('subnet3Prefix'), '\",\"StorageAccountName\":\"', parameters('StorageAccountName'), '\",\"adminUsername\":\"', parameters('adminUsername'), '\",\"_artifactsLocation\":\"', parameters('_artifactsLocation'), '\",\"_artifactsLocationSasToken\":\"', parameters('_artifactsLocationSasToken'), '\",\"authenticationType\":\"', parameters('authenticationType'), '\",\"adminPasswordOrKey\":\"', parameters('adminPasswordOrKey'), '\",\"ctxZoneName\":\"', parameters('ctxZoneName'), '\",\"DomainName\":\"', parameters('DomainName'), '\",\"MachineCatalogName\":\"', parameters('MachineCatalogName'), '\",\"MachineCatalogDescription\":\"', parameters('MachineCatalogDescription'), '\",\"ADOrgUnit\":\"', parameters('ADOrgUnit'), '\",\"VDINamingScheme\":\"', parameters('VDINamingScheme'), '\",\"VDIAllocationMethod\":\"', parameters('VDIAllocationMethod'), '\",\"VDIVMSize\":\"', parameters('VDIVMSize'), '\",\"VDIAdminUserName\":\"', parameters('VDIAdminUserName'), '\",\"VDIAdminPassword\":\"', parameters('VDIAdminPassword'), '\",\"VDICount\":\"', parameters('VDICount'), '\",\"AzureApplicationId\":\"', parameters('AzureApplicationId'), '\",\"AzureApplicationPassword\":\"', parameters('AzureApplicationPassword'), '\",\"VDIdesktopGroupName\":\"', parameters('VDIdesktopGroupName'), '\",\"VDIdesktopGroupDesc\":\"', parameters('VDIdesktopGroupDesc'), '\",\"VDIcolorDepth\":\"', parameters('VDIcolorDepth'), '\",\"timeZone\":\"', parameters('timeZone'), '\"}')]"
 
         }
     },
@@ -500,12 +531,56 @@
           }
         }
       }
+    },
+    {
+      "name": "[concat('DomainControllersDeployment')]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "dependsOn": [
+        "AnsibleVMDeployment"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/nestedtemplates/DomainControllers.json', parameters('_artifactsLocationSasToken'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "DCNamePrefix": {
+            "value": "[variables('DomainControllers').VMConfig.VMPrefix]"
+          },
+          "availabilitySetName": {
+              "value": "[variables('DomainControllers').availabilitySet.availabilitySetName]"
+          },
+          "availabilitySetPlatformFaultDomainCount": {
+              "value": "[variables('DomainControllers').availabilitySet.availabilitySetPlatformFaultDomainCount]"
+          },
+          "availabilitySetPlatformUpdateDomainCount": {
+              "value": "[variables('DomainControllers').availabilitySet.availabilitySetPlatformUpdateDomainCount]"
+          },
+          "DCvirtualMachineSize": {
+              "value": "[variables('DomainControllers').VMConfig.VMSize]"
+          },
+          "virtualNetworkName": {
+            "value": "[parameters('virtualNetworkName')]"
+          },
+          "DCSubnetName": {
+            "value": "[parameters('subnet1Name')]"
+          },
+          "virtualMachineAdminUserName": {
+            "value": "[variables('DomainControllers').VMConfig.VMAdminUserName]"
+          },
+          "virtualMachineAdminPassword": {
+            "value": "[variables('DomainControllers').VMConfig.VMAdminPassword]"
+          }
+        }
+      }
     }
   ],
   "outputs": {
       "LogInCred": {
           "type": "string",
-          "value": "[concat('Local Cred, UserName: ',variables('CloudConnectors').VMConfig.VMAdminUserName, '   Password: ', variables('CloudConnectors').VMConfig.VMAdminPassword)]"
+          "value": "[concat('Local Cred, UserName: ',variables('CloudConnectors').VMConfig.VMAdminUserName, '   Password: ', variables('Global').Password)]"
       }
   }
 
