@@ -37,6 +37,7 @@ log_func() {
 
 # Execute functions
 main() {
+  add_packages_func
   add_epel_repo_func
     if [ "$?" == 0 ]; then 
       log_func "[INFO]: epel-release, ansible, and git successfully installed."
@@ -53,7 +54,7 @@ main() {
 
   ansible_execute_func
   touch /tmp/ansible_hosting_var.json
-  echo $1 > /tmp/ansible_hosting_var.json
+  echo "$1" > /tmp/ansible_hosting_var.json
 }
 
 main "$@"
