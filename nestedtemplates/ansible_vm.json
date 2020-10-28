@@ -127,15 +127,13 @@
           
           "settings": {
               "fileUris": [
-                  "[concat(parameters('ansible')._artifactsLocation, '/ansible/scripts/install_ansible.sh')]"
+                  "[concat(parameters('ansible')._artifactsLocation, '/ansible/scripts/ansible_var.sh')]"
               ],
-              "commandToExecute": "[concat('sh install_ansible.sh ',variables('SingleQuote'),parameters('ansibleVars'),variables('SingleQuote'))]"
+              "commandToExecute": "[concat('python3 ansible_var.py ','-i ',json(parameters('ansibleVars')))]"
           },
           "protectedSettings": {
              
           }
-
-        
       },
       "dependsOn": ["[resourceId('Microsoft.Compute/virtualMachines', parameters('ansible').AnsibleHostName)]"]
   }
