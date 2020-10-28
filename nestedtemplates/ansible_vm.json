@@ -41,7 +41,9 @@
         }
     },
     "functions": [],
-    "variables": {},
+    "variables": {
+        "SingleQuote": "'"
+    },
     "resources": [
         {
         "apiVersion": "2020-05-01",
@@ -127,7 +129,7 @@
               "fileUris": [
                   "[concat(parameters('ansible')._artifactsLocation, '/ansible/scripts/install_ansible.sh')]"
               ],
-              "commandToExecute": "[concat('sh install_ansible.sh ',parameters('ansibleVars'))]"
+              "commandToExecute": "[concat('sh install_ansible.sh ',variables('SingleQuote'),parameters('ansibleVars'),variables('SingleQuote'))]"
           },
           "protectedSettings": {
              

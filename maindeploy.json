@@ -102,7 +102,7 @@
         },
         "StorageAccountName": {
             "type": "string",
-            "defaultValue": "entisys0020",
+            "defaultValue": "entisys002020",
             "metadata": {
                 "description": "Storage Account To Hold Variables"
             }
