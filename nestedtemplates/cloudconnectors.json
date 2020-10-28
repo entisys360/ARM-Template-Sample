@@ -1,0 +1,153 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "availabilitySetPlatformFaultDomainCount": {
+        "type": "int"
+      },
+      "availabilitySetPlatformUpdateDomainCount": {
+        "type": "int"
+      },
+      "CloudConnectorsNamePrefix": {
+        "type": "string"
+      },
+      "virtualNetworkName": {
+          "type": "string",
+          "metadata": {
+              "description": "description"
+          }
+      },
+      "CloudConnectorvirtualMachineSize": {
+          "type": "string",
+          "metadata": {
+              "description": "description"
+          }
+      },
+      "CloudConnectorSubnetName": {
+          "type": "string",
+          "metadata": {
+              "description": "description"
+          }
+      },
+      "availabilitySetName": {
+          "type": "string",
+          "metadata": {
+              "description": "description"
+          }
+      },
+      "virtualMachineAdminUserName": {
+          "type": "string",
+          "metadata": {
+              "description": "description"
+          }
+      },
+      "virtualMachineAdminPassword": {
+          "type": "string",
+          "metadata": {
+              "description": "description"
+          }
+      }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Compute/availabilitySets",
+            "name": "[parameters('availabilitySetName')]",
+            "apiVersion": "2020-06-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "platformFaultDomainCount": "[parameters('availabilitySetPlatformFaultDomainCount')]",
+                "platformUpdateDomainCount": "[parameters('availabilitySetPlatformUpdateDomainCount')]"
+            },
+            "sku": {
+                "name": "Aligned"
+            }
+        },
+        {
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[concat(parameters('CloudConnectorsNamePrefix'), copyIndex(1), '-NIC1')]",
+      "apiVersion": "2020-05-01",
+      "location": "[resourceGroup().location]",
+      "copy": {
+        "name": "NICCopy",
+        "count": 2
+      },
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks/subnets/', parameters('virtualNetworkName'), parameters('CloudConnectorSubnetName'))]"
+              }
+            }
+          }
+        ],
+        "enableIPForwarding": false
+      }
+    },
+
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[concat(parameters('CloudConnectorsNamePrefix'), copyIndex(1))]",
+      "apiVersion": "2020-06-01",
+      "location": "[resourceGroup().location]",
+      "copy": {
+        "name": "VMcopy",
+        "count": 2
+      },
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('CloudConnectorvirtualMachineSize')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2016-Datacenter",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "[concat(parameters('CloudConnectorsNamePrefix'),copyIndex(1),'-OSDisk')]",
+            "createOption": "FromImage",
+            "managedDisk": {
+              //"storageAccountType": "Premium_LRS"
+            },
+            "caching": "ReadWrite"
+          }
+        },
+        "osProfile": {
+          "computerName": "[concat(parameters('CloudConnectorsNamePrefix'),copyIndex(1))]",
+          "adminUsername": "[parameters('virtualMachineAdminUserName')]",
+          "windowsConfiguration": {
+            "provisionVMAgent": true
+          },
+          "adminPassword": "[parameters('virtualMachineAdminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('CloudConnectorsNamePrefix'), copyIndex(1), '-NIC1'))]"
+            }
+          ]
+        },
+        "availabilitySet": {
+          "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySetName'))]"
+        }
+        // "diagnosticsProfile": {
+        //   "bootDiagnostics": {
+        //     "enabled": true,
+        //     "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('diagnosticStorageAccountName')), '2016-01-01').primaryEndpoints.blob]"
+        //   }
+        // }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/availabilitySets/', parameters('availabilitySetName'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('CloudConnectorsNamePrefix'), copyIndex(1), '-NIC1'))]"
+      ]
+    }
+
+    ]
+  }
+  

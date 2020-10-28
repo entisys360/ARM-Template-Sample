@@ -10,17 +10,20 @@ add_packages_func() {
   sudo dnf makecache
   sudo dnf update && sudo dnf upgrade -y
   sudo dnf install epel-release -y
-  for package in \
-    ansible \
-    git
-  do 
-    sudo dnf install $package -y
-  done
+  sudo dnf install -y \
+    git \
+    ansible
+    mkdir ~/{terraform_0.13.5,packer_1.6.4}
+    cd ~/terraform_0.13.5 && curl -O https://releases.hashicorp.com/terraform/0.13.5/terraform_0.13.5_linux_amd64.zip
+    cd ~/packer_packer_1.6.4 && curl -O https://releases.hashicorp.com/packer/1.6.4/packer_1.6.4_linux_amd64.zip
+    cd ~/terraform_0.13.5 && unzip terraform_0.13.5_linux_amd64.zip && sudo ln -s ~/terraform_0.13.5/terraform /usr/bin/terraform
+    cd ~/packer_packer_1.6.4 && unzip packer_1.6.4_linux_amd64.zip && sudo ln -s ~/packer_1.6.4/packer /usr/bin/packer
 }
 
 # Create ansible dir and clone github repo in newly created dir
 clone_ansible_repo_func() {
   sudo mkdir /opt/ansible
+  sudo chown -R :adm /opt/ansible/
   sudo git clone https://github.com/entisys360/mvp-ansible.git /opt/ansible
   sudo chown -R :adm /opt/ansible/
 }
@@ -37,6 +40,7 @@ log_func() {
 
 # Execute functions
 main() {
+  add_packages_func
   add_epel_repo_func
     if [ "$?" == 0 ]; then 
       log_func "[INFO]: epel-release, ansible, and git successfully installed."
@@ -52,6 +56,8 @@ main() {
   fi
 
   ansible_execute_func
+  touch /tmp/ansible_hosting_var.json
+  echo "$1" > /tmp/ansible_hosting_var.json
 }
 
 main "$@"

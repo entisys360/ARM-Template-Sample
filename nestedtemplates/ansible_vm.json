@@ -32,15 +32,25 @@
             "metadata": {
                 "description": "description"
             }
+        },
+        "ansibleVars": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
         }
     },
     "functions": [],
-    "variables": {},
+    "variables": {
+        "SingleQuote": "'",
+        "Ansible_json": "[concat(variables('SingleQuote'),parameters('ansibleVars'),variables('SingleQuote'))]"
+
+    },
     "resources": [
         {
         "apiVersion": "2020-05-01",
         "type": "Microsoft.Network/networkInterfaces",
-        "name": "[concat(parameters('ansible').AnsibleHostName,'-nic')]",
+        "name": "[concat(parameters('ansible').AnsibleHostName,'-NIC1')]",
         "location": "[resourceGroup().location]",
         
         "properties": {
@@ -62,9 +72,14 @@
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[parameters('ansible').AnsibleHostName]",
             "location": "[resourceGroup().location]",
+            "plan": {
+                "name": "centos-8-2",
+                "product": "centos-8-2",
+                "publisher": "cognosys"
+            },
             "dependsOn": [
                 
-                "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces', concat(parameters('ansible').AnsibleHostName,'-nic'))]"
+                "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces', concat(parameters('ansible').AnsibleHostName,'-NIC1'))]"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -78,12 +93,13 @@
                 },
                 "storageProfile": {
                 "imageReference": {
-                    "publisher": "OpenLogic",
-                    "offer": "CentOS",
-                    "sku": "8.2",
+                    "publisher": "cognosys",
+                    "offer": "centos-8-2",
+                    "sku": "centos-8-2",
                     "version": "latest"
                 },
                 "osDisk": {
+                    "name": "[concat(parameters('ansible').AnsibleHostName,'-OSDisk')]",
                     "caching": "ReadWrite",
                     "createOption": "FromImage"
                 }
@@ -91,23 +107,20 @@
                 "networkProfile": {
                 "networkInterfaces": [
                     {
-                    "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces', concat(parameters('ansible').AnsibleHostName,'-nic'))]"
+                    "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces', concat(parameters('ansible').AnsibleHostName,'-NIC1'))]"
                     }
                 ]
                 }
             }
         },
   {
-      "name": "ubuntuVM1/customScript1",
+      "name": "[concat(parameters('ansible').AnsibleHostName,'/','install_ansible')]",
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "apiVersion": "2019-07-01",
       "location": "[resourceGroup().location]",
       "tags": {
-          "displayName": "customScript1 for Linux VM"
+          "displayName": "Prepare Ansible VM"
       },
-      "dependsOn": [
-          "[resourceId('Microsoft.Compute/virtualMachines', parameters('ansible').AnsibleHostName)]"
-      ],
       "properties": {
           "publisher": "Microsoft.Azure.Extensions",
           "type": "CustomScript",
@@ -116,18 +129,21 @@
           
           "settings": {
               "fileUris": [
-                  "[concat('artifactsLocation', 'ansible/scripts/install_vm.sh')]"
+                  "[concat(parameters('ansible')._artifactsLocation, '/ansible/scripts/install_ansible.sh')]"
               ],
-              "commandToExecute": "sh customScript.sh"
+              "commandToExecute": "[concat('sh install_ansible.sh ',variables('Ansible_json'))]"
           },
           "protectedSettings": {
-              "storageAccountKey": "",
-              "storageAccountName": "",
-              "commandToExecute": ""
+             
           }
-
-      }
+      },
+      "dependsOn": ["[resourceId('Microsoft.Compute/virtualMachines', parameters('ansible').AnsibleHostName)]"]
   }
     ],
-    "outputs": {}
+    "outputs": {
+        "ansiblevar": {
+            "type": "string",
+            "value": "[parameters('ansibleVars')]"
+        }
+    }
 }
