@@ -109,7 +109,7 @@
         },
         "adminUsername": {
             "type": "string",
-            "defaultValue": "faadmin",
+            "defaultValue": "superadmin",
             "metadata": {
                 "description": "Admin username for all VMs"
             }
