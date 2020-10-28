@@ -25,7 +25,7 @@ clone_ansible_repo_func() {
 
 # Execute Ansible plays
 ansible_execute_func() {
-  ansible-playbook /opt/ansible/setup.yml
+  sudo ansible-playbook -vv /opt/ansible/setup.yml
 }
 
 # Echo messages to log file
