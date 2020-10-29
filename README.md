@@ -14,7 +14,7 @@
 
 ## Introduction 
 <p align="justify">
-To ease the manual delivery of computing of Citrix cloud over Azure solutions, Entisys360 has come up with a solution which can streamline these end user computing by automating the Citrix cloud over Azure delivery solution. The end product will be leveraging the Azure market place. The first phase the Minimum Viable Product designed will be released with from Github repos. 
+To ease the manual delivery of computing of Citrix cloud over Azure solutions, Entisys360 has created a solution which streamlines End User Computing by automating the Citrix cloud over Azure delivery solution. The end product will leverage the Azure market place. For the first phase the Minimum Viable Product will be released with from Github repositories.
 
 
 ## The following steps outlines the features that will be released as part of the first phase (Beta release). 
@@ -29,7 +29,7 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 **Action:**
 
 1. Customer goes to Github location [Entisys360-Citrix](https://github.com/entisys360/Entisys360-CitrixWVD/) which will be a public repository 
-2. He clicks on the “Entisys360 WVD Delivery” button in Github. 
+2. She clicks on the “Entisys360 WVD Delivery” button in Github. 
 
 **Roles involved:** Customer 
 
@@ -42,25 +42,25 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 
 **Action:** 
 
-1. Customer will be visualizing a pre-populated ARM form where he will need to input the required values as per their requirement. 
+1. Customer will be presented a pre-populated ARM form where she will need to input the required values. 
 
-2. The form will be provided with few default values which can be overwritten by the customer if required. 
+2. The form will be provided with default values which can be overwritten by the customer if required. 
 
-3. The form will be a paginated one with appropriate section for collecting the details inputs from the customer 
+3. The form will be a paginated with appropriate sections for collecting the inputs from the customer 
 
-4. An estimate calculatore which illustrates the likely cost estimate base don the data entered will be displayed before the submission.The cost details will include the 
+4. An cost calculator which estimates the cost will be displayed before the submission. The details will include: 
 
     1. Azure Consumption cost 
 
     2. Citrix License 
 
-5. The customer will submit the form once he inputs all the required details. 
+5. The customer will submit the form once she inputs all the required details. 
 
 **Roles involved:** Customer 
 
 **Output:** 
 
-1. The form should validate the input values entered by the customer for basic requirements. 
+1. The form should validate the input values 
 
 2. The form once submitted will execute the next steps in 2 phases 
 
@@ -73,17 +73,17 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 **Action:**  
 
 1. The initial bootstrap execution starts 
-2. This will setup the the initial setup using a VM extension. This involves setting up of the vnets, subnets, VMs for domain controllers and cloud connectors. 
+2. This will start the the initial setup using a VM extension. This involves setting up of the vnets, subnets, VMs for domain controllers and cloud connectors. 
 
-3. This will also set up another VM which will be an Orchestrator VM which acts as  
+3. This will also set up an additional VM as an Orchestrator VM which includes:  
 
-    1. Controller/ worker node which will be used to host the Ansible to run the required playbooks  
+    1. The Controller/ worker node which will be used to host the Ansible to run the required playbooks  
 
     2. A storage account for the data input from the ARM template form to be used for the ARM phase two execution. 
 
-4. This will be henceforth referred to as the Ansible controller.  
+4. This is referred to as the Ansible controller.  
 
-5. This Ansible controller performs the task of downloading the source code from the repos to  install the required binaries in the controller VM which will be used to execute the phase 2 execution. 
+5. This Ansible controller performs the task of downloading the source code from the repositories to install the required tools in the controller VM which will be used to     execute phase 2. 
 6. The ARM input  values will be converted to a Ansible readable Json format and dumped in the Ansible Orchestrator VM.
 6. An email should be sent for the manual intervention for both customer and Entisys360 C+A product DL 
 
