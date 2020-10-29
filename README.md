@@ -28,7 +28,7 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 
 **Action:**
 
-1. Customer goes to Github location [Entisys360-CitrixWVD](https://github.com/entisys360/Entisys360-CitrixWVD/) which will be a public repository 
+1. Customer goes to Github location [Entisys360-Citrix](https://github.com/entisys360/Entisys360-CitrixWVD/) which will be a public repository 
 2. He clicks on the “Entisys360 WVD Delivery” button in Github. 
 
 **Roles involved:** Customer 
