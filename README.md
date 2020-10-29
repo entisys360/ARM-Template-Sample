@@ -14,7 +14,7 @@
 
 ## Introduction 
 <p align="justify">
-To ease the manual delivery of computing of Citrix cloud over Azure solutions, Entisys360 has created a solution which streamlines End User Computing by automating the Citrix cloud over Azure delivery solution. The end product will leverage the Azure market place. For the first phase the Minimum Viable Product will be released with from Github repositories.
+To facilitate the delivery of Citrix cloud utilizing Azure solutions, Entisys360 has created a solution that streamlines End User Computing by automating the Citrix cloud over Azure delivery. The end product will leverage the Azure market place. For the first phase the Minimum Viable Product will be released with from Github repositories.
 
 
 ## The following steps outlines the features that will be released as part of the first phase (Beta release). 
