@@ -107,13 +107,10 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 
     2. The following binaries should be installed as part of Ansible worker node installation 
   
-        2. Console 
-        
-        3. Vault 
-        
-        4. Chocolaty 
-        
-        5. InSpec 
+    	1. Console         
+        2. Vault        
+        3. Chocolaty         
+        4. InSpec 
 
 3. The customer and the E360 C+A product DL will receive an email to complete the desired procurements and licensing. 
 ------------------------------------------------------------
@@ -124,8 +121,8 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 **Action:**
 1. Customer on receiving the email will complete the desired procurements and licensing.
 2. Once completed the Customer along with the E360 will complete the Domain join operations which involves
-	3. Join/Provide the network , Meraki , Azure gateway and complete the VPN details.
-	4. Configure the domain controllers by joining the customer domain
+	1. Join/Provide the network , Meraki , Azure gateway and complete the VPN details.
+	2. Configure the domain controllers by joining the customer domain
 5. Once completed E360 will take on the next step to complete the ARM phase two form.
 
 **Roles involved:** Customer, E360 C+A product DL
