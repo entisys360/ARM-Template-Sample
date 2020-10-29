@@ -119,7 +119,8 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 2. Once completed the Customer along with the E360 will complete the Domain join operations which involves
 	1. Join/Provide the network , Meraki , Azure gateway and complete the VPN details.
 	2. Configure the domain controllers by joining the customer domain
-5. Once completed E360 will take on the next step to complete the ARM phase two form.
+3. Once completed E360 will take on the next step to complete the ARM phase two form.
+4. Customer should create a managed identity and attach it to the Subscription.
 
 **Roles involved:** Customer, E360 C+A product DL
 
@@ -127,6 +128,7 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 1. The customer should complete all the procurements and licensing successfully
 1. The E360 product DL will collaborate with the customer to complete the Domain join operations.
 1. The E360 will be ready to complete the second (private) ARM Template “Entisys360 WVD Delivery (step 2)”.
+1. A maanged identity should be attached manaully so it can be used for the direct authorisation.
 
 ------------------------------------------------------------
 ### **Step 5**
