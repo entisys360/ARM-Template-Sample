@@ -105,12 +105,8 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 
     1. Store the data input from the ARM template form to be used in the second phase of the execution 
 
-    2. The following binaries should be installed as part of Ansible worker node installation 
+    2. The Packer binary should be installed as part of Ansible worker node installation 
   
-    	1. Console         
-        2. Vault        
-        3. Chocolaty         
-        4. InSpec 
 
 3. The customer and the E360 C+A product DL will receive an email to complete the desired procurements and licensing. 
 ------------------------------------------------------------
@@ -164,24 +160,9 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 1. The build should trigger successfully.
 1. The Ansible host controller should be able to trigger the binaries as required based on the tag.
 1. The tags will be retrieved with the help of dynamic inventory mapping.
-------------------------------------------------------------
-### **Step 7**
-------------------------------------------------------------
-**Description:** Ansible host controller jobs- Landing zone
 
-**Action:**
-1. The Ansible controller will first run the Landing zone using the Terraform binaries to set up the Landing zone infrastructure. 
-1. It will create the infrastructure with VMs, Vnets, Subnets as required.
-**Roles involved:** System, Ansible host controller, Terraform binary
-
-**Output:**
-1. The Ansible host controller should be able to use the Terraform binaries to kick off the landing zone infrastructure
-1. The following will be installed as part of Landing zone infrastructure
-    1. 2 VMs Windows 2016 for Cloud connector
-    1. 2 Load balance VMs
-	
 ------------------------------------------------------------ 
-### **Step 8**
+### **Step 7**
 ------------------------------------------------------------
 **Description:** Ansible host controller jobs- Image bakery
 
@@ -196,7 +177,7 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 1. The Ansible host controller should be able to use the packer binaries to kick off the image bakery process.
 1. The VDI image snap shot that will can be used by Machine catalog in Citrix environment should be available in the market gallery. 
 ------------------------------------------------------------
-### **Step 9**
+### **Step 8**
 ------------------------------------------------------------
 **Description:** Citrix Components
 
