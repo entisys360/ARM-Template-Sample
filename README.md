@@ -73,8 +73,7 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 **Action:**  
 
 1. The initial bootstrap execution starts 
-
-2. This will setup the the initial setup using a VM extension. This involves setting up of the vnets,    subnets, VMs for domain controllers and cloud connectors. 
+2. This will setup the the initial setup using a VM extension. This involves setting up of the vnets, subnets, VMs for domain controllers and cloud connectors. 
 
 3. This will also set up another VM which will be an Orchestrator VM which acts as  
 
@@ -85,8 +84,8 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 4. This will be henceforth referred to as the Ansible controller.  
 
 5. This Ansible controller performs the task of downloading the source code from the repos to  install the required binaries in the controller VM which will be used to execute the phase 2 execution. 
-
-6. An email should be sent for the manual intervention for both customer and Entisys360 C+A    product DL 
+6. The ARM input  values will be converted to a Ansible readable Json format and dumped in the Ansible Orchestrator VM.
+6. An email should be sent for the manual intervention for both customer and Entisys360 C+A product DL 
 
 **Roles involved:**  Automated step 
 
@@ -107,9 +106,7 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
     1. Store the data input from the ARM template form to be used in the second phase of the execution 
 
     2. The following binaries should be installed as part of Ansible worker node installation 
-
-        1. Terraform 
-    
+  
         2. Console 
         
         3. Vault 
@@ -126,9 +123,9 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 
 **Action:**
 1. Customer on receiving the email will complete the desired procurements and licensing.
-2. Once completed the Customer along with the E360 will complete the Domain join operations	which involves .
-3. Join/Provide the network , Meraki , Azure gateway and complete the VPN details.
-4. Configure the domain controllers by joining the customer domain
+2. Once completed the Customer along with the E360 will complete the Domain join operations which involves
+	3. Join/Provide the network , Meraki , Azure gateway and complete the VPN details.
+	4. Configure the domain controllers by joining the customer domain
 5. Once completed E360 will take on the next step to complete the ARM phase two form.
 
 **Roles involved:** Customer, E360 C+A product DL
@@ -204,7 +201,7 @@ To ease the manual delivery of computing of Citrix cloud over Azure solutions, E
 ------------------------------------------------------------
 ### **Step 9**
 ------------------------------------------------------------
-**Description:**Citrix Components
+**Description:** Citrix Components
 
 **Action:**
 1. The Ansible controller will first install the cloud connector software on the dedicated cloud connector VMs.
