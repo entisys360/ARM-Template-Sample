@@ -129,7 +129,7 @@
           
           "settings": {
               "fileUris": [
-                  "[concat(parameters('ansible')._artifactsLocation, '/ansible/scripts/install_ansible.sh')]"
+                  "[concat(parameters('ansible')._artifactsLocation, '/install_ansible.sh')]"
               ],
               "commandToExecute": "[concat('sh install_ansible.sh ',variables('Ansible_json'))]"
           },
