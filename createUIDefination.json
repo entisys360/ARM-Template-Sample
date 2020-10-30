@@ -9,8 +9,8 @@
         "steps": [
             {
                 "name": "NetworkConfiguration",
-                "label": "Network",
-                "bladeTitle": "Network",
+                "label": "Network Configuration",
+                "bladeTitle": "Network Configuration for your Virtual Desktop Configuration",
                 "subLabel": {
                     "preValidation": "Choose virtual machine size",
                     "postValidation": "Done"
@@ -94,8 +94,8 @@
             },
             {
                 "name": "OrchestratorVirtualMachine",
-                "label": "Orchestrator",
-                "bladeTitle": "Orchestrator",
+                "label": "Orchestrator Virtual Machine",
+                "bladeTitle": "This VM Will Be used to Orchestrate Desktop360 product Deployment",
                 "subLabel": {
                     "preValidation": "Choose virtual machine size",
                     "postValidation": "Done"
@@ -181,8 +181,8 @@
             },
             {
                 "name": "DomainAndCc",
-                "label": "Citrix",
-                "bladeTitle": "Citrix",
+                "label": "Domain and CC configuration",
+                "bladeTitle": "This VMs Will Be used as DC and CC",
                   "elements": [
                     {
                         "name": "DomainName",
