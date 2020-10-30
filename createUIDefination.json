@@ -12,7 +12,7 @@
                 "label": "Network Configuration",
                 "bladeTitle": "Network Configuration for your Virtual Desktop Configuration",
                 "subLabel": {
-                    "preValidation": "Choose virtual machine size",
+                    "preValidation": "Configure Virtual Network",
                     "postValidation": "Done"
                   },
                 "elements": [
@@ -91,61 +91,30 @@
                         "visible": true
                       },
                       {
-                        "name": "OrchestratorVirtualMachine",
-                        "label": "Orchestrator",
-                        "bladeTitle": "This VM Will Be used to Orchestrate Desktop360 product Deployment",
-                        "subLabel": {
-                            "preValidation": "Choose virtual machine size",
-                            "postValidation": "Done"
-                          },
+                          "name": "OrchestratorVirtualMachine",
+                          "label": "Orchestrator Virtual Machine",
+                          "bladeTitle": "This VM Will Be used to Orchestrate Desktop360 product Deployment",
                           "elements": [
-                            {
-                              "name": "vmSize",
-                              "type": "Microsoft.Compute.SizeSelector",
-                              "label": "VM size",
-                              "toolTip": "The size of virtual machines.",
-                              "recommendedSizes": [
-                                "Standard_A2",
-                                "Standard_A3",
-                                "Standard_A4"
-                              ],
-                              "osPlatform": "Linux",
-                              "imageReference": {
-                                "publisher": "cognosys",
-                                "offer": "centos-8-2",
-                                "sku": "centos-8-2"
-                              }
-                            },
-                            {
-                                "name": "adminUsername",
-                                "type": "Microsoft.Compute.UserNameTextBox",
-                                "label": "VM username",
-                                "toolTip": "Administrative username for the virtual machines.",
-                                "osPlatform": "Linux",
-                                "constraints": {
-                                  "required": true,
-                                  "regex": "^[a-z][-a-z0-9]*$"
-                                }
-                              },
                               {
-                                "name": "adminCredentials",
-                                "type": "Microsoft.Compute.CredentialsCombo",
-                                "label": {
-                                  "authenticationType": "Authentication type",
-                                  "password": "Password",
-                                  "confirmPassword": "Confirm password",
-                                  "sshPublicKey": "SSH public key"
-                                },
-                                "constraints": {
-                                  "required": true
-                                },
-                                "options": {
-                                  "hideConfirmation": false
-                                },
-                                "osPlatform": "Linux"
+                                "name": "vmSize",
+                                "type": "Microsoft.Compute.SizeSelector",
+                                "label": "VM size",
+                                "toolTip": "The size of virtual machines.",
+                                "recommendedSizes": [
+                                  "Standard_A2",
+                                  "Standard_A3",
+                                  "Standard_A4"
+                                ],
+                                "osPlatform": "Linux",
+                                "imageReference": {
+                                  "publisher": "cognosys",
+                                  "offer": "centos-8-2",
+                                  "sku": "centos-8-2"
+                                }
                               }
                           ]
-                    }
+                      }
+                      
                 ]
             }
         ],
