@@ -152,27 +152,31 @@
                 "name": "StorageConfiguration",
                 "label": "Storage Configuration for Desktop360",
                 "bladeTitle": "Storage Configuration for Desktop360",
+                "subLabel": {
+                    "preValidation": "Choose virtual machine size",
+                    "postValidation": "Done"
+                  },
                 "elements": [
                     {
-                      
-                      "name": "StorageAccount",
-                      "type": "Microsoft.Storage.StorageAccountSelector",
-                      "label": "Storage account",
-                      "toolTip": "",
-                      "defaultValue": {
-                        "name": "storageaccount01",
-                        "type": "Premium_LRS"
-                      },
-                      "constraints": {
-                        "allowedTypes": [],
-                        "excludedTypes": []
-                      },
-                      "options": {
-                        "hideExisting": false
-                      },
-                      "visible": true
-                        
-                    }
+                        "name": "storageAccount",
+                        "type": "Microsoft.Storage.StorageAccountSelector",
+                        "label": "Storage account",
+                        "toolTip": "Storage Account for Diag Logs",
+                        "defaultValue": {
+                            
+                          "type": "Standard_LRS"
+                        },
+                        "constraints": {
+                          "allowedTypes": [
+                            "Standard_LRS",
+                            "Standard_GRS"
+                          ],
+                          "required": true
+                        },
+                        "options": {
+                          "hideExisting": true
+                        }
+                      }
                 ]
             }
             
@@ -187,7 +191,7 @@
             "subnet1Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet2.addressPrefix]",
             "subnet2Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet3.addressPrefix]",
             "subnet3Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet4.addressPrefix]",
-            "StorageAccountName": "[steps(StorageConfiguration).StorageAccount.name]",
+            "StorageAccountName": "[steps(StorageConfiguration).storageAccount.name]",
             
             "OrchestratorVirtualMachineSize": "[steps(OrchestratorVirtualMachine).vmSize]",
             "adminUsername": "[steps(OrchestratorVirtualMachine).adminUsername]",
