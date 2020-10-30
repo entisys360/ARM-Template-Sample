@@ -42,18 +42,12 @@ To facilitate the delivery of Citrix cloud utilizing Azure solutions, Entisys360
 
 **Action:** 
 
-1. Customer will be presented a pre-populated ARM form where she will need to input the required values. 
-
+1. Customer will be presented a paginated pre-populated ARM form where she will need to input the required values. 
 2. The form will be provided with default values which can be overwritten by the customer if required. 
-
 3. The form will be a paginated with appropriate sections for collecting the inputs from the customer 
-
 4. An cost calculator which estimates the cost will be displayed before the submission. The details will include: 
-
     1. Azure Consumption cost 
-
     2. Citrix License 
-
 5. The customer will submit the form once she inputs all the required details. 
 
 **Roles involved:** Customer 
@@ -61,7 +55,6 @@ To facilitate the delivery of Citrix cloud utilizing Azure solutions, Entisys360
 **Output:** 
 
 1. The form should validate the input values 
-
 2. The form once submitted will execute the next steps in 2 phases 
 
  
@@ -74,15 +67,10 @@ To facilitate the delivery of Citrix cloud utilizing Azure solutions, Entisys360
 
 1. The initial bootstrap execution starts 
 2. This will start the the initial setup using a VM extension. This involves setting up of the vnets, subnets, VMs for domain controllers and cloud connectors. 
-
 3. This will also set up an additional VM as an Orchestrator VM which includes:  
-
     1. The Controller/ worker node which will be used to host the Ansible to run the required playbooks  
-
     2. A storage account for the data input from the ARM template form to be used for the ARM phase two execution. 
-
 4. This is referred to as the Ansible controller.  
-
 5. This Ansible controller performs the task of downloading the source code from the repositories to install the required tools in the controller VM which will be used to     execute phase 2. 
 6. The ARM input values will be converted to a Ansible-readable Json format and placed on the Ansible Orchestrator VM.
 6. An email should be sent for the manual intervention for both customer and Entisys360 C+A product DL 
@@ -92,23 +80,15 @@ To facilitate the delivery of Citrix cloud utilizing Azure solutions, Entisys360
 **Output:**  
 
 1. Post the first phase execution following should be available. 
-
     1. A Basic vNet and subnet 
-
     2. (2) Windows 2016 VMs for Domain controllers which can be a Meraki or Azure gateway. 
-
     3. (2) Windows 2016 VMs for cloud connectors 
-
     4. (1) Linux VM which will act as the Controller(Orchestrator) also referred to as Ansible worker node 
-
 2. The VM controller which acts as a bootstrapper will perform the following: 
-
     1. Store the data input from the ARM template form to be used in the second phase of the execution 
-
     2. The Packer binary should be installed as part of Ansible worker node installation 
-  
-
 3. The customer and the E360 C+A product DL will receive an email to complete the desired procurements and licensing. 
+
 ------------------------------------------------------------
 ### **Step 4**
 ------------------------------------------------------------
@@ -173,6 +153,7 @@ To facilitate the delivery of Citrix cloud utilizing Azure solutions, Entisys360
 1. Packer will create a VM  
 1. The Ansible host controller will then run the playbook to install the required software and policies as per Entisys policies
 1. It will then take a snap shot and create a VDI image in the Azure market gallery
+
 **Roles involved:**  Ansible host controller.,Packer binary
 
 **Output:**
@@ -189,6 +170,7 @@ To facilitate the delivery of Citrix cloud utilizing Azure solutions, Entisys360
 1. Once done it will register the cloud connectors VMs to the Citrix environment.
 1. Post registration it will use the baked image of VDI from the Step 8 to create a machine catalog in the Citrix environment.
 1. A delivery group will be created based on the machine catalog created.
+
 **Roles involved:**  Ansible host controller, playbooks
 
 **Output:**
