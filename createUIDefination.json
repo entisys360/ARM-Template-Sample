@@ -154,25 +154,25 @@
                 "bladeTitle": "Storage Configuration for Desktop360",
                 "elements": [
                     {
-                        "name": "storageAccount",
-                        "type": "Microsoft.Storage.StorageAccountSelector",
-                        "label": "Storage account",
-                        "toolTip": "Storage Account for Diag Logs",
-                        "defaultValue": {
-                            
-                          "type": "Standard_LRS"
-                        },
-                        "constraints": {
-                          "allowedTypes": [
-                            "Standard_LRS",
-                            "Standard_GRS"
-                          ],
-                          "required": true
-                        },
-                        "options": {
-                          "hideExisting": true
+                       {
+                          "name": "StorageAccount",
+                          "type": "Microsoft.Storage.StorageAccountSelector",
+                          "label": "Storage account",
+                          "toolTip": "",
+                          "defaultValue": {
+                            "name": "storageaccount01",
+                            "type": "Premium_LRS"
+                          },
+                          "constraints": {
+                            "allowedTypes": [],
+                            "excludedTypes": []
+                          },
+                          "options": {
+                            "hideExisting": false
+                          },
+                          "visible": true
                         }
-                      }
+                    }
                 ]
             }
             
