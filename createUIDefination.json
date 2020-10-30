@@ -294,6 +294,77 @@
                       "visible": true
                     }
                   ]
+            },
+            {
+                "name": "CitrixConfiguration",
+                "label": "Citrix Configuration",
+                "bladeTitle": "Citrix Configuration",
+                "subLabel": {
+                    "preValidation": "Set Citrix Congiguration",
+                    "postValidation": "Done"
+                },
+                "elements": [
+                    {
+                        "name": "ctxZoneName",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Citrix Zone Name",
+                        "placeholder": "",
+                        "defaultValue": "E360 - Labs",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            
+                            "required": true,
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "vdNamingScheme",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Virtual Desktop Naming Scheme",
+                        "placeholder": "VDI###",
+                        "defaultValue": "",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            
+                            "required": true,
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "vdiVMSizeSelector",
+                        "type": "Microsoft.Compute.SizeSelector",
+                        "label": "Virtual Desktop Size",
+                        "toolTip": "The size of Virtual Desktop Size",
+                        "recommendedSizes": [
+                          "Standard_A2",
+                          "Standard_A3",
+                          "Standard_A4"
+                        ],
+                        "osPlatform": "Linux",
+                        "imageReference": {
+                          "publisher": "cognosys",
+                          "offer": "centos-8-2",
+                          "sku": "centos-8-2"
+                        }
+                      },
+                    {
+                        "name": "vdiCount",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Virtual desktop Count",
+                        "placeholder": "VDI###",
+                        "defaultValue": "",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            
+                            "required": true,
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    }
+                ]
+                
             }
         ],
         "outputs": {
@@ -306,19 +377,24 @@
             "subnet1Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet2.addressPrefix]",
             "subnet2Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet3.addressPrefix]",
             "subnet3Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet4.addressPrefix]",
-            "OrchestratorVirtualMachineSize": "[steps(OrchestratorVirtualMachine).vmSize]",
-            "adminUsername": "[steps(OrchestratorVirtualMachine).adminUsername]",
-            "authenticationType": "[steps(OrchestratorVirtualMachine).adminCredentials.authenticationType]",
-            "adminPassword": "[steps(OrchestratorVirtualMachine).adminCredentials.password]",
-            "adminSShKey": "[steps(OrchestratorVirtualMachine).adminCredentials.sshPublicKey]",
+            "StorageAccountName": "[steps(StorageConfiguration).storageAccount.name]",
+            "CloudConnectorVMNamePrefix": "[steps(DomainAndCc).CloudConnectorPrefix]",
+            "CloudConnectorsVMSize": "[steps(DomainAndCc).CloudConnectoresSize]",
+            "ccUserName": "[steps(DomainAndCc).WinAdminUsername]",
+            "ccPassword": "[steps(DomainAndCc).WindowsCred]",
+            "ctxZoneName": "[steps(CitrixConfiguration).ctxZoneName]",
             "DomainName": "[steps(DomainAndCc).DomainName]",
             "ADOrgUnit": "[steps(DomainAndCc).ADOrgUnit]",
             "AzureApplicationId": "[steps(DomainAndCc).AzureApplicationId]",
             "AzureApplicationPassword": "[steps(DomainAndCc).AppIdPassword]",
-            "CloudConnectorVMNamePrefix": "[steps(DomainAndCc).CloudConnectorPrefix]",
-            "CloudConnectorsVMSize": "[steps(DomainAndCc).CloudConnectoresSize]",
-            "ccUserName": "[steps(DomainAndCc).WinAdminUsername]",
-            "ccPassword": "[steps(DomainAndCc).WindowsCred]"
+            "VDICount": "[steps(CitrixConfiguration).vdiCount]",
+            "VDIVMSize": "[steps(CitrixConfiguration).vdiVMSizeSelector]",
+            "VDINamingScheme": "[steps(CitrixConfiguration).vdNamingScheme]",
+            "OrchestratorVirtualMachineSize": "[steps(OrchestratorVirtualMachine).vmSize]",
+            "adminUsername": "[steps(OrchestratorVirtualMachine).adminUsername]",
+            "authenticationType": "[steps(OrchestratorVirtualMachine).adminCredentials.authenticationType]",
+            "adminPassword": "[steps(OrchestratorVirtualMachine).adminCredentials.password]",
+            "adminSShKey": "[steps(OrchestratorVirtualMachine).adminCredentials.sshPublicKey]"
         }
     }
 }
