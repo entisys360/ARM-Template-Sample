@@ -438,7 +438,7 @@
         "properties": {
             "mode": "Incremental",
             "templateLink": {
-                "uri": "[concat(parameters('_artifactsLocation'), '/helpers/helper.json',parameters('_artifactsLocationSasToken'))]",
+                "uri": "[concat(parameters('_artifactsLocation'), '/helper.json',parameters('_artifactsLocationSasToken'))]",
                 "contentVersion": "1.0.0.0"
             },
             "parameters": {
