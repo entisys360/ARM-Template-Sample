@@ -152,10 +152,6 @@
                 "name": "StorageConfiguration",
                 "label": "Storage Configuration for Desktop360",
                 "bladeTitle": "Storage Configuration for Desktop360",
-                "subLabel": {
-                    "preValidation": "Choose virtual machine size",
-                    "postValidation": "Done"
-                  },
                 "elements": [
                     {
                         "name": "storageAccount",
