@@ -15,7 +15,7 @@
 
 UI definition can be tested from last commit on github using : 
 
-<a href='https://portal.azure.com/#blade/Microsoft_Azure_Compute/CreateMultiVmWizardBlade/internal_bladeCallId/anything/internal_bladeCallerParams/{"initialData":{},"providerConfig":{"createUiDefinition":"https%3A%2F%2Fraw.githubusercontent.com%2Fentisys360%2FEntisys360-CitrixWVD%2Fvinay-dev%2FcreateUIDefination.json%3Ftoken%3DAOLIENSE6EP5CNADGJJY2WC7SZ6MK"}}' target="_blank">
+<a href='https://portal.azure.com/#blade/Microsoft_Azure_Compute/CreateMultiVmWizardBlade/internal_bladeCallId/anything/internal_bladeCallerParams/{"initialData":{},"providerConfig":{"createUiDefinition":"https%3A%2F%2Fraw.githubusercontent.com%2Fentisys360%2FEntisys360-CitrixWVD%2Fvinay-dev%2FcreateUIDefination.json"}}' target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
