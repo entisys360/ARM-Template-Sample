@@ -430,7 +430,7 @@
             "adminUsername": "[steps(adminUsername)]",
             "authenticationType": "[steps(adminCredentials).authenticationType]",
             "adminPassword": "[steps(adminCredentials).password]",
-            "adminSShKey": "[steps(adminCredentials).sshPublicKey]",
+            "adminSShKey": "[steps(adminCredentials).sshPublicKey]"
         }
     }
 }
