@@ -89,33 +89,66 @@
 
                         },
                         "visible": true
-                      },
-                      {
-                          "name": "OrchestratorVirtualMachine",
-                          "label": "Orchestrator Virtual Machine",
-                          "bladeTitle": "This VM Will Be used to Orchestrate Desktop360 product Deployment",
-                          "elements": [
-                              {
-                                "name": "vmSize",
-                                "type": "Microsoft.Compute.SizeSelector",
-                                "label": "VM size",
-                                "toolTip": "The size of virtual machines.",
-                                "recommendedSizes": [
-                                  "Standard_A2",
-                                  "Standard_A3",
-                                  "Standard_A4"
-                                ],
-                                "osPlatform": "Linux",
-                                "imageReference": {
-                                  "publisher": "cognosys",
-                                  "offer": "centos-8-2",
-                                  "sku": "centos-8-2"
-                                }
-                              }
-                          ]
-                      }
+                    }
+
                       
                 ]
+            },
+            {
+                "name": "OrchestratorVirtualMachine",
+                "label": "Orchestrator Virtual Machine",
+                "bladeTitle": "This VM Will Be used to Orchestrate Desktop360 product Deployment",
+                "subLabel": {
+                    "preValidation": "Choose virtual machine size",
+                    "postValidation": "Done"
+                  },
+                  "elements": [
+                    {
+                      "name": "vmSize",
+                      "type": "Microsoft.Compute.SizeSelector",
+                      "label": "VM size",
+                      "toolTip": "The size of virtual machines.",
+                      "recommendedSizes": [
+                        "Standard_A2",
+                        "Standard_A3",
+                        "Standard_A4"
+                      ],
+                      "osPlatform": "Linux",
+                      "imageReference": {
+                        "publisher": "cognosys",
+                        "offer": "centos-8-2",
+                        "sku": "centos-8-2"
+                      }
+                    },
+                    {
+                        "name": "adminUsername",
+                        "type": "Microsoft.Compute.UserNameTextBox",
+                        "label": "VM username",
+                        "toolTip": "Administrative username for the virtual machines.",
+                        "osPlatform": "Linux",
+                        "constraints": {
+                          "required": true,
+                          "regex": "^[a-z][-a-z0-9]*$"
+                        }
+                      },
+                      {
+                        "name": "adminCredentials",
+                        "type": "Microsoft.Compute.CredentialsCombo",
+                        "label": {
+                          "authenticationType": "Authentication type",
+                          "password": "Password",
+                          "confirmPassword": "Confirm password",
+                          "sshPublicKey": "SSH public key"
+                        },
+                        "constraints": {
+                          "required": true
+                        },
+                        "options": {
+                          "hideConfirmation": false
+                        },
+                        "osPlatform": "Linux"
+                      }
+                  ]
             }
         ],
         "outputs": {
@@ -128,7 +161,11 @@
             "subnet1Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet2.addressPrefix]",
             "subnet2Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet3.addressPrefix]",
             "subnet3Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet4.addressPrefix]",
-            "OrchestratorVirtualMachineSize": "[steps(OrchestratorVirtualMachine).vmSize]"
+            "OrchestratorVirtualMachineSize": "[steps(OrchestratorVirtualMachine).vmSize]",
+            "adminUsername": "[steps(OrchestratorVirtualMachine).adminUsername]",
+            "authenticationType": "[steps(OrchestratorVirtualMachine).adminCredentials.authenticationType]",
+            "adminPassword": "[steps(OrchestratorVirtualMachine).adminCredentials.password]",
+            "adminSShKey": "[steps(OrchestratorVirtualMachine).adminCredentials.sshPublicKey]"
         }
     }
 }
