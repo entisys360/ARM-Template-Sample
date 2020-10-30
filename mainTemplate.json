@@ -59,8 +59,8 @@
             }
         },
         "virtualNetworkAddressPrefixes": {
-            "type": "string",
-            "defaultValue": "192.168.0.0/16",
+            "type": "array",
+            "defaultValue": ["192.168.0.0/16"],
             "metadata": {
                 "description": "Virtual network address CIDR"
             }
