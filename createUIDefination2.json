@@ -1,0 +1,437 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
+    "handler": "Microsoft.Compute.MultiVm",
+    "version": "0.1.2-preview",
+    "parameters": {
+        "basics": [
+
+        ],
+        "steps": [
+            {
+                "name": "NetworkConfiguration",
+                "label": "Network Configuration",
+                "bladeTitle": "Network Configuration for your Virtual Desktop Configuration",
+                "subLabel": {
+                    "preValidation": "Choose virtual machine size",
+                    "postValidation": "Done"
+                  },
+                "elements": [
+                    {
+                        "name": "VirtualNetworkConfig",
+                        "type": "Microsoft.Network.VirtualNetworkCombo",
+                        "label": {
+                          "virtualNetwork": "Virtual network",
+                          "subnets": "Subnets"
+                        },
+                        "toolTip": {
+                          "virtualNetwork": "",
+                          "subnets": ""
+                        },
+                        "defaultValue": {
+                          "name": "Citrix-Vnet",
+                          "addressPrefixSize": "/16"
+                        },
+                        "constraints": {
+                          "minAddressPrefixSize": "/16"
+                        },
+                        "options": {
+                          "hideExisting": false
+                        },
+                        "subnets": {
+                          "subnet1": {
+                            "label": "Ansible Subnet",
+                            "defaultValue": {
+                              "name": "AnsibleSubnet",
+                              "addressPrefixSize": "/24"
+                            },
+                            "constraints": {
+                              "minAddressPrefixSize": "/24",
+                              "minAddressCount": 12,
+                              "requireContiguousAddresses": true
+                            }
+                          },
+                          "subnet2": {
+                            "label": "Managment Subnet",
+                            "defaultValue": {
+                              "name": "ManagmentSubnet",
+                              "addressPrefixSize": "/24"
+                            },
+                            "constraints": {
+                              "minAddressPrefixSize": "/24",
+                              "minAddressCount": 12,
+                              "requireContiguousAddresses": true
+                            }
+                          },
+                          "subnet3": {
+                            "label": "Virtual Desktop Subnet",
+                            "defaultValue": {
+                              "name": "VirtualDesktopSubnet",
+                              "addressPrefixSize": "/23"
+                            },
+                            "constraints": {
+                              "minAddressPrefixSize": "/23",
+                              "minAddressCount": 12,
+                              "requireContiguousAddresses": true
+                            }
+                          },
+                          "subnet4": {
+                            "label": "Gateway Subnet",
+                            "defaultValue": {
+                              "name": "Gateway Subnet",
+                              "addressPrefixSize": "/26"
+                            },
+                            "constraints": {
+                              "minAddressPrefixSize": "/26",
+                              "minAddressCount": 12,
+                              "requireContiguousAddresses": true
+                            }
+                          }
+
+                        },
+                        "visible": true
+                      }
+                ]
+            },
+            {
+                "name": "OrchestratorVirtualMachine",
+                "label": "Orchestrator Virtual Machine",
+                "bladeTitle": "This VM Will Be used to Orchestrate Desktop360 product Deployment",
+                "subLabel": {
+                    "preValidation": "Choose virtual machine size",
+                    "postValidation": "Done"
+                  },
+                  "elements": [
+                    {
+                      "name": "vmSize",
+                      "type": "Microsoft.Compute.SizeSelector",
+                      "label": "VM size",
+                      "toolTip": "The size of virtual machines.",
+                      "recommendedSizes": [
+                        "Standard_A2",
+                        "Standard_A3",
+                        "Standard_A4"
+                      ],
+                      "osPlatform": "Linux",
+                      "imageReference": {
+                        "publisher": "cognosys",
+                        "offer": "centos-8-2",
+                        "sku": "centos-8-2"
+                      }
+                    },
+                    {
+                        "name": "adminUsername",
+                        "type": "Microsoft.Compute.UserNameTextBox",
+                        "label": "VM username",
+                        "toolTip": "Administrative username for the virtual machines.",
+                        "osPlatform": "Linux",
+                        "constraints": {
+                          "required": true,
+                          "regex": "^[a-z][-a-z0-9]*$"
+                        }
+                      },
+                      {
+                        "name": "adminCredentials",
+                        "type": "Microsoft.Compute.CredentialsCombo",
+                        "label": {
+                          "authenticationType": "Authentication type",
+                          "password": "Password",
+                          "confirmPassword": "Confirm password",
+                          "sshPublicKey": "SSH public key"
+                        },
+                        "constraints": {
+                          "required": true
+                        },
+                        "options": {
+                          "hideConfirmation": false
+                        },
+                        "osPlatform": "Linux"
+                      }
+                  ]
+            },
+            {
+                "name": "StorageConfiguration",
+                "label": "Storage Configuration for Desktop360",
+                "bladeTitle": "Storage Configuration for Desktop360",
+                "subLabel": {
+                    "preValidation": "Choose virtual machine size",
+                    "postValidation": "Done"
+                  },
+                "elements": [
+                    {
+                        "name": "storageAccount",
+                        "type": "Microsoft.Storage.StorageAccountSelector",
+                        "label": "Storage account",
+                        "toolTip": "Storage Account for Diag Logs",
+                        "defaultValue": {
+                            
+                          "type": "Standard_LRS"
+                        },
+                        "constraints": {
+                          "allowedTypes": [
+                            "Standard_LRS",
+                            "Standard_GRS"
+                          ],
+                          "required": true
+                        },
+                        "options": {
+                          "hideExisting": true
+                        }
+                      }
+                ]
+            },
+            {
+                "name": "DomainAndCc",
+                "label": "Domain and CC configuration",
+                "bladeTitle": "This VMs Will Be used as DC and CC",
+                  "elements": [
+                    {
+                        "name": "DomainName",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Domain Name",
+                        "placeholder": "",
+                        "defaultValue": "",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            "required": true,
+                            "regex": "^[a-zA-Z]$",
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "AzureApplicationId",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "SPN App ID",
+                        "placeholder": "",
+                        "defaultValue": "",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            "required": true,
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "AppIdPassword",
+                        "type": "Microsoft.Common.PasswordBox",
+                        "label": {
+                            "password": "Secret",
+                            "confirmPassword": "Confirm Secret"
+                        },
+                        "toolTip": "",
+                        "constraints": {
+                            "required": true,
+                            "validationMessage": "Password must be at least 8 characters long, contain only numbers and letters"
+                        },
+                        "options": {
+                            "hideConfirmation": false
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "ADOrgUnit",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Orgination Unit Name",
+                        "placeholder": "",
+                        "defaultValue": "",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            "regex": "^[A-Za-z]{2}=[A-Za-z0-9]+(,[A-Za-z]{2}=[A-Za-z0-9]+)+$",
+                            "required": true,
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "CloudConnectorPrefix",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Cloud Connectors Name Prefix",
+                        "placeholder": "",
+                        "defaultValue": "",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            "required": true,
+                            "regex": "^[a-z0-9A-Z]$",
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "CloudConnectoresSize",
+                        "type": "Microsoft.Compute.SizeSelector",
+                        "label": "Domain Controller Size",
+                        "toolTip": "",
+                        "recommendedSizes": [
+                          "Standard_D1",
+                          "Standard_D2",
+                          "Standard_D3"
+                        ],
+                        "constraints": {
+                          "allowedSizes": [],
+                          "excludedSizes": [],
+                          "numAvailabilityZonesRequired": 3,
+                          "zone": "3"
+                        },
+                        "options": {
+                          "hideDiskTypeFilter": false
+                        },
+                        "osPlatform": "Windows",
+                        "imageReference": {
+                          "publisher": "MicrosoftWindowsServer",
+                          "offer": "WindowsServer",
+                          "sku": "2012-R2-Datacenter"
+                        },
+                        "count": 2,
+                        "visible": true
+                    },
+                      
+                      {
+                        "name": "WinAdminUsername",
+                        "type": "Microsoft.Compute.UserNameTextBox",
+                        "label": "Windows Username",
+                        "defaultValue": "superadmin",
+                        "toolTip": "",
+                        "constraints": {
+                          "required": true,
+                          "regex": "^[a-zA-Z]{1,30}$",
+                          "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "osPlatform": "Windows",
+                        "visible": true
+                      },
+                      {
+                        "name": "WindowsCred",
+                        "type": "Microsoft.Common.PasswordBox",
+                        "label": {
+                          "password": "Password",
+                          "confirmPassword": "Confirm password"
+                        },
+                        "toolTip": "",
+                        "constraints": {
+                          "required": true,
+                          "regex": "^[a-zA-Z0-9]{12,}$",
+                          "validationMessage": "Password must be at least 12 characters long, contain only numbers and letters"
+                        },
+                        "options": {
+                          "hideConfirmation": false
+                        },
+                        "visible": true
+                      }
+                  ]
+            },
+            {
+                "name": "CitrixConfiguration",
+                "label": "Citrix Configuration",
+                "bladeTitle": "Citrix Configuration",
+                "subLabel": {
+                    "preValidation": "Set Citrix Congiguration",
+                    "postValidation": "Done"
+                },
+                "elements": [
+                    {
+                        "name": "ctxZoneName",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Citrix Zone Name",
+                        "placeholder": "",
+                        "defaultValue": "E360 - Labs",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            
+                            "required": true,
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "vdNamingScheme",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Virtual Desktop Naming Scheme",
+                        "placeholder": "VDI###",
+                        "defaultValue": "",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            
+                            "required": true,
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "vdiVMSizeSelector",
+                        "type": "Microsoft.Compute.SizeSelector",
+                        "label": "Virtual Desktop Size",
+                        "toolTip": "",
+                        "recommendedSizes": [
+                          "Standard_D1",
+                          "Standard_D2",
+                          "Standard_D3"
+                        ],
+                        "constraints": {
+                          "allowedSizes": [],
+                          "excludedSizes": [],
+                          "numAvailabilityZonesRequired": 3,
+                          "zone": "3"
+                        },
+                        "options": {
+                          "hideDiskTypeFilter": false
+                        },
+                        "osPlatform": "Windows",
+                        "imageReference": {
+                          "publisher": "MicrosoftWindowsDesktop",
+                          "offer": "Windows-10",
+                          "sku": "19h1-evd"
+                        },
+                        "count": 2,
+                        "visible": true
+                    },
+                    {
+                        "name": "vdiCount",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Virtual desktop Count",
+                        "placeholder": "VDI###",
+                        "defaultValue": "",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            
+                            "required": true,
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    }
+                ]
+                
+            }
+            
+        ],
+        "outputs": { 
+            "virtualNetworkName": "[steps(NetworkConfiguration)].VirtualNetworkConfig.name",
+            "subnet0Name": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet1.name]",
+            "subnet1Name": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet2.name]",
+            "subnet2Name": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet3.name]",
+            "subnet3Name": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet4.name]",
+            "subnet0Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet1.addressPrefix]",
+            "subnet1Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet2.addressPrefix]",
+            "subnet2Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet3.addressPrefix]",
+            "subnet3Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet4.addressPrefix]",
+            "StorageAccountName": "[steps(StorageConfiguration).storageAccount.name]",
+            "CloudConnectorVMNamePrefix": "[steps(DomainAndCc).CloudConnectorPrefix]",
+            "CloudConnectorsVMSize": "[steps(DomainAndCc).CloudConnectoresSize]",
+            "ccUserName": "[steps(DomainAndCc).WinAdminUsername]",
+            "ccPassword": "[steps(DomainAndCc).WindowsCred]",
+            "ctxZoneName": "[steps(CitrixConfiguration).ctxZoneName]",
+            "DomainName": "[steps(DomainAndCc).DomainName]",
+            "ADOrgUnit": "[steps(DomainAndCc).ADOrgUnit]",
+            "AzureApplicationId": "[steps(DomainAndCc).AzureApplicationId]",
+            "AzureApplicationPassword": "[steps(DomainAndCc).AppIdPassword]",
+            "VDICount": "[steps(CitrixConfiguration).vdiCount]",
+            "VDIVMSize": "[steps(CitrixConfiguration).vdiVMSizeSelector]",
+            "VDINamingScheme": "[steps(CitrixConfiguration).vdNamingScheme]",
+            "OrchestratorVirtualMachineSize": "[steps(OrchestratorVirtualMachine).vmSize]",
+            "adminUsername": "[steps(OrchestratorVirtualMachine).adminUsername]",
+            "authenticationType": "[steps(OrchestratorVirtualMachine).adminCredentials.authenticationType]",
+            "adminPassword": "[steps(OrchestratorVirtualMachine).adminCredentials.password]",
+            "adminSShKey": "[steps(OrchestratorVirtualMachine).adminCredentials.sshPublicKey]"
+        }
+    }
+
+}
