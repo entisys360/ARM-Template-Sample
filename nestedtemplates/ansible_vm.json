@@ -89,7 +89,7 @@
                 "computerName": "[parameters('ansible').AnsibleHostName]",
                 "adminUsername": "[parameters('ansible').AnsibleUserName]",
                 "adminPassword": "[parameters('ansible').AnsiblePassword]",
-                "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), parameters('ansible').linuxConfiguration)]"
+                "linuxConfiguration": "[parameters('ansible').linuxConfiguration]"
                 },
                 "storageProfile": {
                 "imageReference": {

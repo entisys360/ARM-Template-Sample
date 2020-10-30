@@ -102,20 +102,6 @@
                   },
                   "elements": [
                     {
-                        "name": "orcVMName",
-                        "type": "Microsoft.Common.TextBox",
-                        "label": "orcVMName",
-                        "placeholder": "",
-                        "defaultValue": "",
-                        "toolTip": "Use only allowed characters",
-                        "constraints": {
-                            "required": true,
-                            "regex": "^[a-z0-9A-Z]{1,30}$",
-                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
-                        },
-                        "visible": true
-                    },
-                    {
                       "name": "vmSize",
                       "type": "Microsoft.Compute.SizeSelector",
                       "label": "VM size",
@@ -341,11 +327,110 @@
                     "preValidation": "Set Citrix Congiguration",
                     "postValidation": "Done"
                 },
-                "elements": []
+                "elements": [
+                    {
+                        "name": "ctxZoneName",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Citrix Zone Name",
+                        "placeholder": "",
+                        "defaultValue": "E360 - Labs",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            
+                            "required": true,
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "vdNamingScheme",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Virtual Desktop Naming Scheme",
+                        "placeholder": "VDI###",
+                        "defaultValue": "",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            
+                            "required": true,
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "vdiVMSizeSelector",
+                        "type": "Microsoft.Compute.SizeSelector",
+                        "label": "Virtual Desktop Size",
+                        "toolTip": "",
+                        "recommendedSizes": [
+                          "Standard_D1",
+                          "Standard_D2",
+                          "Standard_D3"
+                        ],
+                        "constraints": {
+                          "allowedSizes": [],
+                          "excludedSizes": [],
+                          "numAvailabilityZonesRequired": 3,
+                          "zone": "3"
+                        },
+                        "options": {
+                          "hideDiskTypeFilter": false
+                        },
+                        "osPlatform": "Windows",
+                        "imageReference": {
+                          "publisher": "MicrosoftWindowsDesktop",
+                          "offer": "Windows-10",
+                          "sku": "19h1-evd"
+                        },
+                        "count": 2,
+                        "visible": true
+                    },
+                    {
+                        "name": "vdiCount",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Virtual desktop Count",
+                        "placeholder": "VDI###",
+                        "defaultValue": "",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            
+                            "required": true,
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    }
+                ]
                 
             }
             
         ],
-        "outputs": { }
+        "outputs": { 
+            "virtualNetworkName": "[steps(NetworkConfiguration)].name",
+            "subnet0Name": "[steps(NetworkConfiguration).subnets.subnet1.name]",
+            "subnet1Name": "[steps(NetworkConfiguration).subnets.subnet2.name]",
+            "subnet2Name": "[steps(NetworkConfiguration).subnets.subnet3.name]",
+            "subnet3Name": "[steps(NetworkConfiguration).subnets.subnet4.name]",
+            "subnet0Prefix": "[steps(NetworkConfiguration).subnets.subnet1.addressPrefix]",
+            "subnet1Prefix": "[steps(NetworkConfiguration).subnets.subnet2.addressPrefix]",
+            "subnet2Prefix": "[steps(NetworkConfiguration).subnets.subnet3.addressPrefix]",
+            "subnet3Prefix": "[steps(NetworkConfiguration).subnets.subnet4.addressPrefix]",
+            "StorageAccountName": "[steps(StorageConfiguration).name]",
+            "CloudConnectorVMNamePrefix": "[steps(CloudConnectorPrefix)]",
+            "CloudConnectorsVMSize": "[steps(CloudConnectoresSize)]",
+            "ccUserName": "[steps(WinAdminUsername)]",
+            "ccPassword": "[steps(WindowsCred)]",
+            "ctxZoneName": "[steps(ctxZoneName)]",
+            "DomainName": "[steps(DomainName)]",
+            "ADOrgUnit": "[steps(ADOrgUnit)]",
+            "AzureApplicationId": "[steps(AzureApplicationId)]",
+            "AzureApplicationPassword": "[steps(AppIdPassword)]",
+            "VDICount": "[steps(vdiCount)]",
+            "VDIVMSize": "[steps(vdiVMSizeSelector)]",
+            "VDINamingScheme": "[steps(vdNamingScheme)]",
+            "OrchestratorVirtualMachineSize": "[steps(vmSize)]",
+            "adminUsername": "[steps(adminUsername)]",
+            "authenticationType": "[steps(adminCredentials).authenticationType]",
+            "adminPassword": "[steps(adminCredentials).password]",
+            "adminSShKey": "[steps(adminCredentials).sshPublicKey]",
+        }
     }
 }
