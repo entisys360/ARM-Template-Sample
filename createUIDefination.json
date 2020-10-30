@@ -164,8 +164,8 @@
                         "name": "DomainName",
                         "type": "Microsoft.Common.TextBox",
                         "label": "Domain Name",
-                        "placeholder": "",
-                        "defaultValue": "",
+                        "placeholder": "e360labs.local",
+                        "defaultValue": "e360labs.local",
                         "toolTip": "Use only allowed characters",
                         "constraints": {
                             "required": true,
@@ -178,8 +178,8 @@
                         "name": "AzureApplicationId",
                         "type": "Microsoft.Common.TextBox",
                         "label": "SPN App ID",
-                        "placeholder": "",
-                        "defaultValue": "",
+                        "placeholder": "ABC",
+                        "defaultValue": "ABC",
                         "toolTip": "Use only allowed characters",
                         "constraints": {
                             "required": true,
@@ -208,8 +208,8 @@
                         "name": "ADOrgUnit",
                         "type": "Microsoft.Common.TextBox",
                         "label": "Orgination Unit Name",
-                        "placeholder": "",
-                        "defaultValue": "",
+                        "placeholder": "OU=vdi,DC=e360labs,DC=Local",
+                        "defaultValue": "OU=vdi,DC=e360labs,DC=Local",
                         "toolTip": "Use only allowed characters",
                         "constraints": {
                             "regex": "^[A-Za-z]{2}=[A-Za-z0-9]+(,[A-Za-z]{2}=[A-Za-z0-9]+)+$",
@@ -222,7 +222,7 @@
                         "name": "CloudConnectorPrefix",
                         "type": "Microsoft.Common.TextBox",
                         "label": "Cloud Connectors Name Prefix",
-                        "placeholder": "",
+                        "placeholder": "entisyscc",
                         "defaultValue": "",
                         "toolTip": "Use only allowed characters",
                         "constraints": {
