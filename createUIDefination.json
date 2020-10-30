@@ -128,11 +128,7 @@
             "subnet1Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet2.addressPrefix]",
             "subnet2Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet3.addressPrefix]",
             "subnet3Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet4.addressPrefix]",
-            "OrchestratorVirtualMachineSize": "[steps(OrchestratorVirtualMachine).vmSize]",
-            "adminUsername": "[steps(OrchestratorVirtualMachine).adminUsername]",
-            "authenticationType": "[steps(OrchestratorVirtualMachine).adminCredentials.authenticationType]",
-            "adminPassword": "[steps(OrchestratorVirtualMachine).adminCredentials.password]",
-            "adminSShKey": "[steps(OrchestratorVirtualMachine).adminCredentials.sshPublicKey]"
+            "OrchestratorVirtualMachineSize": "[steps(OrchestratorVirtualMachine).vmSize]"
         }
     }
 }
