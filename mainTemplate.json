@@ -265,34 +265,6 @@
                 "description": "Azure Application ID Secret "
             },
             "defaultValue": ""
-        },
-        "VDIdesktopGroupName": {
-            "type": "string",
-            "metadata": {
-                "description": "Citrix Delivery Group Name"
-            },
-            "defaultValue": ""
-        },
-        "VDIdesktopGroupDesc": {
-            "type": "string",
-            "metadata": {
-                "description": "Description of Delivery Group"
-            },
-            "defaultValue": ""
-        },
-        "VDIcolorDepth": {
-            "type": "string",
-            "metadata": {
-                "description": "description"
-            },
-            "defaultValue": ""
-        },
-        "timeZone": {
-            "type": "string",
-            "metadata": {
-                "description": "Time Zone for VDI"
-            },
-            "defaultValue": ""
         }
     },
     "functions": [],
