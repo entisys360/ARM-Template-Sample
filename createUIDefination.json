@@ -154,6 +154,11 @@
                 "name": "DomainAndCc",
                 "label": "Domain and CC configuration",
                 "bladeTitle": "This VMs Will Be used as DC and CC",
+                "subLabel": {
+                    "preValidation": "Enter CC and Domain settings",
+                    "postValidation": "Done"
+                  },
+                  
                   "elements": [
                     {
                         "name": "DomainName",
