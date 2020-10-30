@@ -340,7 +340,8 @@
                 "subLabel": {
                     "preValidation": "Set Citrix Congiguration",
                     "postValidation": "Done"
-                }
+                },
+                "elements": []
                 
             }
             
