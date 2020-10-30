@@ -187,7 +187,7 @@
             "subnet1Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet2.addressPrefix]",
             "subnet2Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet3.addressPrefix]",
             "subnet3Prefix": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet4.addressPrefix]",
-            "StorageAccountName": "[steps(StorageConfiguration).storageAccount.name]",
+            "StorageAccountName": "[steps(StorageConfiguration).StorageAccount.name]",
             
             "OrchestratorVirtualMachineSize": "[steps(OrchestratorVirtualMachine).vmSize]",
             "adminUsername": "[steps(OrchestratorVirtualMachine).adminUsername]",
