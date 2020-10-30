@@ -391,6 +391,7 @@
         ],
         "outputs": {
             "virtualNetworkName": "[steps(NetworkConfiguration)].VirtualNetworkConfig.name",
+            "virtualNetworkAddressPrefixes": "[steps(NetworkConfiguration)].VirtualNetworkConfig.addressPrefixes]",
             "subnet0Name": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet1.name]",
             "subnet1Name": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet2.name]",
             "subnet2Name": "[steps(NetworkConfiguration).VirtualNetworkConfig.subnets.subnet3.name]",
