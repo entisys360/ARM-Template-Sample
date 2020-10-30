@@ -149,6 +149,146 @@
                         "osPlatform": "Linux"
                       }
                   ]
+            },
+            {
+                "name": "DomainAndCc",
+                "label": "Domain and CC configuration",
+                "bladeTitle": "This VMs Will Be used as DC and CC",
+                  "elements": [
+                    {
+                        "name": "DomainName",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Domain Name",
+                        "placeholder": "",
+                        "defaultValue": "",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            "required": true,
+                            
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "AzureApplicationId",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "SPN App ID",
+                        "placeholder": "",
+                        "defaultValue": "",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            "required": true,
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "AppIdPassword",
+                        "type": "Microsoft.Common.PasswordBox",
+                        "label": {
+                            "password": "Secret",
+                            "confirmPassword": "Confirm Secret"
+                        },
+                        "toolTip": "",
+                        "constraints": {
+                            "required": true,
+                            "validationMessage": "Password must be at least 8 characters long, contain only numbers and letters"
+                        },
+                        "options": {
+                            "hideConfirmation": false
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "ADOrgUnit",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Orgination Unit Name",
+                        "placeholder": "",
+                        "defaultValue": "",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            "regex": "^[A-Za-z]{2}=[A-Za-z0-9]+(,[A-Za-z]{2}=[A-Za-z0-9]+)+$",
+                            "required": true,
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "CloudConnectorPrefix",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Cloud Connectors Name Prefix",
+                        "placeholder": "",
+                        "defaultValue": "",
+                        "toolTip": "Use only allowed characters",
+                        "constraints": {
+                            "required": true,
+                            "regex": "^[a-z0-9A-Z]$",
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                        },
+                        "visible": true
+                    },
+                    {
+                        "name": "CloudConnectoresSize",
+                        "type": "Microsoft.Compute.SizeSelector",
+                        "label": "Domain Controller Size",
+                        "toolTip": "",
+                        "recommendedSizes": [
+                          "Standard_D1",
+                          "Standard_D2",
+                          "Standard_D3"
+                        ],
+                        "constraints": {
+                          "allowedSizes": [],
+                          "excludedSizes": [],
+                          "numAvailabilityZonesRequired": 3,
+                          "zone": "3"
+                        },
+                        "options": {
+                          "hideDiskTypeFilter": false
+                        },
+                        "osPlatform": "Windows",
+                        "imageReference": {
+                          "publisher": "MicrosoftWindowsServer",
+                          "offer": "WindowsServer",
+                          "sku": "2012-R2-Datacenter"
+                        },
+                        "count": 2,
+                        "visible": true
+                    },
+                      
+                    {
+                      "name": "WinAdminUsername",
+                      "type": "Microsoft.Compute.UserNameTextBox",
+                      "label": "Windows Username",
+                      "defaultValue": "superadmin",
+                      "toolTip": "",
+                      "constraints": {
+                        "required": true,
+                        "regex": "^[a-zA-Z]{1,30}$",
+                        "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                      },
+                      "osPlatform": "Windows",
+                      "visible": true
+                    },
+                    {
+                      "name": "WindowsCred",
+                      "type": "Microsoft.Common.PasswordBox",
+                      "label": {
+                        "password": "Password",
+                        "confirmPassword": "Confirm password"
+                      },
+                      "toolTip": "",
+                      "constraints": {
+                        "required": true,
+                        "regex": "^[a-zA-Z0-9]{12,}$",
+                        "validationMessage": "Password must be at least 12 characters long, contain only numbers and letters"
+                      },
+                      "options": {
+                        "hideConfirmation": false
+                      },
+                      "visible": true
+                    }
+                  ]
             }
         ],
         "outputs": {
@@ -165,7 +305,15 @@
             "adminUsername": "[steps(OrchestratorVirtualMachine).adminUsername]",
             "authenticationType": "[steps(OrchestratorVirtualMachine).adminCredentials.authenticationType]",
             "adminPassword": "[steps(OrchestratorVirtualMachine).adminCredentials.password]",
-            "adminSShKey": "[steps(OrchestratorVirtualMachine).adminCredentials.sshPublicKey]"
+            "adminSShKey": "[steps(OrchestratorVirtualMachine).adminCredentials.sshPublicKey]",
+            "DomainName": "[steps(DomainAndCc).DomainName]",
+            "ADOrgUnit": "[steps(DomainAndCc).ADOrgUnit]",
+            "AzureApplicationId": "[steps(DomainAndCc).AzureApplicationId]",
+            "AzureApplicationPassword": "[steps(DomainAndCc).AppIdPassword]",
+            "CloudConnectorVMNamePrefix": "[steps(DomainAndCc).CloudConnectorPrefix]",
+            "CloudConnectorsVMSize": "[steps(DomainAndCc).CloudConnectoresSize]",
+            "ccUserName": "[steps(DomainAndCc).WinAdminUsername]",
+            "ccPassword": "[steps(DomainAndCc).WindowsCred]"
         }
     }
 }
