@@ -227,7 +227,6 @@
                         "toolTip": "Use only allowed characters",
                         "constraints": {
                             "required": true,
-                            "regex": "^[a-z0-9A-Z]$",
                             "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
                         },
                         "visible": true
@@ -342,12 +341,7 @@
                           "Standard_A3",
                           "Standard_A4"
                         ],
-                        "osPlatform": "Linux",
-                        "imageReference": {
-                          "publisher": "cognosys",
-                          "offer": "centos-8-2",
-                          "sku": "centos-8-2"
-                        }
+                        "osPlatform": "Windows"
                       },
                     {
                         "name": "vdiCount",
