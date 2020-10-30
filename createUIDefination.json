@@ -154,24 +154,24 @@
                 "bladeTitle": "Storage Configuration for Desktop360",
                 "elements": [
                     {
-                       {
-                          "name": "StorageAccount",
-                          "type": "Microsoft.Storage.StorageAccountSelector",
-                          "label": "Storage account",
-                          "toolTip": "",
-                          "defaultValue": {
-                            "name": "storageaccount01",
-                            "type": "Premium_LRS"
-                          },
-                          "constraints": {
-                            "allowedTypes": [],
-                            "excludedTypes": []
-                          },
-                          "options": {
-                            "hideExisting": false
-                          },
-                          "visible": true
-                        }
+                      
+                      "name": "StorageAccount",
+                      "type": "Microsoft.Storage.StorageAccountSelector",
+                      "label": "Storage account",
+                      "toolTip": "",
+                      "defaultValue": {
+                        "name": "storageaccount01",
+                        "type": "Premium_LRS"
+                      },
+                      "constraints": {
+                        "allowedTypes": [],
+                        "excludedTypes": []
+                      },
+                      "options": {
+                        "hideExisting": false
+                      },
+                      "visible": true
+                        
                     }
                 ]
             }
