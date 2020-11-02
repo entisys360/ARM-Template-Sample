@@ -11,8 +11,6 @@
 
 ### Launch This Template
 
-UI definition can be tested from last commit on github using :
-
 <a href='https://portal.azure.com/#blade/Microsoft_Azure_Compute/CreateMultiVmWizardBlade/internal_bladeCallId/anything/internal_bladeCallerParams/{"initialData":{},"providerConfig":{"createUiDefinition":"https%3A%2F%2Fraw.githubusercontent.com%2Fentisys360%2FEntisys360-CitrixWVD%2Fblob%2Ftimui201002%2FcreateUIDefination.json"}}' target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
