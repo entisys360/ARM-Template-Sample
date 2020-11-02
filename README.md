@@ -9,122 +9,120 @@
 ![Best Practice Check](https://azurequickstartsservice.blob.core.windows.net/badges/100-marketplace-sample/BestPracticeResult.svg)
 ![Cred Scan Check](https://azurequickstartsservice.blob.core.windows.net/badges/100-marketplace-sample/CredScanResult.svg)
 
-[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fentisys360%2FEntisys360-CitrixWVD%2Fvinay-dev%2FcreateUIDefination.json%3Ftoken%3DAOLIENSE6EP5CNADGJJY2WC7SZ6MK)
-
 ### Launch This Template
 
-UI definition can be tested from last commit on github using : 
+UI definition can be tested from last commit on github using :
 
-<a href='https://portal.azure.com/#blade/Microsoft_Azure_Compute/CreateMultiVmWizardBlade/internal_bladeCallId/anything/internal_bladeCallerParams/{"initialData":{},"providerConfig":{"createUiDefinition":"https%3A%2F%2Fraw.githubusercontent.com%2Fentisys360%2FEntisys360-CitrixWVD%2Fvinay-dev%2FcreateUIDefination.json"}}' target="_blank">
+<a href='https://portal.azure.com/#blade/Microsoft_Azure_Compute/CreateMultiVmWizardBlade/internal_bladeCallId/anything/internal_bladeCallerParams/{"initialData":{},"providerConfig":{"createUiDefinition":"https%3A%2F%2Fraw.githubusercontent.com%2Fentisys360%2FEntisys360-CitrixWVD%2Fblob%2Ftimui201002%2FcreateUIDefination.json"}}' target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
 
-## Introduction 
+## Introduction
 
-To ease the manual delivery of computing of Citrix cloud over Azure solutions, Entisys360 has come up with a solution which can streamline these end user computing by automating the Citrix cloud over Azure delivery solution. The end product will be leveraging the Azure market place. The first phase the Minimum Viable Product designed will be released with from Github repos. 
+To ease the manual delivery of computing of Citrix cloud over Azure solutions, Entisys360 has come up with a solution which can streamline these end user computing by automating the Citrix cloud over Azure delivery solution. The end product will be leveraging the Azure market place. The first phase the Minimum Viable Product designed will be released with from Github repos.
 
- 
 
-## The following steps outlines the features that will be released as part of the first phase (Beta release). 
 
- 
+## The following steps outlines the features that will be released as part of the first phase (Beta release).
 
-### Step 1  
 
-Description : Click on the Github Button. 
 
-Action:  
+### Step 1
 
-Customer goes to Github location <link to be provided> which will be a public repository 
+Description : Click on the Github Button.
 
-He clicks on the “Entisys360 WVD Delivery” button in Github. 
+Action:
 
-Roles involved: Customer 
+Customer goes to Github location <link to be provided> which will be a public repository
 
-Output: The Customer will be redirected to the Azure portal 
+He clicks on the “Entisys360 WVD Delivery” button in Github.
 
-### Step 2 
+Roles involved: Customer
 
-Description: Azure portal ARM template 
+Output: The Customer will be redirected to the Azure portal
 
-Action: 
+### Step 2
 
-Customer will be visualizing a pre-populated ARM form where he will need to input the required values as per their requirement. 
+Description: Azure portal ARM template
 
-The form will be provided with few default values which can be overwritten by the customer if required. 
+Action:
 
-The form will be a paginated one with appropriate section for collecting the details inputs from the customer 
+Customer will be visualizing a pre-populated ARM form where he will need to input the required values as per their requirement.
 
-An estimate calculatore which illustrates the likely cost estimate base don the data entered     will be displayed before the submission.The cost details will include the 
+The form will be provided with few default values which can be overwritten by the customer if required.
 
-Azure Consumption cost 
+The form will be a paginated one with appropriate section for collecting the details inputs from the customer
 
-Citrix License 
+An estimate calculatore which illustrates the likely cost estimate base don the data entered     will be displayed before the submission.The cost details will include the
 
-The customer will submit the form once he inputs all the required details. 
+Azure Consumption cost
 
-Roles involved: Customer 
+Citrix License
 
-Output: 
+The customer will submit the form once he inputs all the required details.
 
-The form should validate the input values entered by the customer for basic requirements. 
+Roles involved: Customer
 
-The form once submitted will execute the next steps in 2 phases 
+Output:
 
- 
+The form should validate the input values entered by the customer for basic requirements.
 
-### Step 3 
+The form once submitted will execute the next steps in 2 phases
 
-Description: ARM Phase one execution 
 
-Actions:  
 
-The initial bootstrap execution starts 
+### Step 3
 
-This will setup the the initial setup using a VM extension. This involves setting up of the vnets,    subnets, VMs for domain controllers and cloud connectors. 
+Description: ARM Phase one execution
 
-This will also set up another VM which will be an Orchestrator VM which acts as  
+Actions:
 
-Controller/ worker node which will be used to host the Ansible to run the required playbooks  
+The initial bootstrap execution starts
 
-A storage account for the data input from the ARM template form to be used for the ARM phase two execution. 
+This will setup the the initial setup using a VM extension. This involves setting up of the vnets,    subnets, VMs for domain controllers and cloud connectors.
 
-This will be henceforth referred to as the Ansible controller.  
+This will also set up another VM which will be an Orchestrator VM which acts as
 
-This Ansible controller performs the task of downloading the source code from the repos to    install the required binaries in the controller VM which will be used to execute the phase 2    execution. 
+Controller/ worker node which will be used to host the Ansible to run the required playbooks
 
-An email should be sent for the manual intervention for both customer and Entisys360 C+A    product DL 
+A storage account for the data input from the ARM template form to be used for the ARM phase two execution.
 
-Roles involved: Automated step 
+This will be henceforth referred to as the Ansible controller.
 
-Output: 
+This Ansible controller performs the task of downloading the source code from the repos to    install the required binaries in the controller VM which will be used to execute the phase 2    execution.
 
-Post the first phase execution following should be available. 
+An email should be sent for the manual intervention for both customer and Entisys360 C+A    product DL
 
-A Basic vNet and subnet 
+Roles involved: Automated step
 
-2 Windows 2016 VMs for Domain controllers which can be a Meraki or Azure gateway. 
+Output:
 
-2 windows 2016 VMs for cloud connectors 
+Post the first phase execution following should be available.
 
-1 VM which will act as the Controller(Orchestrator) also referred to as Ansible worker node 
+A Basic vNet and subnet
 
-The VM controller which acts as a bootstrapper will perform the following 
+2 Windows 2016 VMs for Domain controllers which can be a Meraki or Azure gateway.
 
-Store the data input from the ARM template form to be used in the second phase of the execution 
+2 windows 2016 VMs for cloud connectors
 
-The following binaries should be installed as part of Ansible worker node installation 
+1 VM which will act as the Controller(Orchestrator) also referred to as Ansible worker node
 
-Terraform 
+The VM controller which acts as a bootstrapper will perform the following
 
-Console 
+Store the data input from the ARM template form to be used in the second phase of the execution
 
-Vault 
+The following binaries should be installed as part of Ansible worker node installation
 
-Chocolaty 
+Terraform
 
-InSpec 
+Console
 
-The customer and the E360 C+A product DL will receive an email to complete the desired procurements and licensing. 
+Vault
+
+Chocolaty
+
+InSpec
+
+The customer and the E360 C+A product DL will receive an email to complete the desired procurements and licensing.
 
