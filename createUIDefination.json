@@ -9,16 +9,16 @@
             "type": "Microsoft.Common.TextBlock",
             "visible": true,
             "options": {
-                "text": "Place Holder Example",
+                "text": "The following questions are required to deploy the Desktop360 Citrix on Azure Product. If you need assistance with these configuration steps, please contact Entisys360 support at 877-ENTISYS (877-368-4797) – Opt 9 or email support@entisys360.com. Please choose the Subscription, Resource Group (existing or new) and Region Location.",
                 "link": {
-                    "label": "",
-                    "uri": ""
+                    "label": "Entisys360 Support",
+                    "uri": "https://www.entisys360.com/enterprise-support-services/"
                 }
             }
           }
         ],
         "steps": [
-          
+
             {
                 "name": "NetworkConfiguration",
                 "label": "Network Configuration",
@@ -33,10 +33,10 @@
                       "type": "Microsoft.Common.TextBlock",
                       "visible": true,
                       "options": {
-                          "text": "Placer Holder for networking 1",
+                          "text": "Please choose the Virtual Network (existing or create a new vNet) and configure Subnet segments. Click 'OK' When complete.",
                           "link": {
-                              "label": "Learn more",
-                              "uri": "https://www.microsoft.com"
+                              "label": "",
+                              "uri": ""
                           }
                       }
                   },
@@ -115,13 +115,13 @@
                         "visible": true
                     }
 
-                      
+
                 ]
             },
             {
                 "name": "OrchestratorVirtualMachine",
-                "label": "Orchestrator Virtual Machine",
-                "bladeTitle": "This VM Will Be used to Orchestrate Desktop360 product Deployment",
+                "label": "Orchestrator VM",
+                "bladeTitle": "Orchestrator VM Configuration",
                 "subLabel": {
                     "preValidation": "Choose virtual machine size",
                     "postValidation": "Done"
@@ -132,17 +132,17 @@
                       "type": "Microsoft.Common.TextBlock",
                       "visible": true,
                       "options": {
-                          "text": "Placer Holder for Orchestrator 1",
+                          "text": "The Orchestrator Virtual Machine manages the Desktop360 product deployment and day-2 maintenance services. Please choose the Orchestrator VM size and Authentication configuration. (Recommended size is selected). Click 'OK' when complete.",
                           "link": {
-                              "label": "Learn more",
-                              "uri": "https://www.microsoft.com"
+                              "label": "",
+                              "uri": ""
                           }
                       }
                   },
                     {
                       "name": "vmSize",
                       "type": "Microsoft.Compute.SizeSelector",
-                      "label": "VM size",
+                      "label": "Orchestrator VM Size",
                       "toolTip": "The size of virtual machines.",
                       "recommendedSizes": [
                         "Standard_A2",
@@ -188,23 +188,23 @@
             },
             {
                 "name": "DomainAndCc",
-                "label": "Domain and CC configuration",
-                "bladeTitle": "This VMs Will Be used as DC and CC",
+                "label": "Cloud Connector and Domain",
+                "bladeTitle": "Cloud Connector and Domain Configuration",
                 "subLabel": {
                     "preValidation": "Enter CC and Domain settings",
                     "postValidation": "Done"
                   },
-                  
+
                   "elements": [
                     {
                       "name": "announcement",
                       "type": "Microsoft.Common.TextBlock",
                       "visible": true,
                       "options": {
-                          "text": "Placer Holder for Domain Controller and CC 1",
+                          "text": "Please enter the Citrix Cloud Connector and Domain Service Configuration. If you need assistance with these configuration steps, please contact Entisys360 support at 877-ENTISYS (877-368-4797) – Opt 9 or email support@entisys360.com. Click 'OK' when complete.",
                           "link": {
-                              "label": "Learn more",
-                              "uri": "https://www.microsoft.com"
+                              "label": "",
+                              "uri": ""
                           }
                       }
                   },
@@ -217,7 +217,7 @@
                         "toolTip": "Use only allowed characters",
                         "constraints": {
                             "required": true,
-                            
+
                             "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
                         },
                         "visible": true
@@ -255,7 +255,7 @@
                     {
                         "name": "ADOrgUnit",
                         "type": "Microsoft.Common.TextBox",
-                        "label": "Orgination Unit Name",
+                        "label": "Organization Unit Name",
                         "placeholder": "OU=vdi,DC=e360labs,DC=Local",
                         "defaultValue": "OU=vdi,DC=e360labs,DC=Local",
                         "toolTip": "Use only allowed characters",
@@ -307,7 +307,7 @@
                         "count": 2,
                         "visible": true
                     },
-                      
+
                     {
                       "name": "WinAdminUsername",
                       "type": "Microsoft.Compute.UserNameTextBox",
@@ -346,7 +346,7 @@
                 "label": "Citrix Configuration",
                 "bladeTitle": "Citrix Configuration",
                 "subLabel": {
-                    "preValidation": "Set Citrix Congiguration",
+                    "preValidation": "Set Citrix Configuration",
                     "postValidation": "Done"
                 },
                 "elements": [
@@ -355,15 +355,15 @@
                     "type": "Microsoft.Common.TextBlock",
                     "visible": true,
                     "options": {
-                        "text": "Placer Holder for Citrix Settings",
-                        "link": {
-                            "label": "Learn more",
-                            "uri": "https://www.microsoft.com"
+                        "text": "Please enter the Citrix Virtual Desktop Configuration. The Desktop360 configuration runs the Azure DVIs in multi-user to allow a single VM to host up to 10 user desktops each. If you need assistance with these configuration steps, please contact Entisys360 support at 877-ENTISYS (877-368-4797) – Opt 9 or email support@entisys360.com. Click 'OK' when complete.",
+                          "link": {
+                            "label": "Entisys360 Support",
+                            "uri": "https://www.entisys360.com/enterprise-support-services/"
                         }
                     }
                 },
                     {
-                      
+
                         "name": "ctxZoneName",
                         "type": "Microsoft.Common.TextBox",
                         "label": "Citrix Zone Name",
@@ -371,30 +371,30 @@
                         "defaultValue": "E360 - Labs",
                         "toolTip": "Use only allowed characters",
                         "constraints": {
-                            
+
                             "required": true,
                             "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
                         },
                         "visible": true
                     },
                     {
-                        "name": "vdNamingScheme",
+                        "name": "vdiNamingScheme",
                         "type": "Microsoft.Common.TextBox",
                         "label": "Virtual Desktop Naming Scheme",
                         "placeholder": "VDI###",
                         "defaultValue": "",
-                        "toolTip": "Use only allowed characters",
+                        "toolTip": "Example: VDI### - Use only allowed characters",
                         "constraints": {
-                            
+
                             "required": true,
                             "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
                         },
                         "visible": true
                     },
                     {
-                      "name": "CloudConnectoresSize",
+                      "name": "vdiVMSize",
                       "type": "Microsoft.Compute.SizeSelector",
-                      "label": "Cloud Connector Size Size",
+                      "label": "VDI VM Instance Size",
                       "toolTip": "",
                       "recommendedSizes": [
                         "Standard_D1",
@@ -422,19 +422,19 @@
                     {
                         "name": "vdiCount",
                         "type": "Microsoft.Common.TextBox",
-                        "label": "Virtual desktop Count",
-                        "placeholder": "VDI###",
+                        "label": "Virtual Desktop Count",
+                        "placeholder": "",
                         "defaultValue": "",
-                        "toolTip": "Use only allowed characters",
+                        "toolTip": "Number of Desktops required. ie '150' desktops",
                         "constraints": {
-                            
+
                             "required": true,
-                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                            "validationMessage": "Only numeric characters are allowed, and the value must be 1-30 characters long."
                         },
                         "visible": true
                     }
                 ]
-                
+
             },
             {
                 "name": "StorageConfiguration",
@@ -450,10 +450,10 @@
                       "type": "Microsoft.Common.TextBlock",
                       "visible": true,
                       "options": {
-                          "text": "Placer Holder for Storage account settings",
+                          "text": "Please select the Desktop360 Configuration Storage Account or create a new Storage Account. This storage service holds all of the environment configuration settings. Click 'OK' when complete.",
                           "link": {
-                              "label": "Learn more",
-                              "uri": "https://www.microsoft.com"
+                              "label": "",
+                              "uri": ""
                           }
                       }
                   },
@@ -476,7 +476,7 @@
                       }
                   ]
             }
-            
+
         ],
         "outputs": {
             "virtualNetworkName": "[steps('NetworkConfiguration').VirtualNetworkConfig.name]",
@@ -494,14 +494,14 @@
             "CloudConnectorsVMSize": "[steps('DomainAndCc').CloudConnectoresSize]",
             "ccUserName": "[steps('DomainAndCc').WinAdminUsername]",
             "ccPassword": "[steps('DomainAndCc').WindowsCred]",
-            "ctxZoneName": "[steps('CitrixConfiguration').ctxZoneName]",
             "DomainName": "[steps('DomainAndCc').DomainName]",
             "ADOrgUnit": "[steps('DomainAndCc').ADOrgUnit]",
             "AzureApplicationId": "[steps('DomainAndCc').AzureApplicationId]",
             "AzureApplicationPassword": "[steps('DomainAndCc').AppIdPassword]",
             "VDICount": "[steps('CitrixConfiguration').vdiCount]",
-            "VDIVMSize": "[steps('CitrixConfiguration').vdiVMSizeSelector]",
-            "VDINamingScheme": "[steps('CitrixConfiguration').vdNamingScheme]",
+            "VDIVMSize": "[steps('CitrixConfiguration').vdiVMSize]",
+            "VDINamingScheme": "[steps('CitrixConfiguration').vdiNamingScheme]",
+            "ctxZoneName": "[steps('CitrixConfiguration').ctxZoneName]",
             "OrchestratorVirtualMachineSize": "[steps('OrchestratorVirtualMachine').vmSize]",
             "adminUsername": "[steps('OrchestratorVirtualMachine').adminUsername]",
             "authenticationType": "[steps('OrchestratorVirtualMachine').adminCredentials.authenticationType]",
