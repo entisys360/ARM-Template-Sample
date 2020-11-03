@@ -66,8 +66,6 @@ An estimate calculator which illustrates the estimated Azure consumption cost ba
 
 The customer will submit the form once he inputs all the required details.
 
-Roles involved: Customer
-
 Result: The form should validate the input values entered by the customer for basic requirements.
 
 
