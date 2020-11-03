@@ -16,111 +16,75 @@
 </a>
 
 
-## Introduction
+## Introduction to Desktop360
 
-To ease the manual delivery of computing of Citrix cloud over Azure solutions, Entisys360 has come up with a solution which can streamline these end user computing by automating the Citrix cloud over Azure delivery solution. The end product will be leveraging the Azure market place. The first phase the Minimum Viable Product designed will be released with from Github repos.
+Regardless of what business you’re in, your workforce relies on applications to get things done, and different job roles call for different resources. Productivity is entirely dependent upon access to the right applications at the right time, but security is a critical and permanent requirement.
+
+With Desktop360, you get improved speed of delivery, greater flexibility and enhanced workplace scenarios direct from the Azure Marketplace to deliver the Citrix Cloud over Azure solution from Entisys360.
+
+If you have any quesitons or need assistance with these configuration steps, please contact Entisys360 support at 877-ENTISYS (877-368-4797) – Opt 9 or email support at support@entisys360.com.
 
 
 
-## The following steps outlines the features that will be released as part of the first phase (Beta release).
+## Installation Steps
+### ( Entisys360 Internal Beta release )
+
+To complete the installation of the Desktop360 product, there are two phases:
+
+### Phase 1: Complete the initial configuration form data fields, and Submit.
+
+The initial automation and configuration will build the preliminary environment resources into the customer's subscription of choice. Email notifications are then sent to the customer and internal Entisys360 sales/support staff.
+
+The internal sales and support staff will follow through with the email notifications to then work with the customer to complete the following steps:
+- Establish connectivity from Azure to On-Premises (VPN, Meraki, etc)
+- Connect the Domain to Azure Domain Servers
+- Establish a Citrix Site
+
+
+### Phase 2: Automated Citrix Cloud over Azure solution Delivery
+
+With the domain connected and the Citrix Cloud Site setup, Entisys360 support staff will validate all environment settings and lastly trigger the second phase of the automated installation.
+
+The customer will receive notice of the environment stand-up, access to key resources, and additional instructions and documentation.
+
+
+## Step 1
+
+Customer goes to Github location <link to be provided> which will be a public repository and click on the “Deploy to Azure” button.
+
+Result: The Customer will be redirected to the Azure portal
 
 
 
-### Step 1
+## Step 2
 
-Description : Click on the Github Button.
+Within the customer's Azure Portal, the ARM template form will be pre-populated with default data.
+The customer will input custom values as per their requirements.
 
-Action:
-
-Customer goes to Github location <link to be provided> which will be a public repository
-
-He clicks on the “Entisys360 WVD Delivery” button in Github.
-
-Roles involved: Customer
-
-Output: The Customer will be redirected to the Azure portal
-
-### Step 2
-
-Description: Azure portal ARM template
-
-Action:
-
-Customer will be visualizing a pre-populated ARM form where he will need to input the required values as per their requirement.
-
-The form will be provided with few default values which can be overwritten by the customer if required.
-
-The form will be a paginated one with appropriate section for collecting the details inputs from the customer
-
-An estimate calculatore which illustrates the likely cost estimate base don the data entered     will be displayed before the submission.The cost details will include the
-
-Azure Consumption cost
-
-Citrix License
+(future phase)
+An estimate calculator which illustrates the estimated Azure consumption cost base on the data entered.
 
 The customer will submit the form once he inputs all the required details.
 
 Roles involved: Customer
 
-Output:
-
-The form should validate the input values entered by the customer for basic requirements.
-
-The form once submitted will execute the next steps in 2 phases
+Result: The form should validate the input values entered by the customer for basic requirements.
 
 
 
-### Step 3
+## Step 3
 
 Description: ARM Phase one execution
 
-Actions:
+The validated and submitted form will execute the preliminary bootstrap environment and resource automation.
+- vnets and subnets
+- Orchestrator VM
+	Ansible Worker - Automation and Playbooks, Logging and Secret Management
+- Domain Controllers
+	2 Windows 2016 VMs which can be a Meraki or Azure gateway
+- Citrix Cloud Connectors
+	2 windows 2016 VMs
+- A Basic vNet and subnet
 
-The initial bootstrap execution starts
 
-This will setup the the initial setup using a VM extension. This involves setting up of the vnets,    subnets, VMs for domain controllers and cloud connectors.
-
-This will also set up another VM which will be an Orchestrator VM which acts as
-
-Controller/ worker node which will be used to host the Ansible to run the required playbooks
-
-A storage account for the data input from the ARM template form to be used for the ARM phase two execution.
-
-This will be henceforth referred to as the Ansible controller.
-
-This Ansible controller performs the task of downloading the source code from the repos to    install the required binaries in the controller VM which will be used to execute the phase 2    execution.
-
-An email should be sent for the manual intervention for both customer and Entisys360 C+A    product DL
-
-Roles involved: Automated step
-
-Output:
-
-Post the first phase execution following should be available.
-
-A Basic vNet and subnet
-
-2 Windows 2016 VMs for Domain controllers which can be a Meraki or Azure gateway.
-
-2 windows 2016 VMs for cloud connectors
-
-1 VM which will act as the Controller(Orchestrator) also referred to as Ansible worker node
-
-The VM controller which acts as a bootstrapper will perform the following
-
-Store the data input from the ARM template form to be used in the second phase of the execution
-
-The following binaries should be installed as part of Ansible worker node installation
-
-Terraform
-
-Console
-
-Vault
-
-Chocolaty
-
-InSpec
-
-The customer and the E360 C+A product DL will receive an email to complete the desired procurements and licensing.
-
+If you have any quesitons or need assistance with these configuration steps, please contact Entisys360 support at 877-ENTISYS (877-368-4797) – Opt 9 or email support at support@entisys360.com.
