@@ -145,9 +145,9 @@
                       "label": "Orchestrator VM Size",
                       "toolTip": "The size of virtual machines.",
                       "recommendedSizes": [
-                        "Standard_A2",
-                        "Standard_A3",
-                        "Standard_A4"
+                        "Standard_D2_v2",
+                        "Standard_D1_v2",
+                        "Standard_D3_v2"
                       ],
                       "osPlatform": "Linux",
                       "imageReference": {
@@ -285,9 +285,9 @@
                         "label": "Cloud Connector VM Size",
                         "toolTip": "",
                         "recommendedSizes": [
-                          "Standard_D1",
-                          "Standard_D2",
-                          "Standard_D3"
+                          "Standard_D2_v2",
+                          "Standard_D1_v2",
+                          "Standard_D3_v2"
                         ],
                         "constraints": {
                           "allowedSizes": [],
@@ -397,9 +397,9 @@
                       "label": "VDI VM Instance Size",
                       "toolTip": "",
                       "recommendedSizes": [
-                        "Standard_D1",
-                        "Standard_D2",
-                        "Standard_D3"
+                        "Standard_D2_v2",
+                        "Standard_D1_v2",
+                        "Standard_D3_v2"
                       ],
                       "constraints": {
                         "allowedSizes": [],
