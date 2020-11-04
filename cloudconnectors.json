@@ -142,6 +142,9 @@
         //   }
         // }
       },
+      "tags": {
+        "ServerRole": "CC"
+      },
       "dependsOn": [
         "[resourceId('Microsoft.Compute/availabilitySets/', parameters('availabilitySetName'))]",
         "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('CloudConnectorsNamePrefix'), copyIndex(1), '-NIC1'))]"

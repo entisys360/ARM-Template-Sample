@@ -477,7 +477,7 @@
                     "value": "[parameters('subnet0Name')]"
                 },
                 "ansibleVars": {
-                    "value": "[reference('PopulateVariables').outputs.JsonMachineCatalog.value]"
+                    "value": "[reference('PopulateVariables').outputs.citrixresult.value]"
                 }
 
 
