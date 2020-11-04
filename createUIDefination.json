@@ -432,7 +432,106 @@
                             "validationMessage": "Only numeric characters are allowed, and the value must be 1-30 characters long."
                         },
                         "visible": true
-                    }
+                    },
+                    {
+                      "name": "desktopGroupName",
+                      "type": "Microsoft.Common.TextBox",
+                      "label": "Delivery Group Name",
+                      "placeholder": "",
+                      "defaultValue": "",
+                      "toolTip": "name of delivery group to be created",
+                      "constraints": {
+
+                          "required": true,
+                          "validationMessage": ""
+                      },
+                      "visible": true
+                  },
+                  {
+                    "name": "desktopGroupPublishedName",
+                    "type": "Microsoft.Common.TextBox",
+                    "label": "Desktop Group Publish Name",
+                    "placeholder": "",
+                    "defaultValue": "",
+                    "toolTip": "Desktop Group Publish Name",
+                    "constraints": {
+
+                        "required": true,
+                        "validationMessage": ""
+                    },
+                    "visible": true
+                  },
+                  {
+                    "name": "desktopGroupDesc",
+                    "type": "Microsoft.Common.TextBox",
+                    "label": "Desktop Group Description",
+                    "placeholder": "",
+                    "defaultValue": "",
+                    "toolTip": "Desktop Group Description",
+                    "constraints": {
+
+                        "required": true,
+                        "validationMessage": ""
+                    },
+                    "visible": true
+                  },
+                  {
+                    "name": "assignedGroup",
+                    "type": "Microsoft.Common.TextBox",
+                    "label": "Active Directory Groups which need access to desktop",
+                    "placeholder": "",
+                    "defaultValue": "",
+                    "toolTip": "Active Directory Groups which need access to desktop",
+                    "constraints": {
+
+                        "required": true,
+                        "validationMessage": ""
+                    },
+                    "visible": true
+                  },
+                  {
+                    "name": "ctxCustomerID",
+                    "type": "Microsoft.Common.TextBox",
+                    "label": "Citrix Customer ID",
+                    "placeholder": "",
+                    "defaultValue": "",
+                    "toolTip": "Citrix Customer ID",
+                    "constraints": {
+
+                        "required": true,
+                        "validationMessage": ""
+                    },
+                    "visible": true
+                  },
+                  
+                  {
+                    "name": "ctxApiKey",
+                    "type": "Microsoft.Common.TextBox",
+                    "label": "Citrix Cloud API Key",
+                    "placeholder": "",
+                    "defaultValue": "",
+                    "toolTip": "Citrix Cloud API Key",
+                    "constraints": {
+
+                        "required": true,
+                        "validationMessage": ""
+                    },
+                    "visible": true
+                  },
+                  {
+                    "name": "ctxApiSecret",
+                    "type": "Microsoft.Common.TextBox",
+                    "label": "Citrix Cloud API Secret",
+                    "placeholder": "",
+                    "defaultValue": "",
+                    "toolTip": "Citrix Cloud API Secret",
+                    "constraints": {
+
+                        "required": true,
+                        "validationMessage": ""
+                    },
+                    "visible": true
+                  }
                 ]
 
             },
@@ -506,7 +605,14 @@
             "adminUsername": "[steps('OrchestratorVirtualMachine').adminUsername]",
             "authenticationType": "[steps('OrchestratorVirtualMachine').adminCredentials.authenticationType]",
             "adminPassword": "[steps('OrchestratorVirtualMachine').adminCredentials.password]",
-            "adminSShKey": "[steps('OrchestratorVirtualMachine').adminCredentials.sshPublicKey]"
+            "adminSShKey": "[steps('OrchestratorVirtualMachine').adminCredentials.sshPublicKey]",
+            "desktopGroupName": "[steps('CitrixConfiguration').desktopGroupName]",
+            "desktopGroupPublishedName": "[steps('CitrixConfiguration').desktopGroupPublishedName]",
+            "desktopGroupDesc": "[steps('CitrixConfiguration').desktopGroupDesc]",
+            "assignedGroup": "[steps('CitrixConfiguration').assignedGroup]",
+            "ctxCustomerID": "[steps('CitrixConfiguration').ctxCustomerID]",
+            "ctxApiSecret": "[steps('CitrixConfiguration').ctxApiSecret]",
+            "ctxApiKey": "[steps('CitrixConfiguration').ctxApiKey]"
         }
     }
 }
