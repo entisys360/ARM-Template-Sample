@@ -267,6 +267,55 @@
                 "description": "Azure Application ID Secret "
             },
             "defaultValue": ""
+        },
+        "desktopGroupName": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "desktopGroupPublishedName": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "desktopGroupDesc": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "timeZone": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            },
+            "defaultValue": "Pacific Standard Time"
+        },
+        "assignedGroup": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "ctxCustomerID": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "ctxApiSecret": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "ctxApiKey": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
         }
     },
     "functions": [],
@@ -301,7 +350,22 @@
 
             },
             "deliveryGroup": {
-
+                "desktopGroupName": "[parameters('desktopGroupName')]",
+                "desktopGroupPublishedName": "[parameters('desktopGroupPublishedName')]",
+                "desktopGroupDesc": "[parameters('desktopGroupDesc')]",
+                "colorDepth": "TwentyFourBit",
+                "deliveryType": "DesktopsOnly",
+                "desktopKind": "Shared",
+                "sessionSupport": "MultiSession",
+                "functionalLevel": "L7_20",
+                "timeZone": "[parameters('timeZone')]",
+                "offPeakBuffer": 10,
+                "peakBuffer": 10,
+                "assignedGroup": "[parameters('assignedGroup')]",
+                "CustomerID": "[parameters('ctxCustomerID')]",
+                "Secrets": "[parameters('ctxApiSecret')]",
+                "ApiKey": "[parameters('ctxApiKey')]",
+                "machineCatalogName": "[variables('VirtualDesktopSettings').MachineCatalog.Name]"
             },
             "HostingConnection": {
                 "connectionName": "[concat('HC-','WVD-',parameters('virtualNetworkName'),'-Resource')]",
@@ -483,7 +547,11 @@
                 },
                 "JsonHostingConnection": {
                     "value": "[reference('PopulateVariables').outputs.JsonHostingConnection.value]"
+                },
+                "JsonDeliveryGroup": {
+                    "value": "[reference('PopulateVariables').outputs.JsonDeliveryGroup.value]"
                 }
+
 
             }
         },
