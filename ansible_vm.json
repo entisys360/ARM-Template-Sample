@@ -148,9 +148,6 @@
   }
     ],
     "outputs": {
-        "ansiblevar": {
-            "type": "string",
-            "value": "[parameters('ansibleVars')]"
-        }
+        
     }
 }
