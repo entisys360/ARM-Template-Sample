@@ -56,8 +56,10 @@ main() {
   fi
 
   ansible_execute_func
-  touch /tmp/ansible_hosting_var.json
-  echo "$1" > /tmp/ansible_hosting_var.json
+  touch /tmp/machine_catalog.json
+  touch /tmp/hosting_connection.json
+  echo "$1" > /tmp/machine_catalog.json
+  echo "$2" > /tmp/hosting_connection.json
 }
 
 main "$@"

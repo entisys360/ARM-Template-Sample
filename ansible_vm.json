@@ -33,7 +33,13 @@
                 "description": "description"
             }
         },
-        "ansibleVars": {
+        "JsonMachineCatalog": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "JsonHostingConnection": {
             "type": "string",
             "metadata": {
                 "description": "description"
@@ -43,7 +49,8 @@
     "functions": [],
     "variables": {
         "SingleQuote": "'",
-        "Ansible_json": "[concat(variables('SingleQuote'),parameters('ansibleVars'),variables('SingleQuote'))]"
+        "Ansible_JsonMachineCatalog_json": "[concat(variables('SingleQuote'),parameters('JsonMachineCatalog'),variables('SingleQuote'))]",
+        "Ansible_JsonHostingConnection_json": "[concat(variables('SingleQuote'),parameters('JsonHostingConnection'),variables('SingleQuote'))]"
 
     },
     "resources": [
@@ -131,7 +138,7 @@
               "fileUris": [
                   "[concat(parameters('ansible')._artifactsLocation, '/install_ansible.sh')]"
               ],
-              "commandToExecute": "[concat('sh install_ansible.sh ',variables('Ansible_json'))]"
+              "commandToExecute": "[concat('sh install_ansible.sh ',variables('Ansible_JsonMachineCatalog_json'), ' ', variables('Ansible_JsonHostingConnection_json'))]"
           },
           "protectedSettings": {
              
