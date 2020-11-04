@@ -1,0 +1,135 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "ccUserName": {
+            "value": "superadmin"
+        },
+        "ccPassword": {
+            "value": "123ABC!@#$%^&"
+        },
+        "OrchestratorVirtualMachineSize": {
+            "value": "Standard_A2_v2"
+        },
+        "CloudConnectorVMNamePrefix": {
+            "value": "entisyscc"
+        },
+        "CloudConnectorsVMSize": {
+            "value": "Standard_A2_v2"
+        },
+        "virtualNetworkName": {
+            "value": "Citrix-Vnet"
+        },
+        "virtualNetworkAddressPrefixes": {
+            "value": "192.168.0.0/16"
+        },
+        "subnet0Name": {
+            "value": "AnsibleSubnet"
+        },
+        "subnet1Name": {
+            "value": "Managment"
+        },
+        "subnet2Name": {
+            "value": "GatewaySubnet"
+        },
+        "subnet3Name": {
+            "value": "VirtualDesktops"
+        },
+        "subnet0Prefix": {
+            "value": "192.168.0.0/24"
+        },
+        "subnet1Prefix": {
+            "value": "192.168.1.0/24"
+        },
+        "subnet2Prefix": {
+            "value": "192.168.2.0/24"
+        },
+        "subnet3Prefix": {
+            "value": "192.168.3.0/24"
+        },
+        "StorageAccountName": {
+            "value": "entisys002020"
+        },
+        "adminUsername": {
+            "value": "superadmin"
+        },
+        "_artifactsLocation": {
+            "value": "https://raw.githubusercontent.com/entisys360/ARM-Template-Sample/vinay-dev"
+        },
+        "_artifactsLocationSasToken": {
+            "value": ""
+        },
+        "authenticationType": {
+            "value": "sshPublicKey"
+        },
+        "adminPassword": {
+            "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtdT9c3sPJH3n75w/sEI/mV1tHABIT8ikjwxBtARX17eKmmUd/feLQYZNW0hPsIrZIpL3ppW4e/Uc7wmWGnOrMaUCsvbXkpV2zkofttqi3Ni/6qVhMv/+IuZmk7h53ITI2DZO0Kel3ZIV+xUpZxnPITUiHYkFLy6u9HcBoFSxDwtQNisuNaghSoPTVwV98QJToPwFDDcWDARHGUm4AxBzU5QY4yOqKyGJU+vEaEwWjA/0/5CAk7kCd1SSy58QDduhlLDmVLuiLtyu4DtstXy3QAlSg1zYK1zryCm6CM3MvjlKH+LgHGOcZWNGhWgjiEcTmCLmKSJ02WnE96T9Hne6b vinay.sanjivaiah@entisys360.com"
+        },
+        "adminSShKey": {
+            "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtdT9c3sPJH3n75w/sEI/mV1tHABIT8ikjwxBtARX17eKmmUd/feLQYZNW0hPsIrZIpL3ppW4e/Uc7wmWGnOrMaUCsvbXkpV2zkofttqi3Ni/6qVhMv/+IuZmk7h53ITI2DZO0Kel3ZIV+xUpZxnPITUiHYkFLy6u9HcBoFSxDwtQNisuNaghSoPTVwV98QJToPwFDDcWDARHGUm4AxBzU5QY4yOqKyGJU+vEaEwWjA/0/5CAk7kCd1SSy58QDduhlLDmVLuiLtyu4DtstXy3QAlSg1zYK1zryCm6CM3MvjlKH+LgHGOcZWNGhWgjiEcTmCLmKSJ02WnE96T9Hne6b vinay.sanjivaiah@entisys360.com"
+        },
+        "ctxZoneName": {
+            "value": "E360-Labs"
+        },
+        "DomainName": {
+            "value": "e360labs.local"
+        },
+        "MachineCatalogName": {
+            "value": "MC001"
+        },
+        "MachineCatalogDescription": {
+            "value": "MC001"
+        },
+        "ADOrgUnit": {
+            "value": "OU=test,DC=e360labs,dc=local"
+        },
+        "VDINamingScheme": {
+            "value": "VM###"
+        },
+        "VDIAllocationMethod": {
+            "value": "Random"
+        },
+        "VDIVMSize": {
+            "value": "Standard_B2ms"
+        },
+        "VDIAdminUserName": {
+            "value": "e360labs\\admin"
+        },
+        "VDIAdminPassword": {
+            "value": "1234567890"
+        },
+        "VDICount": {
+            "value": "1"
+        },
+        "AzureApplicationId": {
+            "value": "39c2b520-442e-4ea6-8901-9789ca9b5da2"
+        },
+        "AzureApplicationPassword": {
+            "value": ""
+        },
+        "desktopGroupName": {
+            "value": "Devops-Demo"
+        },
+        "desktopGroupPublishedName": {
+            "value": "Devops-Demo"
+        },
+        "desktopGroupDesc": {
+            "value": "Devops-Demo"
+        },
+        "timeZone": {
+            "value": "Pacific Standard Time"
+        },
+        "assignedGroup": {
+            "value": "e360labs\\domain users"
+        },
+        "ctxCustomerID": {
+            "value": "e360"
+        },
+        "ctxApiSecret": {
+            "value": "abcd1234anv===="
+        },
+        "ctxApiKey": {
+            "value": "bd65600d-8669-4903-8a14-af88203add38"
+        }
+    }
+}

@@ -272,19 +272,22 @@
             "type": "string",
             "metadata": {
                 "description": "description"
-            }
+            },
+            "defaultValue": "Devops-Demo"
         },
         "desktopGroupPublishedName": {
             "type": "string",
             "metadata": {
                 "description": "description"
-            }
+            },
+            "defaultValue": "Devops-Demo"
         },
         "desktopGroupDesc": {
             "type": "string",
             "metadata": {
                 "description": "description"
-            }
+            },
+            "defaultValue": "Devops-Demo"
         },
         "timeZone": {
             "type": "string",
@@ -297,25 +300,29 @@
             "type": "string",
             "metadata": {
                 "description": "description"
-            }
+            },
+            "defaultValue":  "e360labs\\domain users"
         },
         "ctxCustomerID": {
             "type": "string",
             "metadata": {
                 "description": "description"
-            }
+            },
+            "defaultValue": "e360"
         },
         "ctxApiSecret": {
             "type": "string",
             "metadata": {
                 "description": "description"
-            }
+            },
+            "defaultValue": "abcd1234anv===="
         },
         "ctxApiKey": {
             "type": "string",
             "metadata": {
                 "description": "description"
-            }
+            },
+            "defaultValue": "bd65600d-8669-4903-8a14-af88203add38"
         }
     },
     "functions": [],
@@ -649,10 +656,6 @@
     // }
   ],
   "outputs": {
-      "LogInCred": {
-          "type": "string",
-          "value": "[concat('Local Cred, UserName: ',variables('CloudConnectors').VMConfig.VMAdminUserName, '   Password: ', variables('Global').Password)]"
-      }
   }
 
 }
