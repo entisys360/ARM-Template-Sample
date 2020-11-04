@@ -48,7 +48,10 @@
           }
       }
     },
-    "variables": {},
+removed     "variables": {
+      
+      //"scriptParameters": "[concat('-artifactsLocation ', parameters('_artifactsLocation'), ' -artifactsLocationSasToken \"', parameters('_artifactsLocationSasToken'), '\" -folderName ', variables('scriptFolder'), ' -fileToInstall ', variables('fileToBeCopied'))],
+    },
     "resources": [
         {
             "type": "Microsoft.Compute/availabilitySets",
@@ -149,7 +152,32 @@
         "[resourceId('Microsoft.Compute/availabilitySets/', parameters('availabilitySetName'))]",
         "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('CloudConnectorsNamePrefix'), copyIndex(1), '-NIC1'))]"
       ]
-    }
+    },
+    {
+          "type": "Microsoft.Compute/virtualMachines/extensions",
+          "name": "[concat(parameters('CloudConnectorsNamePrefix'), copyIndex(1),'/','winrm_script')]",
+          "apiVersion": "2017-03-30",
+          "location": "[resourceGroup().location]",
+          "copy": {
+            "name": "extension",
+            "count": 2
+          },
+          "dependsOn": [
+            "VMcopy"
+          ],
+          "properties": {
+            "publisher": "Microsoft.Compute",
+            "type": "CustomScriptExtension",
+            "typeHandlerVersion": "1.8",
+            "autoUpgradeMinorVersion": true,
+            "settings": {
+              "fileUris": [
+                "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
+              ],
+              "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File ConfigureRemotingForAnsible.ps1"
+            }
+          }
+        }
 
     ]
   }

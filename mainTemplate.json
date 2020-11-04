@@ -372,7 +372,7 @@
                 "CustomerID": "[parameters('ctxCustomerID')]",
                 "Secrets": "[parameters('ctxApiSecret')]",
                 "ApiKey": "[parameters('ctxApiKey')]",
-                "machineCatalogName": "[variables('VirtualDesktopSettings').MachineCatalog.Name]"
+                "machineCatalogName": "[parameters('MachineCatalogName')]"
             },
             "HostingConnection": {
                 "connectionName": "[concat('HC-','WVD-',parameters('virtualNetworkName'),'-Resource')]",
