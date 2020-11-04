@@ -48,7 +48,7 @@
           }
       }
     },
-removed     "variables": {
+    "variables": {
       
       //"scriptParameters": "[concat('-artifactsLocation ', parameters('_artifactsLocation'), ' -artifactsLocationSasToken \"', parameters('_artifactsLocationSasToken'), '\" -folderName ', variables('scriptFolder'), ' -fileToInstall ', variables('fileToBeCopied'))],
     },
