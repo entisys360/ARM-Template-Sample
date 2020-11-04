@@ -13,7 +13,8 @@
             "type": "securestring",
             "metadata": {
                 "description": "Cloud Connector VM Password"
-            }
+            },
+            "defaultValue": "123ABC!@#$%^&"
         },
         "OrchestratorVirtualMachineSize": {
             "type": "string",
@@ -144,11 +145,11 @@
         },
         "_artifactsLocationSasToken": {
             "type": "securestring",
-
             "metadata": {
                 "description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated."
             },
-            "defaultValue": "ABC!@#123ABC"
+            "defaultValue": ""
+
         },
 
         "authenticationType": {
@@ -477,10 +478,12 @@
                 "AnsibleSubnet": {
                     "value": "[parameters('subnet0Name')]"
                 },
-                "ansibleVars": {
-                    "value": "[reference('PopulateVariables').outputs.citrixresult.value]"
+                "JsonMachineCatalog": {
+                    "value": "[reference('PopulateVariables').outputs.JsonMachineCatalog.value]"
+                },
+                "JsonHostingConnection": {
+                    "value": "[reference('PopulateVariables').outputs.JsonHostingConnection.value]"
                 }
-
 
             }
         },
