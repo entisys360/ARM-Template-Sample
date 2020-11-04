@@ -148,7 +148,7 @@
             "metadata": {
                 "description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated."
             },
-            "defaultValue": ""
+            "defaultValue": "ABC!@#123ABC"
         },
 
         "authenticationType": {
@@ -173,7 +173,8 @@
             "type": "securestring",
             "metadata": {
                 "description": "description"
-            }
+            },
+            "defaultValue": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtdT9c3sPJH3n75w/sEI/mV1tHABIT8ikjwxBtARX17eKmmUd/feLQYZNW0hPsIrZIpL3ppW4e/Uc7wmWGnOrMaUCsvbXkpV2zkofttqi3Ni/6qVhMv/+IuZmk7h53ITI2DZO0Kel3ZIV+xUpZxnPITUiHYkFLy6u9HcBoFSxDwtQNisuNaghSoPTVwV98QJToPwFDDcWDARHGUm4AxBzU5QY4yOqKyGJU+vEaEwWjA/0/5CAk7kCd1SSy58QDduhlLDmVLuiLtyu4DtstXy3QAlSg1zYK1zryCm6CM3MvjlKH+LgHGOcZWNGhWgjiEcTmCLmKSJ02WnE96T9Hne6b vinay.sanjivaiah@entisys360.com"
         },
         "ctxZoneName": {
             "type": "string",
