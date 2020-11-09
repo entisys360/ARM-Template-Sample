@@ -301,7 +301,7 @@
             "metadata": {
                 "description": "description"
             },
-            "defaultValue":  "e360labs\\domain users"
+            "defaultValue":  "e360labs\\\\domain users"
         },
         "ctxCustomerID": {
             "type": "string",
@@ -386,7 +386,6 @@
                 "subscriptionName": "[subscription().displayName]",
                 "tenantId": "[subscription().tenantId]",
                 "ZoneName": "[parameters('ctxZoneName')]"
-
             }
         },
         // "DomainControllers": {
@@ -440,8 +439,6 @@
                     ]
                 }
             }
-            //"customData": "[concat('{\"CloudConnectorVMName\":\"', parameters('CloudConnectorVMName'), '\",\"CloudConnectorsVMSize\":\"', parameters('CloudConnectorsVMSize'), '\",\"virtualNetworkName\":\"', parameters('virtualNetworkName'), '\",\"virtualNetworkAddressPrefixes\":\"', parameters('virtualNetworkAddressPrefixes'), '\",\"subnet0Name\":\"', parameters('subnet0Name'), '\",\"subnet1Name\":\"', parameters('subnet1Name'), '\",\"subnet2Name\":\"', parameters('subnet2Name'), '\",\"subnet3Name\":\"', parameters('subnet3Name'), '\",\"subnet0Prefix\":\"', parameters('subnet0Prefix'), '\",\"subnet1Prefix\":\"', parameters('subnet1Prefix'), '\",\"subnet2Prefix\":\"', parameters('subnet2Prefix'), '\",\"subnet3Prefix\":\"', parameters('subnet3Prefix'), '\",\"StorageAccountName\":\"', parameters('StorageAccountName'), '\",\"adminUsername\":\"', parameters('adminUsername'), '\",\"_artifactsLocation\":\"', parameters('_artifactsLocation'), '\",\"_artifactsLocationSasToken\":\"', parameters('_artifactsLocationSasToken'), '\",\"authenticationType\":\"', parameters('authenticationType'), '\",\"adminPasswordOrKey\":\"', parameters('adminPasswordOrKey'), '\",\"ctxZoneName\":\"', parameters('ctxZoneName'), '\",\"DomainName\":\"', parameters('DomainName'), '\",\"MachineCatalogName\":\"', parameters('MachineCatalogName'), '\",\"MachineCatalogDescription\":\"', parameters('MachineCatalogDescription'), '\",\"ADOrgUnit\":\"', parameters('ADOrgUnit'), '\",\"VDINamingScheme\":\"', parameters('VDINamingScheme'), '\",\"VDIAllocationMethod\":\"', parameters('VDIAllocationMethod'), '\",\"VDIVMSize\":\"', parameters('VDIVMSize'), '\",\"VDIAdminUserName\":\"', parameters('VDIAdminUserName'), '\",\"VDIAdminPassword\":\"', parameters('VDIAdminPassword'), '\",\"VDICount\":\"', parameters('VDICount'), '\",\"AzureApplicationId\":\"', parameters('AzureApplicationId'), '\",\"AzureApplicationPassword\":\"', parameters('AzureApplicationPassword'), '\",\"VDIdesktopGroupName\":\"', parameters('VDIdesktopGroupName'), '\",\"VDIdesktopGroupDesc\":\"', parameters('VDIdesktopGroupDesc'), '\",\"VDIcolorDepth\":\"', parameters('VDIcolorDepth'), '\",\"timeZone\":\"', parameters('timeZone'), '\"}')]"
-
         }
     },
     "resources": [
@@ -511,7 +508,8 @@
         "properties": {
             "mode": "Incremental",
             "templateLink": {
-                "uri": "[concat(parameters('_artifactsLocation'), '/helper.json',parameters('_artifactsLocationSasToken'))]",
+                "uri": "[uri(deployment().properties.templateLink.uri,'/helper.json')]",
+                //"uri": "[concat(parameters('_artifactsLocation'), '/helper.json',parameters('_artifactsLocationSasToken'))]",
                 "contentVersion": "1.0.0.0"
             },
             "parameters": {
@@ -532,7 +530,7 @@
         "properties": {
             "mode": "Incremental",
             "templateLink": {
-                "uri": "[concat(parameters('_artifactsLocation'), '/ansible_vm.json',parameters('_artifactsLocationSasToken'))]",
+                "uri": "[uri(deployment().properties.templateLink.uri,'/ansible_vm.json')]",
                 "contentVersion": "1.0.0.0"
             },
             "parameters": {
@@ -576,7 +574,8 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), '/cloudconnectors.json', parameters('_artifactsLocationSasToken'))]",
+          "uri": "[uri(deployment().properties.templateLink.uri,'/cloudconnectors.json')]",
+          //"uri": "[concat(parameters('_artifactsLocation'), '/cloudconnectors.json', parameters('_artifactsLocationSasToken'))]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
