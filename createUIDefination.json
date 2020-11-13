@@ -18,10 +18,14 @@
           }
         ],
         "steps": [
-            {
+          {
             "name": "CustomerInfo",
             "label": "Customer Information",
-            "bladeTitle": "Customer info",
+            "bladeTitle": "Customer Information",
+            "subLabel": { 
+              "preValidation": "Customer information", 
+              "postValidation": "Done" 
+              },
             "elements": [
               {
                 "name": "announcement",
@@ -34,7 +38,73 @@
                         "uri": ""
                     }
                 }
-              }      
+              },
+              {
+                "name": "OwnerCoName",
+                "type": "Microsoft.Common.TextBox",
+                "label": "Company",
+                "placeholder": "",
+                "defaultValue": "Company Name",
+                "toolTip": "Use only allowed characters",
+                "constraints": {
+                    "required": true,
+                    "regex": "^[a-z0-9A-Z]{1,30}$",
+                    "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                },
+                "visible": true
+            },
+              {
+                "name": "OwnerSubscription",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Subscription Owner",
+                "constraints": {
+                    "required": false,
+                    "validationMessage": "You must be an 'owner' of the subscription."
+                }
+
+            },
+              {
+                "name": "OwnerFullName",
+                "type": "Microsoft.Common.TextBox",
+                "label": "Contact Name",
+                "placeholder": "",
+                "defaultValue": "",
+                "toolTip": "Use only allowed characters",
+                "constraints": {
+                    "required": true,
+                    "regex": "^[a-z0-9A-Z]{1,30}$",
+                    "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                },
+                "visible": true
+            },
+            {
+              "name": "OwnerEmailAddress",
+              "type": "Microsoft.Common.TextBox",
+              "label": "Contact Email",
+
+              "defaultValue": "",
+              "toolTip": "Please enter a valid email account",
+              "constraints": {
+                  "required": false,
+                  "regex": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$",
+                  "validationMessage": "Email is not valid. Please re-enter."
+                },
+                "visible": true
+            },
+            {
+              "name": "OwnerPhone",
+              "type": "Microsoft.Common.TextBox",
+              "label": "Contact Phone",
+              "placeholder": "",
+              "defaultValue": "",
+              "toolTip": "Use only allowed characters",
+              "constraints": {
+                  "required": true,
+                  "regex": "^[a-z0-9A-Z]{1,30}$",
+                  "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+              },
+              "visible": true
+          }  
           ]
             },
             {
