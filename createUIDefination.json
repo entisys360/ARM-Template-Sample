@@ -21,6 +21,7 @@
             {
             "name": "CustomerInfo",
             "label": "Customer Information",
+            "bladeTitle": "Customer info",
             "elements": [
               {
                 "name": "announcement",
