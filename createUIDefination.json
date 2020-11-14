@@ -698,7 +698,12 @@
             "assignedGroup": "[steps('CitrixConfiguration').assignedGroup]",
             "ctxCustomerID": "[steps('CitrixConfiguration').ctxCustomerID]",
             "ctxApiSecret": "[steps('CitrixConfiguration').ctxApiSecret]",
-            "ctxApiKey": "[steps('CitrixConfiguration').ctxApiKey]"
+            "ctxApiKey": "[steps('CitrixConfiguration').ctxApiKey]",
+            "OwnerSubscription": "[steps('CitrixConfiguration').OwnerSubscription]",
+            "OwnerCoName": "[steps('CustomerInfo').OwnerCoName]",
+            "OwnerFullName": "[steps('CustomerInfo').OwnerFullName]",
+            "OwnerEmailAddress": "[steps('CustomerInfo').OwnerEmailAddress]",
+            "OwnerPhone": "[steps('CustomerInfo').OwnerPhone]"
         }
     }
 }
