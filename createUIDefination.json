@@ -1,6 +1,6 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
-    "handler": "Microsoft.Compute.MultiVm",
+    "handler": "Microsoft.Azure.CreateUIDef",
     "version": "0.1.2-preview",
     "parameters": {
         "basics": [
@@ -58,10 +58,9 @@
                 "type": "Microsoft.Common.CheckBox",
                 "label": "Subscription Owner",
                 "constraints": {
-                    "required": false,
+                    "required": true,
                     "validationMessage": "You must be an 'owner' of the subscription."
                 }
-
             },
               {
                 "name": "OwnerFullName",
