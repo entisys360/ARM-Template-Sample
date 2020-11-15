@@ -58,9 +58,8 @@
                 "type": "Microsoft.Common.OptionsGroup",
                 "label": "Subscription Owner",
                 "defaultValue": "No",
-                "toolTip": "Select 'Yes' and provide required info .",
+                "toolTip": "Select 'Yes', You must be an 'Owner' of the subscription.",
                 "constraints": {
-                  
                   "allowedValues": [
                     {
                         "label": "Yes",
@@ -69,11 +68,9 @@
                     {
                         "label": "No",
                         "value": "false"
-                    }
-                    
+                    }   
                 ],
-                "required": true,
-                "validationMessage": "You must be an 'owner' of the subscription."
+                "required": true  
                 }
             },
               {
