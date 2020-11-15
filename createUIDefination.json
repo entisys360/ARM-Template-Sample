@@ -55,11 +55,25 @@
             },
               {
                 "name": "OwnerSubscription",
-                "type": "Microsoft.Common.CheckBox",
+                "type": "Microsoft.Common.OptionsGroup",
                 "label": "Subscription Owner",
+                "defaultValue": "No",
+                "toolTip": "Select 'Yes' and provide required info .",
                 "constraints": {
-                    "required": true,
-                    "validationMessage": "You must be an 'owner' of the subscription."
+                  
+                  "allowedValues": [
+                    {
+                        "label": "Yes",
+                        "value": "true"
+                    },
+                    {
+                        "label": "No",
+                        "value": "false"
+                    }
+                    
+                ],
+                "required": true,
+                "validationMessage": "You must be an 'owner' of the subscription."
                 }
             },
               {
