@@ -155,7 +155,7 @@
             "metadata": {
                 "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
             },
-            "defaultValue": "https://raw.githubusercontent.com/entisys360/ARM-Template-Sample/vinay-dev"
+            "defaultValue": "https://raw.githubusercontent.com/entisys360/Desktop360-mgsv/develop"
         },
         "_artifactsLocationSasToken": {
             "type": "securestring",
@@ -534,7 +534,7 @@
         "properties": {
             "mode": "Incremental",
             "templateLink": {
-                "uri": "[uri(deployment().properties.templateLink.uri,'/entisys360/ARM-Template-Sample/vinay-dev/helper.json')]",
+                "uri": "[uri(deployment().properties.templateLink.uri,'/entisys360/Desktop360-mgsv/develop/helper.json')]",
                 //"uri": "[concat(parameters('_artifactsLocation'), '/helper.json',parameters('_artifactsLocationSasToken'))]",
                 "contentVersion": "1.0.0.0"
             },
@@ -554,7 +554,7 @@
         "properties": {
             "mode": "Incremental",
             "templateLink": {
-                "uri": "[uri(deployment().properties.templateLink.uri,'/entisys360/ARM-Template-Sample/vinay-dev/ansible_vm.json')]",
+                "uri": "[uri(deployment().properties.templateLink.uri,'/entisys360/Desktop360-mgsv/develop/ansible_vm.json')]",
                 "contentVersion": "1.0.0.0"
             },
             "parameters": {
@@ -598,7 +598,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[uri(deployment().properties.templateLink.uri,'/entisys360/ARM-Template-Sample/vinay-dev/cloudconnectors.json')]",
+          "uri": "[uri(deployment().properties.templateLink.uri,'/entisys360/Desktop360-mgsv/develop/cloudconnectors.json')]",
           //"uri": "[concat(parameters('_artifactsLocation'), '/cloudconnectors.json', parameters('_artifactsLocationSasToken'))]",
           "contentVersion": "1.0.0.0"
         },
