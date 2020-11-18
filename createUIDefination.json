@@ -96,7 +96,7 @@
               "toolTip": "Please enter a valid email account",
               "constraints": {
                   "required": true,
-                  "regex": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$",
+                  "regex": "^(([A-Za-z0-9_%+-]+\\.([A-Za-z0-9_%+-]+))|([A-Za-z0-9_%+-]+))@[A-Za-z0-9.-]+\\.[A-Za-z]{2,63}$",
                   "validationMessage": "Email is not valid. Please re-enter."
                 },
                 "visible": true
@@ -110,7 +110,7 @@
               "toolTip": "Use only allowed characters",
               "constraints": {
                   "required": true,
-                  "regex": "^[a-z0-9A-Z\\(\\)\\.\\-\\+]{1,30}$",
+                  "regex": "^[+0-9\\s]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\.0-9]*$",
                   "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
               },
               "visible": true
