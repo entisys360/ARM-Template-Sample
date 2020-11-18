@@ -643,7 +643,7 @@
        "properties": {
          "mode": "Incremental",
          "templateLink": {
-           "uri": "[concat(parameters('_artifactsLocation'), '/nestedtemplates/DomainControllers.json', parameters('_artifactsLocationSasToken'))]",
+           "uri": "[concat(parameters('_artifactsLocation'), '/DomainControllers.json', parameters('_artifactsLocationSasToken'))]",
            "contentVersion": "1.0.0.0"
          },
          "parameters": {
@@ -687,7 +687,7 @@
         "properties": {
           "mode": "Incremental",
           "templateLink": {
-            "uri": "[concat(parameters('_artifactsLocation'), '/nestedtemplates/Managementserver.json', parameters('_artifactsLocationSasToken'))]",
+            "uri": "[concat(parameters('_artifactsLocation'), '/Managementserver.json', parameters('_artifactsLocationSasToken'))]",
             "contentVersion": "1.0.0.0"
           },
           "parameters": {
