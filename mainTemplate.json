@@ -692,31 +692,31 @@
           },
           "parameters": {
             "MSNamePrefix": {
-              "value": "[variables('DomainControllers').VMConfig.VMPrefix]"
+              "value": "[variables('Managementserver').VMConfig.VMPrefix]"
             },
             "AvailabilitySetName": {
-                "value": "[variables('DomainControllers').AvailabilitySet.AvailabilitySetName]"
+                "value": "[variables('Managementserver').AvailabilitySet.AvailabilitySetName]"
             },
             "AvailabilitySetPlatformFaultDomainCount": {
-                "value": "[variables('DomainControllers').AvailabilitySet.AvailabilitySetPlatformFaultDomainCount]"
+                "value": "[variables('Managementserver').AvailabilitySet.AvailabilitySetPlatformFaultDomainCount]"
             },
             "AvailabilitySetPlatformUpdateDomainCount": {
-                "value": "[variables('DomainControllers').AvailabilitySet.AvailabilitySetPlatformUpdateDomainCount]"
+                "value": "[variables('Managementserver').AvailabilitySet.AvailabilitySetPlatformUpdateDomainCount]"
             },
-            "DCvirtualMachineSize": {
-                "value": "[variables('DomainControllers').VMConfig.VMSize]"
+            "MSvirtualMachineSize": {
+                "value": "[variables('Managementserver').VMConfig.VMSize]"
             },
             "VirtualNetworkName": {
               "value": "[parameters('VirtualNetworkName')]"
             },
-            "DCSubnetName": {
+            "MSSubnetName": {
               "value": "[parameters('Management')]"
             },
             "VirtualMachineAdminUserName": {
-              "value": "[variables('DomainControllers').VMConfig.VMAdminUserName]"
+              "value": "[variables('Managementserver').VMConfig.VMAdminUserName]"
             },
             "VirtualMachineAdminPassword": {
-              "value": "[variables('DomainControllers').VMConfig.VMAdminPassword]"
+              "value": "[variables('Managementserver').VMConfig.VMAdminPassword]"
             }
           }
         }
