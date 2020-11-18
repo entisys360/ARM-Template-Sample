@@ -2,16 +2,16 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-      "availabilitySetPlatformFaultDomainCount": {
+      "AvailabilitySetPlatformFaultDomainCount": {
         "type": "int"
       },
-      "availabilitySetPlatformUpdateDomainCount": {
+      "AvailabilitySetPlatformUpdateDomainCount": {
         "type": "int"
       },
       "MSNamePrefix": {
         "type": "string"
       },
-      "virtualNetworkName": {
+      "VirtualNetworkName": {
           "type": "string",
           "metadata": {
               "description": "description"
@@ -29,19 +29,19 @@
               "description": "description"
           }
       },
-      "availabilitySetName": {
+      "AvailabilitySetName": {
           "type": "string",
           "metadata": {
               "description": "description"
           }
       },
-      "virtualMachineAdminUserName": {
+      "VirtualMachineAdminUserName": {
           "type": "string",
           "metadata": {
               "description": "description"
           }
       },
-      "virtualMachineAdminPassword": {
+      "VirtualMachineAdminPassword": {
           "type": "string",
           "metadata": {
               "description": "description"
@@ -52,12 +52,12 @@
     "resources": [
         {
             "type": "Microsoft.Compute/availabilitySets",
-            "name": "[parameters('availabilitySetName')]",
+            "name": "[parameters('AvailabilitySetName')]",
             "apiVersion": "2020-06-01",
             "location": "[resourceGroup().location]",
             "properties": {
-                "platformFaultDomainCount": "[parameters('availabilitySetPlatformFaultDomainCount')]",
-                "platformUpdateDomainCount": "[parameters('availabilitySetPlatformUpdateDomainCount')]"
+                "platformFaultDomainCount": "[parameters('AvailabilitySetPlatformFaultDomainCount')]",
+                "platformUpdateDomainCount": "[parameters('AvailabilitySetPlatformUpdateDomainCount')]"
             },
             "sku": {
                 "name": "Aligned"
@@ -79,7 +79,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks/subnets/', parameters('virtualNetworkName'), parameters('MSSubnetName'))]"
+                "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks/subnets/', parameters('VirtualNetworkName'), parameters('MSSubnetName'))]"
               }
             }
           }
@@ -119,7 +119,7 @@
         },
         "osProfile": {
           "computerName": "[concat(parameters('MSNamePrefix'),copyIndex(1))]",
-          "adminUsername": "[parameters('virtualMachineAdminUserName')]",
+          "adminUsername": "[parameters('VirtualMachineAdminUserName')]",
           "windowsConfiguration": {
             "provisionVMAgent": true
           },
@@ -133,7 +133,7 @@
           ]
         },
         "availabilitySet": {
-          "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySetName'))]"
+          "id": "[resourceId('Microsoft.Compute/AvailabilitySets', parameters('AvailabilitySetName'))]"
         }
         // "diagnosticsProfile": {
         //   "bootDiagnostics": {
@@ -142,8 +142,11 @@
         //   }
         // }
       },
+      "tags": {
+        "ServerRole": "E360MGMT"
+      },
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/availabilitySets/', parameters('availabilitySetName'))]",
+        "[resourceId('Microsoft.Compute/availabilitySets/', parameters('AvailabilitySetName'))]",
         "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('MSNamePrefix'), copyIndex(1), '-NIC1'))]"
       ]
     }
