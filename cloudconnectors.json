@@ -146,7 +146,7 @@
         // }
       },
       "tags": {
-        "ServerRole": "E360MCC"
+        "ServerRole": "E360CC"
       },
       "dependsOn": [
         "[resourceId('Microsoft.Compute/availabilitySets/', parameters('AvailabilitySetName'))]",
