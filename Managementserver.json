@@ -8,7 +8,7 @@
       "AvailabilitySetPlatformUpdateDomainCount": {
         "type": "int"
       },
-      "CloudConnectorsNamePrefix": {
+      "MSNamePrefix": {
         "type": "string"
       },
       "VirtualNetworkName": {
@@ -17,13 +17,13 @@
               "description": "description"
           }
       },
-      "CloudConnectorvirtualMachineSize": {
+      "MSvirtualMachineSize": {
           "type": "string",
           "metadata": {
               "description": "description"
           }
       },
-      "CloudConnectorSubnetName": {
+      "MSSubnetName": {
           "type": "string",
           "metadata": {
               "description": "description"
@@ -48,10 +48,7 @@
           }
       }
     },
-    "variables": {
-      
-      //"scriptParameters": "[concat('-artifactsLocation ', parameters('_artifactsLocation'), ' -artifactsLocationSasToken \"', parameters('_artifactsLocationSasToken'), '\" -folderName ', variables('scriptFolder'), ' -fileToInstall ', variables('fileToBeCopied'))],
-    },
+    "variables": {},
     "resources": [
         {
             "type": "Microsoft.Compute/availabilitySets",
@@ -68,12 +65,12 @@
         },
         {
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('CloudConnectorsNamePrefix'), copyIndex(1), '-NIC1')]",
+      "name": "[concat(parameters('MSNamePrefix'), copyIndex(1), '-NIC1')]",
       "apiVersion": "2020-05-01",
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "NICCopy",
-        "count": 2
+        "count": 1
       },
       "properties": {
         "ipConfigurations": [
@@ -82,7 +79,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks/subnets/', parameters('VirtualNetworkName'), parameters('CloudConnectorSubnetName'))]"
+                "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks/subnets/', parameters('VirtualNetworkName'), parameters('MSSubnetName'))]"
               }
             }
           }
@@ -93,16 +90,16 @@
 
     {
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "[concat(parameters('CloudConnectorsNamePrefix'), copyIndex(1))]",
+      "name": "[concat(parameters('MSNamePrefix'), copyIndex(1))]",
       "apiVersion": "2020-06-01",
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "VMcopy",
-        "count": 2
+        "count": 1
       },
       "properties": {
         "hardwareProfile": {
-          "vmSize": "[parameters('CloudConnectorvirtualMachineSize')]"
+          "vmSize": "[parameters('MSvirtualMachineSize')]"
         },
         "storageProfile": {
           "imageReference": {
@@ -112,7 +109,7 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "[concat(parameters('CloudConnectorsNamePrefix'),copyIndex(1),'-OSDisk')]",
+            "name": "[concat(parameters('MSNamePrefix'),copyIndex(1),'-OSDisk')]",
             "createOption": "FromImage",
             "managedDisk": {
               //"storageAccountType": "Premium_LRS"
@@ -121,22 +118,22 @@
           }
         },
         "osProfile": {
-          "computerName": "[concat(parameters('CloudConnectorsNamePrefix'),copyIndex(1))]",
-          "adminUsername": "[parameters('virtualMachineAdminUserName')]",
+          "computerName": "[concat(parameters('MSNamePrefix'),copyIndex(1))]",
+          "adminUsername": "[parameters('VirtualMachineAdminUserName')]",
           "windowsConfiguration": {
             "provisionVMAgent": true
           },
-          "adminPassword": "[parameters('VirtualMachineAdminPassword')]"
+          "adminPassword": "[parameters('virtualMachineAdminPassword')]"
         },
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('CloudConnectorsNamePrefix'), copyIndex(1), '-NIC1'))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('MSNamePrefix'), copyIndex(1), '-NIC1'))]"
             }
           ]
         },
         "availabilitySet": {
-          "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('AvailabilitySetName'))]"
+          "id": "[resourceId('Microsoft.Compute/AvailabilitySets', parameters('AvailabilitySetName'))]"
         }
         // "diagnosticsProfile": {
         //   "bootDiagnostics": {
@@ -146,38 +143,13 @@
         // }
       },
       "tags": {
-        "ServerRole": "E360MCC"
+        "ServerRole": "E360MGMT"
       },
       "dependsOn": [
         "[resourceId('Microsoft.Compute/availabilitySets/', parameters('AvailabilitySetName'))]",
-        "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('CloudConnectorsNamePrefix'), copyIndex(1), '-NIC1'))]"
+        "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('MSNamePrefix'), copyIndex(1), '-NIC1'))]"
       ]
-    },
-    {
-          "type": "Microsoft.Compute/virtualMachines/extensions",
-          "name": "[concat(parameters('CloudConnectorsNamePrefix'), copyIndex(1),'/','winrm_script')]",
-          "apiVersion": "2017-03-30",
-          "location": "[resourceGroup().location]",
-          "copy": {
-            "name": "extension",
-            "count": 2
-          },
-          "dependsOn": [
-            "VMcopy"
-          ],
-          "properties": {
-            "publisher": "Microsoft.Compute",
-            "type": "CustomScriptExtension",
-            "typeHandlerVersion": "1.8",
-            "autoUpgradeMinorVersion": true,
-            "settings": {
-              "fileUris": [
-                "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
-              ],
-              "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File ConfigureRemotingForAnsible.ps1"
-            }
-          }
-        }
+    }
 
     ]
   }
