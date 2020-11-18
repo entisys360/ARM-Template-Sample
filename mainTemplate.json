@@ -66,14 +66,14 @@
             }
         },
 
-        "virtualNetworkName": {
+        "VirtualNetworkName": {
             "type": "string",
             "defaultValue": "Citrix-Vnet",
             "metadata": {
                 "description": "Name of the Virtual Network (VNET)"
             }
         },
-        "virtualNetworkAddressPrefixes": {
+        "VirtualNetworkAddressPrefixes": {
             "type": "string",
             "defaultValue": "192.168.0.0/16",
             "metadata": {
@@ -367,7 +367,7 @@
                 "VDIResourceGroupName": "rg-virtualdesktops",
                 "NetworkResourceGroupName": "[resourceGroup().name]",
                 "VirtualNetworkName": "[parameters('virtualNetworkName')]",
-                "VirtualDesktopSubnets": "[parameters('subnet3Name')]"
+                "VirtualDesktopSubnets": "[parameters('VirtualDesktops')]"
 
             },
             "deliveryGroup": {
@@ -393,7 +393,7 @@
                 "azureRegion": "West US 2",
                 "azureResourceGroup": "[resourceGroup().name]",
                 "azureVNet": "[parameters('virtualNetworkName')]",
-                "VDISubnet": "[parameters('subnet3Name')]",
+                "VDISubnet": "[parameters('VirtualDesktops')]",
                 "applicationId": "[parameters('AzureApplicationId')]",
                 "applicationPassword": "[parameters('AzureApplicationPassword')]",
                 "subscriptionId": "[subscription().subscriptionId]",
