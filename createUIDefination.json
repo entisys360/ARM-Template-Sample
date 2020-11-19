@@ -1,6 +1,6 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
-    "handler": "Microsoft.Azure.CreateUIDef",
+    "handler": "Microsoft.Compute.MultiVm",
     "version": "0.1.2-preview",
     "parameters": {
         "basics": [
@@ -44,11 +44,11 @@
                 "type": "Microsoft.Common.TextBox",
                 "label": "Company",
                 "placeholder": "",
-                "defaultValue": "Company Name",
+                "defaultValue": "",
                 "toolTip": "Use only allowed characters",
                 "constraints": {
                     "required": true,
-                    "regex": "^[a-z0-9A-Z]{1,30}$",
+                    "regex": "^[a-z0-9A-Z\\s]{1,30}$",
                     "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
                 },
                 "visible": true
@@ -57,7 +57,7 @@
                 "name": "OwnerSubscription",
                 "type": "Microsoft.Common.OptionsGroup",
                 "label": "Subscription Owner",
-                "defaultValue": "No",
+                "defaultValue": "Yes",
                 "toolTip": "Select 'Yes', You must be an 'Owner' of the subscription.",
                 "constraints": {
                   "allowedValues": [
@@ -76,13 +76,13 @@
               {
                 "name": "OwnerFullName",
                 "type": "Microsoft.Common.TextBox",
-                "label": "Contact Name",
+                "label": "Contact Full Name",
                 "placeholder": "",
                 "defaultValue": "",
                 "toolTip": "Use only allowed characters",
                 "constraints": {
                     "required": true,
-                    "regex": "^[a-z0-9A-Z]{1,30}$",
+                    "regex": "^[\\s\\S]{1,30}$",
                     "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
                 },
                 "visible": true
@@ -95,8 +95,8 @@
               "defaultValue": "",
               "toolTip": "Please enter a valid email account",
               "constraints": {
-                  "required": false,
-                  "regex": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$",
+                  "required": true,
+                  "regex": "^(([A-Za-z0-9_%+-]+\\.([A-Za-z0-9_%+-]+))|([A-Za-z0-9_%+-]+))@[A-Za-z0-9.-]+\\.[A-Za-z]{2,63}$",
                   "validationMessage": "Email is not valid. Please re-enter."
                 },
                 "visible": true
@@ -110,7 +110,7 @@
               "toolTip": "Use only allowed characters",
               "constraints": {
                   "required": true,
-                  "regex": "^[a-z0-9A-Z]{1,30}$",
+                  "regex": "^[+0-9\\s]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\.0-9]*$",
                   "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
               },
               "visible": true
