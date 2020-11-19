@@ -1,4 +1,5 @@
-# Entisys360 Azure Marketplace MVP!
+# Desktop360
+> A Citrix managed service offering by Entisys360
 
 ![Azure Public Test Date](https://azurequickstartsservice.blob.core.windows.net/badges/100-marketplace-sample/PublicLastTestDate.svg)
 ![Azure Public Test Result](https://azurequickstartsservice.blob.core.windows.net/badges/100-marketplace-sample/PublicDeployment.svg)
