@@ -53,7 +53,7 @@
         },
         "MSVMNamePrefix": {
             "type": "string",
-            "defaultValue": "entisysDC",
+            "defaultValue": "entisysMS",
             "metadata": {
                 "description": "description"
             }
