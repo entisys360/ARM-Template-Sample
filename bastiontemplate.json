@@ -1,0 +1,81 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "BastionHostName": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 24
+        },
+        "VirtualNetworkName":{
+            "type":"string",
+            "metadata": {
+                "description": "description"
+            }
+             },
+        "BastionHostSubnet":{
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "bastionSubnetIPPrefix":{
+            "type":"string",
+            "metadata":{
+                "description": "description"
+            }
+        } //virtual networkname, bastionhost subnet,bastionSubnetIPPrefix is a parameter i need to add , 
+      },
+    "resources": [
+
+        {
+            "name": "[parameters('BastionHostName')]",
+            "type": "Microsoft.Network/bastionHosts",
+            "apiVersion": "2019-04-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIpAddresses', concat(parameters('BastionHostName'),'-ip'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('VirtualNetworkName'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VirtualNetworkName'), concat(parameters('VirtualNetworkName'), '/', parameters('BastionHostSubnet')))]"
+            ],
+            "tags": {},
+            "properties": {
+              "ipConfigurations": [
+                {
+                  "properties": {
+                    "subnet": {
+                      "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VirtualNetworkName'), concat(parameters('VirtualNetworkName'), '/', parameters('BastionHostSubnet')))]"
+                    },
+                    "publicIPAddress": {
+                      "id": "[resourceId('Microsoft.Network/publicIpAddresses', concat(parameters('BastionHostName'),'-ip'))]"
+                    }
+                  },
+                  "name": "IpConf"
+                }
+              ]
+            }
+        },
+        {
+            "name": "[concat(parameters('BastionHostName'),'-ip')]",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2017-08-01",
+            "location": "[resourceGroup().location]",          
+            "tags": {},
+            "sku": {
+              "name": "Standard"
+            },
+            "properties": {
+              "publicIPAllocationMethod": "Static"
+            }
+          },
+          {
+            "apiVersion": "2020-05-01",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('VirtualNetworkName'), '/', parameters('BastionHostName'),'-subnet')]",  //check this back changed variable to parameters 
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "addressPrefix": "[parameters('bastionSubnetIPPrefix')]"
+            }
+        }
+    ]
+  }

@@ -65,7 +65,6 @@
                 "description": "Size of Cloud Connectors VM Size"
             }
         },
-
         "VirtualNetworkName": {
             "type": "string",
             "defaultValue": "Citrix-Vnet",
@@ -134,6 +133,24 @@
             "defaultValue": "192.168.3.0/24",
             "metadata": {
                 "description": "VirtualDesktops subnet CIDR"
+            }
+        },
+        "BastionHostName": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 24
+          },
+          "BastionHostSubnet":{
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "bastionSubnetIPPrefix": {
+            "type": "string",
+            "defaultValue": "192.168.4.0/24",
+            "metadata": {
+                "description": "Bastion subnet IP prefix MUST be within vnet IP prefix address space"
             }
         },
         "StorageAccountName": {
@@ -720,7 +737,37 @@
             }
           }
         }
-      }
+      },
+      {
+        "name": "BastionHostName",
+        "type": "Microsoft.Resources/deployments",
+        "apiVersion": "2019-10-01",
+        "properties": {
+            "mode": "Incremental",
+            "templateLink": {
+                "uri": "[uri(deployment().properties.templateLink.uri,'/entisys360/Desktop360-mgsv/rameez-dev/bastiontemplate.json')]",
+                "contentVersion": "1.0.0.0"
+            },
+            "parameters": {
+                "VirtualNetworkName": {
+                    "value": "[parameters('VirtualNetworkName')]"
+                },
+
+                "BastionHostName": {
+                    "value": "[parameters('BastionHostName')]"
+                },
+                "BastionHostSubnet": {
+                    "value": "[parameters('BastionHostSubnet')]"
+                },
+                "bastionSubnetIPPrefix": {
+                    "value": "[parameters('bastionSubnerIPPrefix)]"
+                }
+            }
+        },
+        "dependsOn": [
+            "[resourceId('Microsoft.Network/virtualNetworks',parameters('VirtualNetworkName'))]"
+        ]
+    }
   ],
   "outputs": {
   }
