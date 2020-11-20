@@ -26,9 +26,6 @@
             }
         }
       },
-      "variables":{
-        "BastionHostSubnetNameVar":"[concat(parameters('VirtualNetworkName'), '/', parameters('BastionHostSubnetName'))]"
-      },
     "resources": [
         {
             "name": "[parameters('BastionHostName')]",
@@ -38,7 +35,7 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIpAddresses', concat(parameters('BastionHostName'),'-ip'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('VirtualNetworkName'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VirtualNetworkName'), variables('BastionHostSubnetNameVar'))]"
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VirtualNetworkName'), parameters('BastionHostSubnetName'))]"
             ],
             "tags": {},
             "properties": {
@@ -46,7 +43,7 @@
                 {
                   "properties": {
                     "subnet": {
-                      "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VirtualNetworkName'), variables('BastionHostSubnetNameVar'))]"
+                      "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VirtualNetworkName'), parameters('BastionHostSubnetName'))]"
                     },
                     "publicIPAddress": {
                       "id": "[resourceId('Microsoft.Network/publicIpAddresses', concat(parameters('BastionHostName'),'-ip'))]"
