@@ -138,19 +138,22 @@
         "BastionHostName": {
             "type": "string",
             "minLength": 3,
-            "maxLength": 24
+            "maxLength": 24,
+            "metadata": {
+                "description": "Give BastionHost's name"
+            }
           },
-          "BastionHostSubnet":{
+          "BastionHostSubnetName":{
             "type": "string",
             "metadata": {
-                "description": "description"
+                "description": "Give BastionHost's Subnet name"
             }
         },
         "bastionSubnetIPPrefix": {
             "type": "string",
             "defaultValue": "192.168.4.0/24",
             "metadata": {
-                "description": "Bastion subnet IP prefix MUST be within vnet IP prefix address space"
+                "description": "Bastion subnet IP prefix MUST be within VirtualNetwork IP prefix address space"
             }
         },
         "StorageAccountName": {
@@ -756,11 +759,11 @@
                 "BastionHostName": {
                     "value": "[parameters('BastionHostName')]"
                 },
-                "BastionHostSubnet": {
-                    "value": "[parameters('BastionHostSubnet')]"
+                "BastionHostSubnetName": {
+                    "value": "[parameters('BastionHostSubnetName')]"
                 },
                 "bastionSubnetIPPrefix": {
-                    "value": "[parameters('bastionSubnerIPPrefix)]"
+                    "value": "[parameters('bastionSubnetIPPrefix')]"
                 }
             }
         },

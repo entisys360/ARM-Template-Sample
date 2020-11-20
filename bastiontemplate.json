@@ -13,7 +13,7 @@
                 "description": "description"
             }
              },
-        "BastionHostSubnet":{
+        "BastionHostSubnetName":{
             "type": "string",
             "metadata": {
                 "description": "description"
@@ -36,7 +36,7 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIpAddresses', concat(parameters('BastionHostName'),'-ip'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('VirtualNetworkName'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VirtualNetworkName'), concat(parameters('VirtualNetworkName'), '/', parameters('BastionHostSubnet')))]"
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VirtualNetworkName'), concat(parameters('VirtualNetworkName'), '/', parameters('BastionHostSubnetName')))]"
             ],
             "tags": {},
             "properties": {
@@ -44,7 +44,7 @@
                 {
                   "properties": {
                     "subnet": {
-                      "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VirtualNetworkName'), concat(parameters('VirtualNetworkName'), '/', parameters('BastionHostSubnet')))]"
+                      "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VirtualNetworkName'), concat(parameters('VirtualNetworkName'), '/', parameters('BastionHostSubnetName')))]"
                     },
                     "publicIPAddress": {
                       "id": "[resourceId('Microsoft.Network/publicIpAddresses', concat(parameters('BastionHostName'),'-ip'))]"
