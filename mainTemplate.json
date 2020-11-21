@@ -740,36 +740,6 @@
             }
           }
         }
-      },
-      {
-        "name": "BastionHostName",
-        "type": "Microsoft.Resources/deployments",
-        "apiVersion": "2019-10-01",
-        "properties": {
-            "mode": "Incremental",
-            "templateLink": {
-                "uri": "[uri(deployment().properties.templateLink.uri,'/entisys360/Desktop360-mgsv/rameez-dev/bastiontemplate.json')]",
-                "contentVersion": "1.0.0.0"
-            },
-            "parameters": {
-                "VirtualNetworkName": {
-                    "value": "[parameters('VirtualNetworkName')]"
-                },
-
-                "BastionHostName": {
-                    "value": "[parameters('BastionHostName')]"
-                },
-                "BastionHostSubnetName": {
-                    "value": "[parameters('BastionHostSubnetName')]"
-                },
-                "bastionSubnetIPPrefix": {
-                    "value": "[parameters('bastionSubnetIPPrefix')]"
-                }
-            }
-        },
-        "dependsOn": [
-            "[resourceId('Microsoft.Network/virtualNetworks',parameters('VirtualNetworkName'))]"
-        ]
     }
   ],
   "outputs": {
