@@ -33,9 +33,7 @@
             "apiVersion": "2019-04-01",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIpAddresses', concat(parameters('BastionHostName'),'-ip'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('VirtualNetworkName'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VirtualNetworkName'), parameters('BastionHostSubnetName'))]"
+                "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', concat(parameters('BastionHostName'),'-ip'))]"
             ],
             "tags": {},
             "properties": {
@@ -43,10 +41,10 @@
                 {
                   "properties": {
                     "subnet": {
-                      "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VirtualNetworkName'), parameters('BastionHostSubnetName'))]"
+                      "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks/subnets/', parameters('VirtualNetworkName'), parameters('BastionHostSubnetName'))]"
                     },
                     "publicIPAddress": {
-                      "id": "[resourceId('Microsoft.Network/publicIpAddresses', concat(parameters('BastionHostName'),'-ip'))]"
+                      "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', concat(parameters('BastionHostName'),'-ip'))]"
                     }
                   },
                   "name": "IpConf"
