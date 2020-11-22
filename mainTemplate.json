@@ -137,16 +137,16 @@
         },
         "BastionHostName": {
             "type": "string",
-            "minLength": 3,
-            "maxLength": 24,
+            "defaultValue": "entisysBH",
             "metadata": {
-                "description": "Give BastionHost's name"
+                "description": "BastionHost's name"
             }
           },
           "BastionHostSubnetName":{
             "type": "string",
+            "defaultValue": "BastionHostSubnet",
             "metadata": {
-                "description": "Give BastionHost's Subnet name"
+                "description": "BastionHost's Subnet name"
             }
         },
         "bastionSubnetIPPrefix": {
@@ -183,9 +183,7 @@
                 "description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated."
             },
             "defaultValue": ""
-
         },
-
         "AuthenticationType": {
             "type": "string",
             "defaultValue": "sshPublicKey",
@@ -542,6 +540,12 @@
                         "name": "[parameters('VirtualDesktops')]",
                         "properties": {
                             "addressPrefix": "[parameters('subnet3Prefix')]"
+                        }
+                    },
+                    {
+                        "name": "[parameters('BastionHostSubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('bastionSubnetIPPrefix')]"
                         }
                     }
                 ]
