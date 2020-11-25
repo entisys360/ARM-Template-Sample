@@ -851,7 +851,7 @@
         "properties": {
           "mode": "Incremental",
           "templateLink": {
-           "uri" : "[uri(deployment().properties.templateLink.uri,'entisys360/Desktop360-mgsv/rameez-dev/policies.json')]",
+           "uri" : "[uri(deployment().properties.templateLink.uri,'/entisys360/Desktop360-mgsv/rameez-dev/policies.json')]",
              //"uri":"[concat(parameters('TemplatesStorageAccount'), '/policies.json', parameters('TemplatesStorageAccountSASToken'))]",
              "contentVersion":"1.0.0.0"
           },
