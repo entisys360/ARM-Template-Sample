@@ -355,7 +355,74 @@
                 "description": "description"
             },
             "defaultValue": "bd65600d-8669-4903-8a14-af88203add38"
-        }
+        },
+        "TemplatesStorageAccount": {
+            "type": "string",
+            "defaultValue": "https://mystorageaccount.blob.core.windows.net/templates/"
+        },
+        "TemplatesStorageAccountSASToken": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        // "StorageAccountLogs": {
+        //     "type": "string",
+        //     "defaultValue": "[concat('storage', uniqueString(resourceGroup().id))]",
+        //     "metadata": {
+        //         "description": "The name of Storage Account for Diagnostic settings logs"
+        //     }
+        // },
+        // "blobContainerName": {
+        //     "type": "string",
+        //     "defaultValue": "[concat(parameters('BastionHostName'), '-logs')]",
+        //     "metadata": {
+        //         "description": "The name of Blob Container to store diagnostics logs from BastionHostName."
+        //     }
+        // },
+        // "storageAccountSkuName": {
+        //     "type": "string",
+        //     "defaultValue": "Standard_LRS",
+        //     "metadata": {
+        //         "description": "The name of the App Service Plan."
+        //     }
+        // },
+        // "storageAccountKind": {
+        //     "type": "string",
+        //     "defaultValue": "StorageV2",
+        //     "metadata": {
+        //         "description": "The name of the Storage Account Type."
+        //     }
+        // },
+        // "diagnosticsLogsLevel": {
+        //     "type": "string",
+        //     "defaultValue": "Verbose",
+        //     "allowedValues": [
+        //         "Verbose",
+        //         "Information",
+        //         "Warning",
+        //         "Error"
+        //     ],
+        //     "metadata": {
+        //         "description": "The degree of severity for diagnostics logs."
+        //     }
+        // },
+        // "diagnosticsLogsRetentionInDays": {
+        //     "type": "int",
+        //     "defaultValue": 10,
+        //     "metadata": {
+        //         "description": "Number of days for which the diagnostics logs will be retained."
+        //     }
+        // },
+        // "tagName": {
+        //     "type": "string",
+        //     "metadata": {
+        //       "displayName": "Tag Name",
+        //       "description": "Name of the tag, such as 'environment'"
+        //     }
+        //   }
+        "ServerRoletag": {
+            "type": "string",
+            "defaultValue": "ServerRoletag"
+          }
     },
     "functions": [],
     "variables": {
@@ -774,8 +841,27 @@
         "dependsOn": [
             "[resourceId('Microsoft.Network/virtualNetworks',parameters('VirtualNetworkName'))]"
         ]
-    }
-  ],
+    },
+    {
+        "apiVersion": "2017-05-10",
+        "name": "policiesTemplate",
+        "type": "Microsoft.Resources/deployments",
+        "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+             "uri":"[concat(parameters('TemplatesStorageAccount'), '/policies.json', parameters('TemplatesStorageAccountSASToken'))]",
+             "contentVersion":"1.0.0.0"
+          },
+          "parameters": {
+             "ServerRoletag": {"value": "[parameters('ServerRoletag')]" }
+           }
+        },
+        "dependsOn": [
+         "[resourceId('Microsoft.Resources/deployments', 'productsTemplate')]"
+        ]
+     }
+    ],
+
   "outputs": {
   }
 

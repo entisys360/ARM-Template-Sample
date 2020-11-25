@@ -1,0 +1,45 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "ServerRoletag": {
+            "type": "string",
+            "defaultValue": "ServerRoletag"
+          }
+    },
+    "resources": [
+        {
+            "apiVersion": "2018-03-01",
+            "type": "Microsoft.Authorization/policyAssignments",
+            "name": "[concat(parameters('ServerRoletag'), '/contosoproduct/policy')]",
+            "scale": null,
+        "properties": {
+            "displayName": "Require a tag on resource groups",
+            "policyType": "custom",
+            "mode": "All",
+            "description": "Enforces existence of a tag on resource groups.",
+            "metadata": {
+                "version": "1.0.0",
+                "category": "Tags"
+            },
+            "policyRule": {
+                "if": {
+                    "allOf": [
+                        {
+                            "field": "type",
+                            "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+                        },
+                        {
+                            "field": "[concat('tags[', parameters('ServerRoletag'), ']')]",
+                            "exists": "false"
+                        }
+                    ]
+                },
+                "then": {
+                    "effect": "deny"
+                }
+            }
+        }
+    }
+    ]
+}
