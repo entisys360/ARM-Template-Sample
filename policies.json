@@ -1,28 +1,25 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "ServerRoletag": {
+        "Mandatorytag": {
             "type": "string",
-            "defaultValue": "ServerRoletag"
+            "metadata": {
+                "description": "Mandatory tags"
+            }
           }
     },
-    "resources": [
+    "resources": [     
         {
-            "apiVersion": "2018-03-01",
-            "type": "Microsoft.Authorization/policyAssignments",
-            "name": "[concat(parameters('ServerRoletag'), '/contosoproduct/policy')]",
-            "scale": null,
-        "properties": {
-            "displayName": "Require a tag on resource groups",
-            "policyType": "custom",
-            "mode": "All",
-            "description": "Enforces existence of a tag on resource groups.",
-            "metadata": {
-                "version": "1.0.0",
-                "category": "Tags"
-            },
-            "policyRule": {
+            "type": "Microsoft.Authorization/policyDefinitions",
+            "name": "[concat(parameters('Mandatorytag'),'-Mandatorytagpolicydefination')]",
+            "apiVersion": "2019-09-01",
+            "properties": {
+              "policyType": "Custom",
+              "mode": "All",
+              "parameters": {
+              },
+              "policyRule": {
                 "if": {
                     "allOf": [
                         {
@@ -30,7 +27,7 @@
                             "equals": "Microsoft.Resources/subscriptions/resourceGroups"
                         },
                         {
-                            "field": "[concat('tags[', parameters('ServerRoletag'), ']')]",
+                            "field": "[concat('tags[', parameters('Mandatorytag'), ']')]",
                             "exists": "false"
                         }
                     ]
@@ -40,6 +37,17 @@
                 }
             }
         }
-    }
+        },
+            {
+                "type": "Microsoft.Authorization/policyAssignments",
+                "name": "[parameters('Mandatorytag')]",
+                "apiVersion": "2019-09-01",
+                "dependsOn": [
+                  "[concat(parameters('Mandatorytag'),'-Mandatorytagpolicydefination')]"
+                ],
+                "properties": {
+                  "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions', concat(parameters('Mandatorytag'),'-Mandatorytagpolicydefination'))]"
+                }
+              }
     ]
 }
