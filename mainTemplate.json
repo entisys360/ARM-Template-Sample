@@ -375,7 +375,8 @@
                 "machineCatalogName": "[parameters('MachineCatalogName')]"
             },
             "HostingConnection": {
-                "connectionName": "[concat('HC-','WVD-',parameters('virtualNetworkName'),'-Resource')]",
+                "connectionName": "[concat('HC-','WVD-',subscription().displayName,'-',resourceGroup().name)]",
+                "HostingResourceName": "[concat('HR-',resourceGroup().name,'-',parameters('virtualNetworkName'))]",
                 "azureRegion": "West US 2",
                 "azureResourceGroup": "[resourceGroup().name]",
                 "azureVNet": "[parameters('virtualNetworkName')]",
