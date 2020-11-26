@@ -2,17 +2,17 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "ccUserName": {
+        "localUserName": {
             "type": "string",
             "metadata": {
-                "description": "Cloud Connector VM UserName"
+                "description": "Virtual machine Local Admin UserName"
             },
             "defaultValue": "superadmin"
         },
-        "ccPassword": {
+        "localPassword": {
             "type": "securestring",
             "metadata": {
-                "description": "Cloud Connector VM Password"
+                "description": "Virtual machine Local Admin Password"
             },
             "defaultValue": "123ABC!@#$%^&"
         },
@@ -38,6 +38,21 @@
             }
         },
         
+        "mgmtVMNamePrefix": {
+            "type": "string",
+            "defaultValue": "entisysmgmt",
+            "metadata": {
+                "description": "Managment Server Prefix"
+            }
+        },
+        "mgmtVMSize": {
+            "type": "string",
+            "defaultValue": "Standard_A2_v2",
+            "metadata": {
+                "description": "Size of managment VM"
+            }
+        },
+
         // "DCVMNamePrefix": {
         //     "type": "string",
         //     "defaultValue": "entisysDC",
@@ -327,9 +342,6 @@
     },
     "functions": [],
     "variables": {
-        "Global": {
-            "Password": "[concat('P', uniqueString(resourceGroup().id, '224F5A8B-51DB-46A3-A7C8-59B0DD584A41'), 'x', '!')]"
-        },
         "VirtualDesktopSettings": {
             "MachineCatalog": {
                 "Name": "[parameters('MachineCatalogName')]",
@@ -415,8 +427,25 @@
                 "VMPrefix": "[parameters('CloudConnectorVMNamePrefix')]",
                 "VMSize": "[parameters('CloudConnectorsVMSize')]",
                 "storageAccountType": "Premium_LRS",
-                "VMAdminUserName": "[parameters('ccUserName')]",
-                "VMAdminPassword": "[parameters('ccPassword')]"
+                "VMAdminUserName": "[parameters('localUserName')]",
+                "VMAdminPassword": "[parameters('localPassword')]"
+
+            }
+            
+
+        },
+        "MgmtServer": {
+            "availabilitySet": {
+                "availabilitySetName": "avl-cloudConnectors",
+                "availabilitySetPlatformFaultDomainCount": 2,
+                "availabilitySetPlatformUpdateDomainCount": 2
+            },
+            "VMConfig": {
+                "VMPrefix": "[parameters('mgmtVMNamePrefix')]",
+                "VMSize": "[parameters('mgmtVMSize')]",
+                "storageAccountType": "Premium_LRS",
+                "VMAdminUserName": "[parameters('localUserName')]",
+                "VMAdminPassword": "[parameters('localPassword')]"
 
             }
             
@@ -577,6 +606,52 @@
         "mode": "Incremental",
         "templateLink": {
           "uri": "[uri(deployment().properties.templateLink.uri,'/entisys360/ARM-Template-Sample/vinay-dev/cloudconnectors.json')]",
+          //"uri": "[concat(parameters('_artifactsLocation'), '/cloudconnectors.json', parameters('_artifactsLocationSasToken'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "CloudConnectorsNamePrefix": {
+            "value": "[variables('CloudConnectors').VMConfig.VMPrefix]"
+          },
+          "availabilitySetName": {
+              "value": "[variables('CloudConnectors').availabilitySet.availabilitySetName]"
+          },
+          "availabilitySetPlatformFaultDomainCount": {
+              "value": "[variables('CloudConnectors').availabilitySet.availabilitySetPlatformFaultDomainCount]"
+          },
+          "availabilitySetPlatformUpdateDomainCount": {
+              "value": "[variables('CloudConnectors').availabilitySet.availabilitySetPlatformUpdateDomainCount]"
+          },
+          "CloudConnectorvirtualMachineSize": {
+              "value": "[variables('CloudConnectors').VMConfig.VMSize]"
+          },
+          "virtualNetworkName": {
+            "value": "[parameters('virtualNetworkName')]"
+          },
+          "CloudConnectorSubnetName": {
+            "value": "[parameters('subnet1Name')]"
+          },
+          "virtualMachineAdminUserName": {
+            "value": "[variables('CloudConnectors').VMConfig.VMAdminUserName]"
+          },
+          "virtualMachineAdminPassword": {
+            "value": "[variables('CloudConnectors').VMConfig.VMAdminPassword]"
+          }
+        }
+      }
+    },
+
+     {
+      "name": "[concat('mgmtServerDeployment')]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "dependsOn": [
+        "AnsibleVMDeployment"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[uri(deployment().properties.templateLink.uri,'/entisys360/ARM-Template-Sample/vinay-dev/mgmtServer.json')]",
           //"uri": "[concat(parameters('_artifactsLocation'), '/cloudconnectors.json', parameters('_artifactsLocationSasToken'))]",
           "contentVersion": "1.0.0.0"
         },
