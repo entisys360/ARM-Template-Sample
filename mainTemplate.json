@@ -657,19 +657,19 @@
         },
         "parameters": {
           "CloudConnectorsNamePrefix": {
-            "value": "[variables('CloudConnectors').VMConfig.VMPrefix]"
+            "value": "[variables('MgmtServer').VMConfig.VMPrefix]"
           },
           "availabilitySetName": {
-              "value": "[variables('CloudConnectors').availabilitySet.availabilitySetName]"
+              "value": "[variables('MgmtServer').availabilitySet.availabilitySetName]"
           },
           "availabilitySetPlatformFaultDomainCount": {
-              "value": "[variables('CloudConnectors').availabilitySet.availabilitySetPlatformFaultDomainCount]"
+              "value": "[variables('MgmtServer').availabilitySet.availabilitySetPlatformFaultDomainCount]"
           },
           "availabilitySetPlatformUpdateDomainCount": {
-              "value": "[variables('CloudConnectors').availabilitySet.availabilitySetPlatformUpdateDomainCount]"
+              "value": "[variables('MgmtServer').availabilitySet.availabilitySetPlatformUpdateDomainCount]"
           },
           "CloudConnectorvirtualMachineSize": {
-              "value": "[variables('CloudConnectors').VMConfig.VMSize]"
+              "value": "[variables('MgmtServer').VMConfig.VMSize]"
           },
           "virtualNetworkName": {
             "value": "[parameters('virtualNetworkName')]"
@@ -678,10 +678,10 @@
             "value": "[parameters('subnet1Name')]"
           },
           "virtualMachineAdminUserName": {
-            "value": "[variables('CloudConnectors').VMConfig.VMAdminUserName]"
+            "value": "[variables('MgmtServer').VMConfig.VMAdminUserName]"
           },
           "virtualMachineAdminPassword": {
-            "value": "[variables('CloudConnectors').VMConfig.VMAdminPassword]"
+            "value": "[variables('MgmtServer').VMConfig.VMAdminPassword]"
           }
         }
       }
