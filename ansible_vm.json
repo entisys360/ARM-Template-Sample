@@ -90,6 +90,9 @@
                 "product": "centos-8-2",
                 "publisher": "cognosys"
             },
+            "tags": {
+                "ServerRole": "orc"
+            },
             "dependsOn": [
                 
                 "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces', concat(parameters('ansible').AnsibleHostName,'-NIC1'))]"

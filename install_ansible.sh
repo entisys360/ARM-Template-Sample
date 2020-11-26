@@ -18,14 +18,17 @@ add_packages_func() {
     cd /opt/packer_1.6.4 && curl -O https://releases.hashicorp.com/packer/1.6.4/packer_1.6.4_linux_amd64.zip
     cd /opt/terraform_0.13.5 && unzip terraform_0.13.5_linux_amd64.zip && sudo ln -s ~/terraform_0.13.5/terraform /usr/bin/terraform
     cd /opt/packer_1.6.4 && unzip packer_1.6.4_linux_amd64.zip && sudo ln -s ~/packer_1.6.4/packer /usr/bin/packer
+    sudo ansible-galaxy collection install azure.azcollection
 }
 
 # Create ansible dir and clone github repo in newly created dir
 clone_ansible_repo_func() {
   sudo mkdir /opt/ansible
   sudo chown -R :adm /opt/ansible/
-  sudo git clone https://github.com/entisys360/mvp-ansible.git /opt/ansible
+  sudo curl  https://e360artifacts.blob.core.windows.net/artifacts/citrixxd-ansible.zip --output /opt/ansible/citrixxd-ansible.zip
+  sudo unzip citrixxd-ansible.zip -d /opt/ansible/
   sudo chown -R :adm /opt/ansible/
+  sudo rm -f /opt/ansible/citrixxd-ansible.zip
 }
 
 # Execute Ansible plays
@@ -48,14 +51,6 @@ main() {
       log_func "[ERROR]: $?"
     fi
 
-  clone_ansible_repo_func
-  if [ "$?" == 0 ]; then 
-    log_func "[INFO]: https://github.com/entisys360/mvp-ansible.git github repo successfully cloned to /opt/ansible"
-  else
-    log_func "[ERROR]: $?"
-  fi
-
-  ansible_execute_func
   touch /tmp/machine_catalog.json
   touch /tmp/hosting_connection.json
   echo "$1" > /tmp/machine_catalog.json

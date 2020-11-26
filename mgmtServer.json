@@ -146,7 +146,7 @@
         // }
       },
       "tags": {
-        "ServerRole": "CC"
+        "ServerRole": "mgmt"
       },
       "dependsOn": [
         "[resourceId('Microsoft.Compute/availabilitySets/', parameters('availabilitySetName'))]",
