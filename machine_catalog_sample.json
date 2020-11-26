@@ -1,1 +1,49 @@
-{"MachineCatalogName":"MC001","MachineCatalogDescription":"MC001","ZoneName":"E360-Labs","DomainName":"e360labs.local","OrgUnit":"OU=test,DC=e360labs,dc=local","namingScheme":"VM###","VDINamingSchemeType":"Numeric","allocType":"Random","persistChanges":"Discard","sessionSupport":"MultiSession","SnapshotRGName":"rg-baseimages","SnapshotName":"VDIBaseImage","VDIVMSize":"Standard_B2ms","MinimumFunctionalLevel":"L7_20","VDIAdminUserName":"e360labs\admin","VDIAdminPassword":"1234567890","VDICount":"1","HostingUnitName":"WVD-Citrix-VnetResource","VDIResourceGroupName":"rg-virtualdesktops","NetworkResourceGroupName":"e360vdilabs","VirtualNetworkName":"Citrix-Vnet","VirtualDesktopSubnets":"VirtualDesktops"}
+
+
+---- Machine Catalog Param
+Name = "{{ MachineCatalogName }}"
+AzureZoneName = "{{ ZoneName }}"
+DomainName = "{{ DomainName }}"
+NamingScheme = "{{namingScheme}}"
+OU = "{{OrgUnit}}"
+CitrixCustomerID = "{{CustomerID}}"
+CitrixApiSecret = "{{Secrets}}"
+CitrixApiID =  "{{ApiKey}}"
+Ensure = Present
+Provisioning = "MCS"
+MinimumFunctionalLevel = "{{MinimumFunctionalLevel}}"
+Allocation =             "{{allocType}}"
+Persistence = "{{persistChanges}}"
+SessionSupport = "{{sessionSupport}}"
+NamingSchemeType = "{{VDINamingSchemeType}}"
+SnapshotRGName = "{{SnapshotRGName}}"
+SnapShotName = "{{SnapshotName}}"
+VDIResourceGroupName = "{{VDIResourceGroupName}}"
+VMSize = "{{VDIVMSize}}"
+VDICount = "{{VDICount}}"
+AdminUserName = "{{VDIAdminUserName}}"
+AdminPassword = "{{VDIAdminPassword}}"
+HostingUnitName = "{{HostingResourceName}}" 
+
+
+---- Hosting Connecvtion
+
+ConnectionName = "{{connectionName}}"
+AzureRegion = "{{azureRegion}}" 
+AzureVNet = "{{azureVNet}}"
+AzureSubnet = "{{VDISubnet}}"
+AzureResourceGroup = "{{azureResourceGroup}}"
+AzureApplicationId =  "{{AzureapplicationId}}"
+AzureApplicationPassword = "{{AzureapplicationPassword}}"
+AzureSubscriptionId = "{{subscriptionId}}"
+AzureSubscriptionName =  "{{subscriptionName}}"
+AzureTenantId =  "{{tenantId}}"
+AzureZoneName = "{{ZoneName}}"
+HostingResourceName = "{{HostingResourceName}}"
+CitrixCustomerID = "{{CustomerID}}"
+CitrixApiSecret = "{{Secrets}}"
+CitrixApiID =  "{{ApiKey}}"
+Ensure = "Present" 
+
+
+----- Delivery Group

@@ -353,7 +353,8 @@
                 "VDIResourceGroupName": "rg-virtualdesktops",
                 "NetworkResourceGroupName": "[resourceGroup().name]",
                 "VirtualNetworkName": "[parameters('virtualNetworkName')]",
-                "VirtualDesktopSubnets": "[parameters('subnet3Name')]"
+                "VirtualDesktopSubnets": "[parameters('subnet3Name')]",
+                "HostingResourceName": "[concat('HR-',resourceGroup().name,'-',parameters('virtualNetworkName'))]"
 
             },
             "deliveryGroup": {
