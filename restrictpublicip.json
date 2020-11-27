@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "RestrictPip": {
+            "type": "string",
+            "metadata": {
+                "description": "RestrictPip"
+            }
+          }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Authorization/policyDefinitions",
+            "name": "[concat(parameters('RestrictPip'),'-policydefination')]",
+            "apiVersion": "2019-09-01",
+            "properties": {
+                "displayName": "Restrict Public IP",
+                "description": "This policy restrict Public IP resource from being associated to a NIC",
+                "metadata": {
+                    "category": "Network"
+                },
+                "parameters": {},
+                "policyRule": {
+                    "if": {
+                    "allOf": [
+                        {
+                        "field": "type",
+                        "equals": "Microsoft.Network/networkInterfaces"
+                        },
+                        {
+                        "anyof": [
+                            {
+                            "field": "Microsoft.Network/networkInterfaces/ipconfigurations[*].publicIpAddress.id",
+                            "exists": true
+                            },
+                            {
+                            "not": {
+                                "field": "Microsoft.Network/networkInterfaces/ipconfigurations[*].publicIpAddress.id",
+                                "exists": false
+                            }
+                        }
+                        ]
+                        }
+                    ]
+                },
+                "then": {
+                    "effect": "deny"
+                }
+            }
+        }
+    }
+]
+}
