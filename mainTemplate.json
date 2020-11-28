@@ -758,7 +758,7 @@
         "name": "[concat(variables('Diagnostics').ManagementserverVMname,'/Microsoft.Insights.VMDiagnosticsSettings')]",
         "location": "[resourceGroup().location]",
         "dependsOn": [
-            "[resourceId('Microsoft.Compute/virtualMachines', variables('Diagnostics').ManagementserverVMname)]"
+            "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('Diagnostics').ManagementserverVMname,copyIndex(1)))]"
         ],
         "properties": {
             "autoUpgradeMinorVersion": true,
@@ -767,7 +767,7 @@
             "typeHandlerVersion": "1.5",
             "settings": {
                 "StorageAccount": "vmdiagnostic", //create a new storage account
-                "xmlCfg": "[base64(concat(variables('Diagnostics').wadcfgxstart, variables('Diagnostics').wadmetricsresourceid, variables('Diagnostics').ManagementserverVMname, variables('Diagnostics').wadcfgxend))]"
+                "xmlCfg": "[base64(concat(variables('Diagnostics').wadcfgxstart, variables('Diagnostics').wadmetricsresourceid, concat(variables('Diagnostics').ManagementserverVMname,copyIndex(1)), variables('Diagnostics').wadcfgxend))]"
             },
             "protectedSettings": {
                 "storageAccountName": "vmdiagnostic",
