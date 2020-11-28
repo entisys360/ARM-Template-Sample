@@ -8,10 +8,10 @@ LOGFILE="/var/log/ansible.log"
 # Add epel repo and packages
 add_packages_func() {
   sudo dnf makecache
-  sudo dnf update && sudo dnf upgrade -y
-  sudo dnf install -y \
+  sudo yum install -y epel-release
+  sudo yum install -y \
     git \
-    ansible 
+    ansible
     # mkdir /opt/{terraform_0.13.5,packer_1.6.4}
     # cd /opt/terraform_0.13.5 && curl -O https://releases.hashicorp.com/terraform/0.13.5/terraform_0.13.5_linux_amd64.zip
     # cd /opt/packer_1.6.4 && curl -O https://releases.hashicorp.com/packer/1.6.4/packer_1.6.4_linux_amd64.zip
@@ -49,7 +49,7 @@ main() {
   sudo touch opt/ansible/citrixxd-ansible/dc.json
   sudo echo "$1" > /opt/ansible/citrixxd-ansible/mc.json
   sudo echo "$2" > /opt/ansible/citrixxd-ansible/hc.json
-  sudo echo "$3" > /opt/ansible/citrixxd-ansible/hc.json
+  sudo echo "$3" > /opt/ansible/citrixxd-ansible/dg.json
 }
 
 main "$@"
