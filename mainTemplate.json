@@ -753,10 +753,10 @@
     {
         "type": "Microsoft.Compute/virtualMachines/extensions",
         "apiVersion": "2019-07-01",
-        "name": "[concat(parameters('MSNamePrefix'),copyIndex(1), '/Microsoft.Insights.VMDiagnosticsSettings')]",
+        "name": "[concat(variables('Managementserver').VMConfig.VMPrefix,copyIndex(1), '/Microsoft.Insights.VMDiagnosticsSettings')]",
         "location": "[resourceGroup().location]",
         "dependsOn": [
-            "[resourceId('Microsoft.Compute/virtualMachines', concat(parameters('MSNamePrefix'), copyIndex(1)))]"
+            "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('Managementserver').VMConfig.VMPrefix, copyIndex(1)))]"
         ],
         "properties": {
             "autoUpgradeMinorVersion": true,
@@ -765,7 +765,7 @@
             "typeHandlerVersion": "1.5",
             "settings": {
                 "StorageAccount": "vmdiagnostic", //create a new storage account
-                "xmlCfg": "[base64(concat(variables('Diagnostics').wadcfgxstart, variables('Diagnostics').wadmetricsresourceid, concat(parameters('MSNamePrefix'),copyIndex(1)), variables('Diagnostics').wadcfgxend))]"
+                "xmlCfg": "[base64(concat(variables('Diagnostics').wadcfgxstart, variables('Diagnostics').wadmetricsresourceid, concat(variables('Managementserver').VMConfig.VMPrefix,copyIndex(1)), variables('Diagnostics').wadcfgxend))]"
             },
             "protectedSettings": {
                 "storageAccountName": "vmdiagnostic",
