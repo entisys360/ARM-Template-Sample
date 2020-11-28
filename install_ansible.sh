@@ -9,24 +9,25 @@ LOGFILE="/var/log/ansible.log"
 add_packages_func() {
   sudo dnf makecache
   sudo dnf update && sudo dnf upgrade -y
-  sudo dnf install epel-release -y
   sudo dnf install -y \
     git \
-    ansible
-    mkdir /opt/{terraform_0.13.5,packer_1.6.4}
-    cd /opt/terraform_0.13.5 && curl -O https://releases.hashicorp.com/terraform/0.13.5/terraform_0.13.5_linux_amd64.zip
-    cd /opt/packer_1.6.4 && curl -O https://releases.hashicorp.com/packer/1.6.4/packer_1.6.4_linux_amd64.zip
-    cd /opt/terraform_0.13.5 && unzip terraform_0.13.5_linux_amd64.zip && sudo ln -s ~/terraform_0.13.5/terraform /usr/bin/terraform
-    cd /opt/packer_1.6.4 && unzip packer_1.6.4_linux_amd64.zip && sudo ln -s ~/packer_1.6.4/packer /usr/bin/packer
+    ansible 
+    # mkdir /opt/{terraform_0.13.5,packer_1.6.4}
+    # cd /opt/terraform_0.13.5 && curl -O https://releases.hashicorp.com/terraform/0.13.5/terraform_0.13.5_linux_amd64.zip
+    # cd /opt/packer_1.6.4 && curl -O https://releases.hashicorp.com/packer/1.6.4/packer_1.6.4_linux_amd64.zip
+    # cd /opt/terraform_0.13.5 && unzip terraform_0.13.5_linux_amd64.zip && sudo ln -s ~/terraform_0.13.5/terraform /usr/bin/terraform
+    # cd /opt/packer_1.6.4 && unzip packer_1.6.4_linux_amd64.zip && sudo ln -s ~/packer_1.6.4/packer /usr/bin/packer
     sudo pip3 install -r https://raw.githubusercontent.com/ansible-collections/azure/dev/requirements-azure.txt  
-    ansible-galaxy collection install azure.azcollection --force
+    sudo ansible-galaxy collection install azure.azcollection --force
+    sudo pip3 install "pywinrm>=0.3.0"
 }
 
 # Create ansible dir and clone github repo in newly created dir
 clone_ansible_repo_func() {
-  sudo curl  https://e360artifacts.blob.core.windows.net/artifacts/citrixxd-ansible.zip --output ~/citrixxd-ansible.zip
-  sudo unzip ~/citrixxd-ansible.zip -d ~/
-  sudo rm -f ~/citrixxd-ansible.zip
+  sudo curl  https://e360artifacts.blob.core.windows.net/artifacts/citrixxd-ansible.zip --output /root/citrixxd-ansible.zip
+  sudo mkdir /opt/ansible
+  sudo unzip /root/citrixxd-ansible.zip -d /opt/ansible/
+  sudo rm -f /root/citrixxd-ansible.zip
 }
 
 # Execute Ansible plays
@@ -42,18 +43,13 @@ log_func() {
 # Execute functions
 main() {
   add_packages_func
-  add_epel_repo_func
-    if [ "$?" == 0 ]; then 
-      log_func "[INFO]: epel-release, ansible, and git successfully installed."
-    else
-      log_func "[ERROR]: $?"
-    fi
   clone_ansible_repo_func
-  touch /tmp/machine_catalog.json
-  touch /tmp/hosting_connection.json
-  echo "$1" > ~/citrixxd-ansible/machine_catalog.json
-  echo "$2" > ~/citrixxd-ansible/hosting_connection.json
-  echo "$3" > ~/citrixxd-ansible/delivery_group.json
+  sudo touch opt/ansible/citrixxd-ansible/mc.json
+  sudo touch opt/ansible/citrixxd-ansible/hc.json
+  sudo touch opt/ansible/citrixxd-ansible/dc.json
+  sudo echo "$1" > /opt/ansible/citrixxd-ansible/mc.json
+  sudo echo "$2" > /opt/ansible/citrixxd-ansible/hc.json
+  sudo echo "$3" > /opt/ansible/citrixxd-ansible/hc.json
 }
 
 main "$@"
