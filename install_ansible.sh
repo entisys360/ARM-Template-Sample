@@ -18,17 +18,15 @@ add_packages_func() {
     cd /opt/packer_1.6.4 && curl -O https://releases.hashicorp.com/packer/1.6.4/packer_1.6.4_linux_amd64.zip
     cd /opt/terraform_0.13.5 && unzip terraform_0.13.5_linux_amd64.zip && sudo ln -s ~/terraform_0.13.5/terraform /usr/bin/terraform
     cd /opt/packer_1.6.4 && unzip packer_1.6.4_linux_amd64.zip && sudo ln -s ~/packer_1.6.4/packer /usr/bin/packer
-    sudo ansible-galaxy collection install azure.azcollection
+    sudo pip3 install -r https://raw.githubusercontent.com/ansible-collections/azure/dev/requirements-azure.txt  
+    ansible-galaxy collection install azure.azcollection --force
 }
 
 # Create ansible dir and clone github repo in newly created dir
 clone_ansible_repo_func() {
-  sudo mkdir /opt/ansible
-  sudo chown -R :adm /opt/ansible/
-  sudo curl  https://e360artifacts.blob.core.windows.net/artifacts/citrixxd-ansible.zip --output /opt/ansible/citrixxd-ansible.zip
-  sudo unzip citrixxd-ansible.zip -d /opt/ansible/
-  sudo chown -R :adm /opt/ansible/
-  sudo rm -f /opt/ansible/citrixxd-ansible.zip
+  sudo curl  https://e360artifacts.blob.core.windows.net/artifacts/citrixxd-ansible.zip --output ~/citrixxd-ansible.zip
+  sudo unzip ~/citrixxd-ansible.zip -d ~/
+  sudo rm -f ~/citrixxd-ansible.zip
 }
 
 # Execute Ansible plays
@@ -50,11 +48,12 @@ main() {
     else
       log_func "[ERROR]: $?"
     fi
-
+  clone_ansible_repo_func
   touch /tmp/machine_catalog.json
   touch /tmp/hosting_connection.json
-  echo "$1" > /tmp/machine_catalog.json
-  echo "$2" > /tmp/hosting_connection.json
+  echo "$1" > ~/citrixxd-ansible/machine_catalog.json
+  echo "$2" > ~/citrixxd-ansible/hosting_connection.json
+  echo "$3" > ~/citrixxd-ansible/delivery_group.json
 }
 
 main "$@"
