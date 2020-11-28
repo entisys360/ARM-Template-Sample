@@ -753,7 +753,7 @@
     {
         "type": "Microsoft.Compute/virtualMachines/extensions",
         "apiVersion": "2019-07-01",
-        "name": "[concat(concat(variables('Managementserver').VMConfig.VMPrefix,copyIndex(1)), '/Microsoft.Insights.VMDiagnosticsSettings')]",
+        "name": "[concat(concat(variables('Managementserver').VMConfig.VMPrefix,copyIndex(1), '/Microsoft.Insights.VMDiagnosticsSettings')]",
         "location": "[resourceGroup().location]",
         "dependsOn": [
             "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('Managementserver').VMConfig.VMPrefix, copyIndex(1)))]"
