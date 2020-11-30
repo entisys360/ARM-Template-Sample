@@ -44,9 +44,6 @@ log_func() {
 main() {
   add_packages_func
   clone_ansible_repo_func
-  sudo touch /opt/ansible/citrixxd-ansible/mc.json
-  sudo touch /opt/ansible/citrixxd-ansible/hc.json
-  sudo touch /opt/ansible/citrixxd-ansible/dc.json
   sudo echo "$1" > /opt/ansible/citrixxd-ansible/mc.json
   sudo echo "$2" > /opt/ansible/citrixxd-ansible/hc.json
   sudo echo "$3" > /opt/ansible/citrixxd-ansible/dg.json
