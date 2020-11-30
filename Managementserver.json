@@ -143,6 +143,12 @@
         },
         "availabilitySet": {
           "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('AvailabilitySetName'))]"
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": true,
+            "storageUri": "[concat('http://vmdiagnostic.blob.', environment().suffixes.storage)]"
+          }
         }
         // "diagnosticsProfile": {
         //   "bootDiagnostics": {
