@@ -709,7 +709,7 @@
         "properties": {
           "mode": "Incremental",
           "templateLink": {
-            "uri": "[concat(parameters('_artifactsLocation'), '/Managementserver.json', parameters('_artifactsLocationSasToken'))]",
+            "uri": "[uri(deployment().properties.templateLink.uri,'/entisys360/Desktop360-mgsv/rameez-dev2/Managementserver.json')]",
             "contentVersion": "1.0.0.0"
           },
           "parameters": {
