@@ -170,14 +170,14 @@
     {
         "type": "Microsoft.Compute/virtualMachines/extensions",
         "apiVersion": "2019-07-01",
-        "name": "[concat(concat(parameters('ansible'), copyIndex(1)),'/Microsoft.Insights.VMDiagnosticsSettings')]",
+        "name": "[concat(parameters('ansible').AnsibleHostName,'/Microsoft.Insights.VMDiagnosticsSettings')]",
         "location": "[resourceGroup().location]",
         "copy": {
           "name": "VMdiagnosticcopy",
           "count": 1
         },
         "dependsOn": [
-            "[resourceId('Microsoft.Compute/virtualMachines', concat(parameters('ansible'),copyIndex(1)))]"
+            "[resourceId('Microsoft.Compute/virtualMachines', parameters('ansible').AnsibleHostName)]"
         ],
         "properties": {
             "autoUpgradeMinorVersion": true,
@@ -186,7 +186,7 @@
             "typeHandlerVersion": "1.5",
             "settings": {
                 "StorageAccount": "vmdiagnostic", //create a new storage account
-                "xmlCfg": "[base64(concat(variables('Diagnostics').wadcfgxstart, variables('Diagnostics').wadmetricsresourceid, concat(parameters('ansible'), copyIndex()), variables('Diagnostics').wadcfgxend))]"
+                "xmlCfg": "[base64(concat(variables('Diagnostics').wadcfgxstart, variables('Diagnostics').wadmetricsresourceid, parameters('ansible').AnsibleHostName, variables('Diagnostics').wadcfgxend))]"
             },
             "protectedSettings": {
                 "storageAccountName": "vmdiagnostic",
