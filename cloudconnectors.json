@@ -198,7 +198,7 @@
         "location": "[resourceGroup().location]",
         "copy": {
           "name": "VMdiagnosticcopy",
-          "count": 1
+          "count": 2
         },
         "dependsOn": [
             "[resourceId('Microsoft.Compute/virtualMachines', concat(parameters('CloudConnectorsNamePrefix'), copyIndex(1)))]"
