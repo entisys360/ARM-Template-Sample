@@ -487,7 +487,7 @@
                 }
             }
         },
-        "DiagnosticStorageaccountname" : "[concat(parameters('StorageAccountName') ,'-diagnostics')]" 
+        "DiagnosticStorageaccountname" : "[concat(parameters('StorageAccountName') ,'diagnostics')]" 
     },
     "resources": [
         {
