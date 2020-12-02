@@ -486,6 +486,9 @@
                     ]
                 }
             }
+        },
+        "Diagnostic":{
+            "DiagnosticStorageaccountname" : "[concat(parameter('StorageAccountName') ,'-diagnostics')]"
         }
 
        
@@ -497,6 +500,20 @@
             "apiVersion": "2019-06-01",
             "tags": {
                 "displayName": "[parameters('StorageAccountName')]"
+            },
+            "location": "[resourceGroup().location]",
+            "kind": "StorageV2",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            }
+        },
+        {
+            "name": "[variables('Diagnostic').DiagnosticStorageaccountname]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "tags": {
+                "displayName": "[variables('Diagnostic').DiagnosticStorageaccountname]"
             },
             "location": "[resourceGroup().location]",
             "kind": "StorageV2",
