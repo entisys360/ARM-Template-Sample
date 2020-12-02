@@ -424,13 +424,13 @@
             "metadata": {
                 "description": "Mandatory tags"
             }
-          }
-        // "RestrictPip":{
-        //     "type": "string",
-        //     "metadata": {
-        //         "description": "RestrictPip"
-        //     }
-        // }
+          },
+        "RestrictPip":{
+            "type": "string",
+            "metadata": {
+                "description": "RestrictPip"
+            }
+        }
     },
     "functions": [],
     "variables": {
@@ -857,30 +857,29 @@
         "properties": {
           "mode": "Incremental",
           "templateLink": {
-           "uri" : "[uri(deployment().properties.templateLink.uri,'/entisys360/Desktop360-mgsv/rameez-dev/policies.json')]",
+           "uri" : "[uri(deployment().properties.templateLink.uri,'/entisys360/Desktop360-mgsv/rameez-dev/mandatorytags-policy.json')]",
              "contentVersion":"1.0.0.0"
           },
           "parameters": {
              "Mandatorytag": {"value": "[parameters('Mandatorytag')]" }
            }
         }
-     }
-    // {
-    //     "apiVersion": "2017-05-10",
-    //     "name": "policiesTemplaterestrictpip",
-    //     "type": "Microsoft.Resources/deployments",
-    //     "properties": {
-    //       "mode": "Incremental",
-    //       "templateLink": {
-    //        "uri" : "[uri(deployment().properties.templateLink.uri,'/entisys360/Desktop360-mgsv/rameez-dev/restrictpublicip.json')]",
-    //          "contentVersion":"1.0.0.0"
-    //       },
-    //       "parameters": {
-    //          "Mandatorytag": {"value": "[parameters('RestrictPip')]" }
-    //        }
-    //     }   
-
-    // }
+     },
+    {
+        "apiVersion": "2017-05-10",
+        "name": "policiesTemplaterestrictpip",
+        "type": "Microsoft.Resources/deployments",
+        "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+           "uri" : "[uri(deployment().properties.templateLink.uri,'/entisys360/Desktop360-mgsv/rameez-dev/restrictpublicip-policy.json')]",
+             "contentVersion":"1.0.0.0"
+          },
+          "parameters": {
+             "Mandatorytag": {"value": "[parameters('RestrictPip')]" }
+           }
+        }
+    }
     ],
 
   "outputs": {

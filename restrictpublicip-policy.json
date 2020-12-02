@@ -12,7 +12,7 @@
     "resources": [
         {
             "type": "Microsoft.Authorization/policyDefinitions",
-            "name": "[concat(parameters('RestrictPip'),'-policydefination')]",
+            "name": "[concat(parameters('RestrictPip'),'-RestrictPippolicydefination')]",
             "apiVersion": "2019-09-01",
             "properties": {
                 "displayName": "Restrict Public IP",
