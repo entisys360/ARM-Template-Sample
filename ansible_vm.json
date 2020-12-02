@@ -169,33 +169,130 @@
     },
     {
         "type": "Microsoft.Compute/virtualMachines/extensions",
-        "apiVersion": "2019-07-01",
-        "name": "[concat(concat(parameters('ansible').AnsibleHostName, copyIndex(1)),'/Microsoft.Insights.VMDiagnosticsSettings')]",
+        "apiVersion": "2017-12-01",
         "location": "[resourceGroup().location]",
-        "copy": {
-          "name": "VMdiagnosticcopy",
-          "count": 1
+        "name": "[concat(parameters('ansible').AnsibleHostName, '/Microsoft.Insights.VMDiagnosticSettings')]",
+        "tags": {
+        "displayName": "AzureDiagnostics"
         },
-        "dependsOn": [
-            "[resourceId('Microsoft.Compute/virtualMachines', concat(parameters('ansible').AnsibleHostName, copyIndex(1)))]"
-        ],
         "properties": {
-            "autoUpgradeMinorVersion": true,
-            "publisher": "Microsoft.Azure.Diagnostics",
-            "type": "IaaSDiagnostics",
-            "typeHandlerVersion": "1.5",
-            "settings": {
-                "StorageAccount": "vmdiagnostic", //create a new storage account
-                "xmlCfg": "[base64(concat(variables('Diagnostics').wadcfgxstart, variables('Diagnostics').wadmetricsresourceid, concat(parameters('ansible').AnsibleHostName,copyIndex()), variables('Diagnostics').wadcfgxend))]"
-            },
-            "protectedSettings": {
-                "storageAccountName": "vmdiagnostic",
-                "storageAccountKey": "[listkeys(variables('Diagnostics').accountid, '2019-06-01').keys[0].value]",
-                "storageAccountEndPoint": "[concat('https://', environment().suffixes.storage)]"
+        "publisher": "Microsoft.Azure.Diagnostics",
+        "type": "LinuxDiagnostic",
+        "autoUpgradeMinorVersion": true,
+        "typeHandlerVersion": "3.0",
+        "protectedSettings": {
+            "storageAccountName": "vmdiagnostic", //"[parameters('storageAccountName')]"
+            "storageAccountEndPoint": "https://core.windows.net",
+            //"storageAccountSasToken": "[parameters('sasToken')]"
+        },
+        "settings": {
+            "StorageAccount": "vmdiagnostic",
+            "ladCfg": {
+            "diagnosticMonitorConfiguration": {
+                "syslogEvents": {},
+                "sampleRateInSeconds": 15,
+                "eventVolume": "Medium",
+                "metrics": {
+                "resourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('ansible').AnsibleHostName)]",
+                "metricAggregation": [
+                    { "scheduledTransferPeriod": "PT1H" },
+                    { "scheduledTransferPeriod": "PT1M" }
+                ]
+                },
+                "performanceCounters": {
+                "performanceCounterConfiguration": [
+                    {
+                    "annotation": [
+                        {
+                        "displayName": "Filesystem % free space",
+                        "locale": "en-us"
+                        }
+                    ],
+                    "class": "filesystem",
+                    "condition": "IsAggregate=TRUE",
+                    "counter": "percentfreespace",
+                    "counterSpecifier": "/builtin/filesystem/percentfreespace",
+                    "type": "builtin",
+                    "unit": "Percent"
+                    },
+                    {
+                    "annotation": [
+                        {
+                        "displayName": "Filesystem % used space",
+                        "locale": "en-us"
+                        }
+                    ],
+                    "class": "filesystem",
+                    "condition": "IsAggregate=TRUE",
+                    "counter": "percentusedspace",
+                    "counterSpecifier": "/builtin/filesystem/percentusedspace",
+                    "type": "builtin",
+                    "unit": "Percent"
+                    },
+                    {
+                    "annotation": [
+                        {
+                        "displayName": "Filesystem used space",
+                        "locale": "en-us"
+                        }
+                    ],
+                    "class": "filesystem",
+                    "condition": "IsAggregate=TRUE",
+                    "counter": "usedspace",
+                    "counterSpecifier": "/builtin/filesystem/usedspace",
+                    "type": "builtin",
+                    "unit": "Bytes"
+                    },
+                    {
+                    "annotation": [
+                        {
+                        "displayName": "Filesystem read bytes/sec",
+                        "locale": "en-us"
+                        }
+                    ],
+                    "class": "filesystem",
+                    "condition": "IsAggregate=TRUE",
+                    "counter": "bytesreadpersecond",
+                    "counterSpecifier": "/builtin/filesystem/bytesreadpersecond",
+                    "type": "builtin",
+                    "unit": "CountPerSecond"
+                    },
+                    {
+                    "annotation": [
+                        {
+                        "displayName": "Filesystem free space",
+                        "locale": "en-us"
+                        }
+                    ],
+                    "class": "filesystem",
+                    "condition": "IsAggregate=TRUE",
+                    "counter": "freespace",
+                    "counterSpecifier": "/builtin/filesystem/freespace",
+                    "type": "builtin",
+                    "unit": "Bytes"
+                    },
+                    {
+                    "annotation": [
+                        {
+                        "displayName": "Filesystem % free inodes",
+                        "locale": "en-us"
+                        }
+                    ],
+                    "class": "filesystem",
+                    "condition": "IsAggregate=TRUE",
+                    "counter": "percentfreeinodes",
+                    "counterSpecifier": "/builtin/filesystem/percentfreeinodes",
+                    "type": "builtin",
+                    "unit": "Percent"
+                    }
+                ]
+                }
+            }
             }
         }
+        }
     }
-    ],
+],
     "outputs": {       
     }
 }
