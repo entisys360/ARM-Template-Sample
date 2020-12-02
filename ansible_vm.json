@@ -157,47 +157,70 @@
           }
       },
       "dependsOn": ["[resourceId('Microsoft.Compute/virtualMachines', parameters('ansible').AnsibleHostName)]"]
-    },
-    {
-        "type": "Microsoft.Compute/virtualMachines/extensions",
-        "apiVersion": "2017-12-01",
-        "location": "[resourceGroup().location]",
-        "name": "[concat(parameters('ansible').AnsibleHostName, '/Microsoft.Insights.VMDiagnosticSettings')]",
-        "tags": {
-        "displayName": "AzureDiagnostics"
-        },
-        "properties": {
-        "publisher": "Microsoft.Azure.Diagnostics",
-        "type": "LinuxDiagnostic",
-        "autoUpgradeMinorVersion": true,
-        "typeHandlerVersion": "3.0",
-        "protectedSettings": {
-            "storageAccountName": "vmdiagnostic", //"[parameters('storageAccountName')]"
-            "storageAccountEndPoint": "[concat('https://', environment().suffixes.storage)]"
-            //"storageAccountSasToken": "[parameters('sasToken')]"
-        },
-        "settings": {
-            "StorageAccount": "vmdiagnostic",
-            "ladCfg": {
-            "diagnosticMonitorConfiguration": {
-                "syslogEvents": {},
-                "sampleRateInSeconds": 15,
-                "eventVolume": "Medium",
-                "metrics": {
-                "resourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('ansible').AnsibleHostName)]",
-                "metricAggregation": [
-                    { "scheduledTransferPeriod": "PT1H" },
-                    { "scheduledTransferPeriod": "PT1M" }
-                ]
-                },
-                "performanceCounters": {
-                }
-            }
-            }
-        }
-        },
-        "dependsOn": ["[resourceId('Microsoft.Compute/virtualMachines', parameters('ansible').AnsibleHostName)]"]
     }
+    // {
+    //     "type": "Microsoft.Compute/virtualMachines/extensions",
+    //     "apiVersion": "2017-12-01",
+    //     "location": "[resourceGroup().location]",
+    //     "name": "[concat(parameters('ansible').AnsibleHostName, '/Microsoft.Insights.VMDiagnosticSettings')]",
+    //     "tags": {
+    //     "displayName": "AzureDiagnostics"
+    //     },
+    //     "properties": {
+    //     "publisher": "Microsoft.Azure.Diagnostics",
+    //     "type": "LinuxDiagnostic",
+    //     "autoUpgradeMinorVersion": true,
+    //     "typeHandlerVersion": "3.0",
+    //     "protectedSettings": {
+    //         "storageAccountName": "vmdiagnostic", //"[parameters('storageAccountName')]"
+    //         "storageAccountEndPoint": "[concat('https://', environment().suffixes.storage)]"
+    //         //"storageAccountSasToken": "[parameters('sasToken')]"
+    //     },
+    //     "settings": {
+    //         "StorageAccount": "vmdiagnostic",
+    //         "ladCfg": {
+    //         "diagnosticMonitorConfiguration": {
+    //             "syslogEvents": {
+    //                 "syslogEventConfiguration": {
+    //                     "LOG_AUTH": "LOG_DEBUG",
+    //                     "LOG_AUTHPRIV": "LOG_DEBUG",
+    //                     "LOG_CRON": "LOG_DEBUG",
+    //                     "LOG_DAEMON": "LOG_DEBUG",
+    //                     "LOG_FTP": "LOG_DEBUG",
+    //                     "LOG_KERN": "LOG_DEBUG",
+    //                     "LOG_LOCAL0": "LOG_DEBUG",
+    //                     "LOG_LOCAL1": "LOG_DEBUG",
+    //                     "LOG_LOCAL2": "LOG_DEBUG",
+    //                     "LOG_LOCAL3": "LOG_DEBUG",
+    //                     "LOG_LOCAL4": "LOG_DEBUG",
+    //                     "LOG_LOCAL5": "LOG_DEBUG",
+    //                     "LOG_LOCAL6": "LOG_DEBUG",
+    //                     "LOG_LOCAL7": "LOG_DEBUG",
+    //                     "LOG_LPR": "LOG_DEBUG",
+    //                     "LOG_MAIL": "LOG_DEBUG",
+    //                     "LOG_NEWS": "LOG_DEBUG",
+    //                     "LOG_SYSLOG": "LOG_DEBUG",
+    //                     "LOG_USER": "LOG_DEBUG",
+    //                     "LOG_UUCP": "LOG_DEBUG"
+    //                 }
+    //             },
+    //             "sampleRateInSeconds": 15,
+    //             "eventVolume": "Medium",
+    //             "metrics": {
+    //             "resourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('ansible').AnsibleHostName)]",
+    //             "metricAggregation": [
+    //                 { "scheduledTransferPeriod": "PT1H" },
+    //                 { "scheduledTransferPeriod": "PT1M" }
+    //             ]
+    //             },
+    //             "performanceCounters": {
+    //             }
+    //         }
+    //         }
+    //     }
+    //     },
+    //     "dependsOn": ["[resourceId('Microsoft.Compute/virtualMachines', parameters('ansible').AnsibleHostName)]"]
+    // }
 ],
     "outputs": {       
     }
