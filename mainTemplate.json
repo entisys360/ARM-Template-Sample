@@ -487,9 +487,7 @@
                 }
             }
         },
-        "Diagnostic":{
-            "DiagnosticStorageaccountname" : "[concat(parameters('StorageAccountName') ,'-diagnostics')]"
-        } 
+        "DiagnosticStorageaccountname" : "[concat(parameters('StorageAccountName') ,'-diagnostics')]" 
     },
     "resources": [
         {
@@ -507,11 +505,11 @@
             }
         },
         {
-            "name": "[variables('Diagnostic').DiagnosticStorageaccountname]",
+            "name": "[variables('DiagnosticStorageaccountname')]",
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2019-06-01",
             "tags": {
-                "displayName": "[variables('Diagnostic').DiagnosticStorageaccountname]"
+                "displayName": "[variables('DiagnosticStorageaccountname')]"
             },
             "location": "[resourceGroup().location]",
             "kind": "StorageV2",
