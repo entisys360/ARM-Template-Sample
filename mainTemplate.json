@@ -424,7 +424,13 @@
             "metadata": {
                 "description": "Mandatory tags"
             }
-          }
+          },
+        "RestrictPip":{
+            "type": "string",
+            "metadata": {
+                "description": "RestrictPip"
+            }
+        }
     },
     "functions": [],
     "variables": {
@@ -858,7 +864,23 @@
              "Mandatorytag": {"value": "[parameters('Mandatorytag')]" }
            }
         }
-     }
+     },
+    {
+        "apiVersion": "2017-05-10",
+        "name": "policiesTemplaterestrictpip",
+        "type": "Microsoft.Resources/deployments",
+        "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+           "uri" : "[uri(deployment().properties.templateLink.uri,'/entisys360/Desktop360-mgsv/rameez-dev/restrictpublicip.json')]",
+             "contentVersion":"1.0.0.0"
+          },
+          "parameters": {
+             "Mandatorytag": {"value": "[parameters('RestrictPip')]" }
+           }
+        }   
+
+    }
     ],
 
   "outputs": {

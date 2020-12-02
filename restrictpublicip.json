@@ -49,6 +49,17 @@
                 }
             }
         }
-    }
+    },
+    {
+        "type": "Microsoft.Authorization/policyAssignments",
+        "name": "[parameters('RestrictPip')]",
+        "apiVersion": "2019-09-01",
+        "dependsOn": [
+          "[concat(parameters('RestrictPip'),'-RestrictPippolicydefination')]"
+        ],
+        "properties": {
+          "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions', concat(parameters('RestrictPip'),'-RestrictPippolicydefination'))]"
+        }
+      }
 ]
 }
