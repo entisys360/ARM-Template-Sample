@@ -666,7 +666,7 @@
             "value": "[variables('CloudConnectors').VMConfig.VMAdminPassword]"
           },
           "StorageAccountName": {
-            "value": "[variables('DiagnosticStorageaccountname')]"
+            "value": "[parameters('StorageAccountName')]"
         }
         }
       }
@@ -713,7 +713,7 @@
              "value": "[variables('DomainControllers').VMConfig.VMAdminPassword]"
            },
            "StorageAccountName": {
-            "value": "[variables('DiagnosticStorageaccountname')]"
+            "value": "[parameters('StorageAccountName')]"
         }
          }
        }
@@ -760,7 +760,7 @@
               "value": "[variables('Managementserver').VMConfig.VMAdminPassword]"
             },
             "StorageAccountName": {
-                "value": "[variables('DiagnosticStorageaccountname')]"
+                "value": "[parameters('StorageAccountName')]"
             }
           }
         }
