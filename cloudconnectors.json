@@ -49,6 +49,7 @@
       },
       "StorageAccountName": {
         "type": "string",
+        "Value": "",
         "metadata": {
             "description": "Storage Account To Hold Variables"
         }
