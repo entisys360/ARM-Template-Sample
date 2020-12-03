@@ -487,7 +487,7 @@
                 }
             }
         },
-        "DiagnosticStorageaccountname" : "[concat(parameters('StorageAccountName') ,'diag')]" 
+        "DiagnosticStorageaccountname" : "[concat(parameters('StorageAccountName') ,'diag')]"
     },
     "resources": [
         {
@@ -664,7 +664,10 @@
           },
           "virtualMachineAdminPassword": {
             "value": "[variables('CloudConnectors').VMConfig.VMAdminPassword]"
-          }
+          },
+          "StorageAccountName": {
+            "value": "[variables('DiagnosticStorageaccountname')]"
+        }
         }
       }
     },
@@ -708,7 +711,10 @@
            },
            "VirtualMachineAdminPassword": {
              "value": "[variables('DomainControllers').VMConfig.VMAdminPassword]"
-           }
+           },
+           "StorageAccountName": {
+            "value": "[variables('DiagnosticStorageaccountname')]"
+        }
          }
        }
      },
@@ -752,6 +758,9 @@
             },
             "VirtualMachineAdminPassword": {
               "value": "[variables('Managementserver').VMConfig.VMAdminPassword]"
+            },
+            "StorageAccountName": {
+                "value": "[variables('DiagnosticStorageaccountname')]"
             }
           }
         }
