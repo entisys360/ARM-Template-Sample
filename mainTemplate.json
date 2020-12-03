@@ -664,10 +664,10 @@
           },
           "virtualMachineAdminPassword": {
             "value": "[variables('CloudConnectors').VMConfig.VMAdminPassword]"
-          },
-          "StorageAccountName": {
-            "value": "[parameters('StorageAccountName')]"
-        }
+          }
+        //   "StorageAccountName": {
+        //     "value": "[parameters('StorageAccountName')]"
+        // }
         }
       }
     },
@@ -711,10 +711,10 @@
            },
            "VirtualMachineAdminPassword": {
              "value": "[variables('DomainControllers').VMConfig.VMAdminPassword]"
-           },
-           "StorageAccountName": {
-            "value": "[parameters('StorageAccountName')]"
-        }
+           }
+        //    "StorageAccountName": {
+        //     "value": "[parameters('StorageAccountName')]"
+        // }
          }
        }
      },
@@ -758,10 +758,10 @@
             },
             "VirtualMachineAdminPassword": {
               "value": "[variables('Managementserver').VMConfig.VMAdminPassword]"
-            },
-            "StorageAccountName": {
-                "value": "[parameters('StorageAccountName')]"
             }
+            // "StorageAccountName": {
+            //     "value": "[parameters('StorageAccountName')]"
+            // }
           }
         }
     }
