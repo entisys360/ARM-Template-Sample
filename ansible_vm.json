@@ -124,12 +124,12 @@
                     }
                 ]
                 },
-                "diagnosticsProfile": {
-                    "bootDiagnostics": {
-                      "enabled": true,
-                      "storageUri": "[concat('http://vmdiagnostic.blob.', environment().suffixes.storage)]"
-                    }
-                }
+                // "diagnosticsProfile": {
+                //     "bootDiagnostics": {
+                //       "enabled": true,
+                //       "storageUri": "[concat('http://vmdiagnostic.blob.', environment().suffixes.storage)]"
+                //     }
+                // }
             }
         },
   {
