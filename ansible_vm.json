@@ -16,17 +16,6 @@
                 "description": "Subnet for Management"
             }
         },
-        "authenticationType": {
-            "type": "string",
-            "defaultValue": "sshPublicKey",
-            "allowedValues": [
-                "sshPublicKey",
-                "password"
-            ],
-            "metadata": {
-                "description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
-            }
-        },
         "ansible": {
             "type": "object",
             "metadata": {
@@ -50,6 +39,12 @@
             "metadata": {
                 "description": "description"
             }
+        },
+        "location": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
         }
     },
     "functions": [],
@@ -64,7 +59,7 @@
         "apiVersion": "2020-05-01",
         "type": "Microsoft.Network/networkInterfaces",
         "name": "[concat(parameters('ansible').AnsibleHostName,'-NIC1')]",
-        "location": "[resourceGroup().location]",
+        "location": "[parameters('location')]",
         
         "properties": {
             "ipConfigurations": [
@@ -73,7 +68,7 @@
                 "properties": {
                 "privateIPAllocationMethod": "Dynamic",
                 "subnet": {
-                    "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks/subnets/', parameters('virtualNetworkName'), parameters('AnsibleSubnet'))]"
+                    "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', parameters('virtualNetworkName'), parameters('AnsibleSubnet'))]"
                 }
                 }
             }
@@ -84,7 +79,7 @@
             "apiVersion": "2020-06-01",
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[parameters('ansible').AnsibleHostName]",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('location')]",
             "plan": {
                 "name": "centos-8-2",
                 "product": "centos-8-2",
@@ -95,7 +90,7 @@
             },
             "dependsOn": [
                 
-                "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces', concat(parameters('ansible').AnsibleHostName,'-NIC1'))]"
+                "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('ansible').AnsibleHostName,'-NIC1'))]"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -123,7 +118,7 @@
                 "networkProfile": {
                 "networkInterfaces": [
                     {
-                    "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces', concat(parameters('ansible').AnsibleHostName,'-NIC1'))]"
+                    "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('ansible').AnsibleHostName,'-NIC1'))]"
                     }
                 ]
                 }
@@ -133,7 +128,7 @@
       "name": "[concat(parameters('ansible').AnsibleHostName,'/','install_ansible')]",
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "apiVersion": "2019-07-01",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "tags": {
           "displayName": "Prepare Ansible VM"
       },
@@ -145,12 +140,9 @@
           
           "settings": {
               "fileUris": [
-                  "[concat(parameters('ansible')._artifactsLocation, '/install_ansible.sh')]"
+                  "[parameters('ansible').artifactsLocation]"
               ],
               "commandToExecute": "[concat('sh install_ansible.sh ',variables('Ansible_JsonMachineCatalog_json'), ' ', variables('Ansible_JsonHostingConnection_json'), ' ', variables('Ansible_JsonDeliveryGroup_json'))]"
-          },
-          "protectedSettings": {
-             
           }
       },
       "dependsOn": ["[resourceId('Microsoft.Compute/virtualMachines', parameters('ansible').AnsibleHostName)]"]

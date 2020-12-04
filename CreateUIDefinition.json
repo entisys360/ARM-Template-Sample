@@ -30,8 +30,8 @@
                 "options": {
                     "text": "Please enter your contact information to assist in completing the integration process of your new Desktop360 service.",
                     "link": {
-                        "label": "",
-                        "uri": ""
+                        "label": "Contact Information",
+                        "uri": "https://www.entisys360.com"
                     }
                 }
               },
@@ -39,7 +39,6 @@
                   "name": "OwnerCoName",
                   "type": "Microsoft.Common.TextBox",
                   "label": "Company",
-                  "placeholder": "",
                   "defaultValue": "Company Name",
                   "toolTip": "Use only allowed characters",
                   "constraints": {
@@ -63,8 +62,6 @@
                 "name": "OwnerFullName",
                 "type": "Microsoft.Common.TextBox",
                 "label": "Contact Name",
-                "placeholder": "",
-                "defaultValue": "",
                 "toolTip": "Use only allowed characters",
                 "constraints": {
                     "required": true,
@@ -90,8 +87,6 @@
                 "name": "OwnerPhone",
                 "type": "Microsoft.Common.TextBox",
                 "label": "Contact Phone",
-                "placeholder": "",
-                "defaultValue": "",
                 "toolTip": "Use only allowed characters",
                 "constraints": {
                     "required": true,
@@ -100,8 +95,7 @@
                 },
                 "visible": true
             }       
-          ],
-          "visible": true
+          ]
         },
             {
                 "name": "NetworkConfiguration",
@@ -119,8 +113,8 @@
                       "options": {
                           "text": "Please choose the Virtual Network (existing or create a new vNet) and configure Subnet segments. Click 'OK' When complete.",
                           "link": {
-                              "label": "",
-                              "uri": ""
+                              "label": "Learn more",
+                              "uri": "https://www.entisys360.com"
                           }
                       }
                   },
@@ -132,8 +126,8 @@
                           "subnets": "Subnets"
                         },
                         "toolTip": {
-                          "virtualNetwork": "",
-                          "subnets": ""
+                          "virtualNetwork": "Virtual Network ",
+                          "subnets": "Subnets for Virtual Network"
                         },
                         "defaultValue": {
                           "name": "Citrix-Vnet",
@@ -218,8 +212,8 @@
                       "options": {
                           "text": "The Orchestrator Virtual Machine manages the Desktop360 product deployment and day-2 maintenance services. Please choose the Orchestrator VM size and Authentication configuration. (Recommended size is selected). Click 'OK' when complete.",
                           "link": {
-                              "label": "",
-                              "uri": ""
+                              "label": "learn More",
+                              "uri": "https://www.entisys360.com"
                           }
                       }
                   },
@@ -260,6 +254,11 @@
                           "confirmPassword": "Confirm password",
                           "sshPublicKey": "SSH public key"
                         },
+                        "toolTip": {
+                          "authenticationType": "Authentication type ssh or password",
+                          "password": "Password",
+                          "sshPublicKey": "SSH Public Key"
+                        },
                         "constraints": {
                           "required": true
                         },
@@ -287,8 +286,8 @@
                       "options": {
                           "text": "Please enter the Citrix Cloud Connector and Domain Service Configuration. If you need assistance with these configuration steps, please contact Entisys360 support at 877-ENTISYS (877-368-4797) – Opt 9 or email support@entisys360.com. Click 'OK' when complete.",
                           "link": {
-                              "label": "",
-                              "uri": ""
+                              "label": "learm more",
+                              "uri": "https://www.entisys360.com"
                           }
                       }
                   },
@@ -301,7 +300,7 @@
                         "toolTip": "Use only allowed characters",
                         "constraints": {
                             "required": true,
-
+                            "regex": "^[a-z0-9][a-z0-9-_]{0,61}[a-z0-9]{0,1}\\.(xn--)?([a-z0-9\\-]{1,61}|[a-z0-9-]{1,30}\\.[a-z]{2,})$",
                             "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
                         },
                         "visible": true
@@ -315,6 +314,7 @@
                         "toolTip": "Use only allowed characters",
                         "constraints": {
                             "required": true,
+                            "regex": "^[{(]?[0-9A-F]{8}[-]?(?:[0-9A-F]{4}[-]?){3}[0-9A-F]{12}[)}]?$",
                             "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
                         },
                         "visible": true
@@ -326,7 +326,7 @@
                             "password": "Secret",
                             "confirmPassword": "Confirm Secret"
                         },
-                        "toolTip": "",
+                        "toolTip": "Azure Service Principle Secret",
                         "constraints": {
                             "required": true,
                             "validationMessage": "Password must be at least 8 characters long, contain only numbers and letters"
@@ -359,7 +359,8 @@
                         "toolTip": "Use only allowed characters",
                         "constraints": {
                             "required": true,
-                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+                            "regex": "[A-Za-z0-9]{5,}",
+                            "validationMessage": "Only alphanumeric characters are allowed, and the value must be 5-12 characters long."
                         },
                         "visible": true
                     },
@@ -367,15 +368,13 @@
                         "name": "CloudConnectoresSize",
                         "type": "Microsoft.Compute.SizeSelector",
                         "label": "Cloud Connector VM Size",
-                        "toolTip": "",
+                        "toolTip": "Cloud Connector VM Size",
                         "recommendedSizes": [
                           "Standard_D2_v2",
                           "Standard_D1_v2",
                           "Standard_D3_v2"
                         ],
                         "constraints": {
-                          "allowedSizes": [],
-                          "excludedSizes": [],
                           "numAvailabilityZonesRequired": 3,
                           "zone": "3"
                         },
@@ -386,7 +385,7 @@
                         "imageReference": {
                           "publisher": "MicrosoftWindowsServer",
                           "offer": "WindowsServer",
-                          "sku": "2012-R2-Datacenter"
+                          "sku": "2016-Datacenter"
                         },
                         "count": 2,
                         "visible": true
@@ -396,8 +395,7 @@
                       "name": "WinAdminUsername",
                       "type": "Microsoft.Compute.UserNameTextBox",
                       "label": "Windows Username",
-                      "defaultValue": "superadmin",
-                      "toolTip": "",
+                      "toolTip": "Windows UserName",
                       "constraints": {
                         "required": true,
                         "regex": "^[a-zA-Z]{1,30}$",
@@ -413,7 +411,7 @@
                         "password": "Password",
                         "confirmPassword": "Confirm password"
                       },
-                      "toolTip": "",
+                      "toolTip": "Windows Password",
                       "constraints": {
                         "required": true,
                         "validationMessage": "Password must be at least 12 characters long, contain only numbers and letters"
@@ -451,12 +449,12 @@
                         "name": "ctxZoneName",
                         "type": "Microsoft.Common.TextBox",
                         "label": "Citrix Zone Name",
-                        "placeholder": "",
                         "defaultValue": "E360 - Labs",
                         "toolTip": "Use only allowed characters",
                         "constraints": {
 
                             "required": true,
+                            "regex": "[A-Za-z0-9]{4,}-[A-Za-z0-9]{2,}",
                             "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
                         },
                         "visible": true
@@ -471,6 +469,7 @@
                         "constraints": {
 
                             "required": true,
+                            "regex": "[A-Za-z0-9]{4,12}###",
                             "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
                         },
                         "visible": true
@@ -479,15 +478,13 @@
                       "name": "vdiVMSize",
                       "type": "Microsoft.Compute.SizeSelector",
                       "label": "VDI VM Instance Size",
-                      "toolTip": "",
+                      "toolTip": "Virtual Desktops Size",
                       "recommendedSizes": [
                         "Standard_D2_v2",
                         "Standard_D1_v2",
                         "Standard_D3_v2"
                       ],
                       "constraints": {
-                        "allowedSizes": [],
-                        "excludedSizes": [],
                         "numAvailabilityZonesRequired": 3,
                         "zone": "3"
                       },
@@ -498,7 +495,7 @@
                       "imageReference": {
                         "publisher": "MicrosoftWindowsServer",
                         "offer": "WindowsServer",
-                        "sku": "2012-R2-Datacenter"
+                        "sku": "2016-Datacenter"
                       },
                       "count": 2,
                       "visible": true
@@ -507,12 +504,12 @@
                         "name": "vdiCount",
                         "type": "Microsoft.Common.TextBox",
                         "label": "Virtual Desktop Count",
-                        "placeholder": "",
-                        "defaultValue": "",
+                        "defaultValue": "1",
                         "toolTip": "Number of Desktops required. ie '150' desktops",
                         "constraints": {
 
                             "required": true,
+                            "regex": "[0-9]{1,3}",
                             "validationMessage": "Only numeric characters are allowed, and the value must be 1-30 characters long."
                         },
                         "visible": true
@@ -521,13 +518,13 @@
                       "name": "desktopGroupName",
                       "type": "Microsoft.Common.TextBox",
                       "label": "Delivery Group Name",
-                      "placeholder": "",
-                      "defaultValue": "",
+                      "placeholder": "DG-Marketing",
                       "toolTip": "name of delivery group to be created",
                       "constraints": {
 
                           "required": true,
-                          "validationMessage": ""
+                          "regex": "[A-Za-z0-9]{4,}",
+                          "validationMessage": "Delivery Group Name should not be empty"
                       },
                       "visible": true
                   },
@@ -535,13 +532,13 @@
                     "name": "desktopGroupPublishedName",
                     "type": "Microsoft.Common.TextBox",
                     "label": "Desktop Group Publish Name",
-                    "placeholder": "",
-                    "defaultValue": "",
+                    "placeholder": "MarketingDesktops",
                     "toolTip": "Desktop Group Publish Name",
                     "constraints": {
 
                         "required": true,
-                        "validationMessage": ""
+                        "regex": "[A-Za-z0-9]{4,}",
+                        "validationMessage": "Published Name can not be empty"
                     },
                     "visible": true
                   },
@@ -549,13 +546,12 @@
                     "name": "desktopGroupDesc",
                     "type": "Microsoft.Common.TextBox",
                     "label": "Desktop Group Description",
-                    "placeholder": "",
-                    "defaultValue": "",
                     "toolTip": "Desktop Group Description",
                     "constraints": {
 
                         "required": true,
-                        "validationMessage": ""
+                        "regex": "[A-Za-z0-9]{4,}",
+                        "validationMessage": "Desktop Group description can not be empty"
                     },
                     "visible": true
                   },
@@ -563,13 +559,13 @@
                     "name": "assignedGroup",
                     "type": "Microsoft.Common.TextBox",
                     "label": "Active Directory Groups which need access to desktop",
-                    "placeholder": "",
-                    "defaultValue": "",
+                    "defaultValue": "yourdomain\\domain Users",
                     "toolTip": "Active Directory Groups which need access to desktop",
                     "constraints": {
 
                         "required": true,
-                        "validationMessage": ""
+                        "regex": "[A-Za-z]{3,}\\\\[A-Za-z]{3,}",
+                        "validationMessage": "Assigned Groups Can not be empty or shoud be in format of netbios_name\\ad_groupname"
                     },
                     "visible": true
                   },
@@ -577,13 +573,12 @@
                     "name": "ctxCustomerID",
                     "type": "Microsoft.Common.TextBox",
                     "label": "Citrix Customer ID",
-                    "placeholder": "",
-                    "defaultValue": "",
                     "toolTip": "Citrix Customer ID",
                     "constraints": {
 
                         "required": true,
-                        "validationMessage": ""
+                        "regex": "[A-Za-z0-9]{3,}",
+                        "validationMessage": "Citrix Customer ID can not be empty"
                     },
                     "visible": true
                   },
@@ -592,27 +587,26 @@
                     "name": "ctxApiKey",
                     "type": "Microsoft.Common.TextBox",
                     "label": "Citrix Cloud API Key",
-                    "placeholder": "",
-                    "defaultValue": "",
                     "toolTip": "Citrix Cloud API Key",
                     "constraints": {
-
                         "required": true,
-                        "validationMessage": ""
+                        "regex": "^[{(]?[0-9A-F]{8}[-]?(?:[0-9A-F]{4}[-]?){3}[0-9A-F]{12}[)}]?$",
+                        "validationMessage": "Citrix API Key Can not Be empty"
                     },
                     "visible": true
                   },
                   {
                     "name": "ctxApiSecret",
-                    "type": "Microsoft.Common.TextBox",
-                    "label": "Citrix Cloud API Secret",
-                    "placeholder": "",
-                    "defaultValue": "",
+                    "type": "Microsoft.Common.PasswordBox",
+                    "label": {
+                      "password": "Password",
+                      "confirmPassword": "Confirm password"
+                    },
                     "toolTip": "Citrix Cloud API Secret",
                     "constraints": {
 
                         "required": true,
-                        "validationMessage": ""
+                        "validationMessage": "Citrix API Secret can not be empty"
                     },
                     "visible": true
                   }
@@ -634,8 +628,8 @@
                       "options": {
                           "text": "Please select the Desktop360 Configuration Storage Account or create a new Storage Account. This storage service holds all of the environment configuration settings. Click 'OK' when complete.",
                           "link": {
-                              "label": "",
-                              "uri": ""
+                              "label": "Learn more",
+                              "uri": "https://www.entisys360.com"
                           }
                       }
                   },
@@ -643,13 +637,15 @@
                         "name": "storageAccount",
                         "type": "Microsoft.Storage.StorageAccountSelector",
                         "label": "Storage account",
-                        "toolTip": "",
+                        "toolTip": "Create storege account",
                         "defaultValue": {
                           "name": "storageaccount01",
                           "type": "Premium_LRS"
                         },
                         "constraints": {
-                          "allowedTypes": []
+                          "allowedTypes": [
+                            "Premium_LRS"
+                          ]
                         },
                         "options": {
                           "hideExisting": false
@@ -674,8 +670,8 @@
             "StorageAccountName": "[steps('StorageConfiguration').storageAccount.name]",
             "CloudConnectorVMNamePrefix": "[steps('DomainAndCc').CloudConnectorPrefix]",
             "CloudConnectorsVMSize": "[steps('DomainAndCc').CloudConnectoresSize]",
-            "ccUserName": "[steps('DomainAndCc').WinAdminUsername]",
-            "ccPassword": "[steps('DomainAndCc').WindowsCred]",
+            "localUserName": "[steps('DomainAndCc').WinAdminUsername]",
+            "localPassword": "[steps('DomainAndCc').WindowsCred]",
             "DomainName": "[steps('DomainAndCc').DomainName]",
             "ADOrgUnit": "[steps('DomainAndCc').ADOrgUnit]",
             "AzureApplicationId": "[steps('DomainAndCc').AzureApplicationId]",
@@ -686,7 +682,7 @@
             "ctxZoneName": "[steps('CitrixConfiguration').ctxZoneName]",
             "OrchestratorVirtualMachineSize": "[steps('OrchestratorVirtualMachine').vmSize]",
             "adminUsername": "[steps('OrchestratorVirtualMachine').adminUsername]",
-            "authenticationType": "[steps('OrchestratorVirtualMachine').adminCredentials.authenticationType]",
+            // "authenticationType": "[steps('OrchestratorVirtualMachine').adminCredentials.authenticationType]",
             "adminPassword": "[steps('OrchestratorVirtualMachine').adminCredentials.password]",
             "adminSShKey": "[steps('OrchestratorVirtualMachine').adminCredentials.sshPublicKey]",
             "desktopGroupName": "[steps('CitrixConfiguration').desktopGroupName]",
@@ -695,7 +691,9 @@
             "assignedGroup": "[steps('CitrixConfiguration').assignedGroup]",
             "ctxCustomerID": "[steps('CitrixConfiguration').ctxCustomerID]",
             "ctxApiSecret": "[steps('CitrixConfiguration').ctxApiSecret]",
-            "ctxApiKey": "[steps('CitrixConfiguration').ctxApiKey]"
+            "ctxApiKey": "[steps('CitrixConfiguration').ctxApiKey]",
+            "location": "[location()]"
+
         }
     }
 }

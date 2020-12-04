@@ -2,6 +2,13 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "description"
+            }
+        },
         "localUserName": {
             "type": "string",
             "metadata": {
@@ -13,8 +20,7 @@
             "type": "securestring",
             "metadata": {
                 "description": "Virtual machine Local Admin Password"
-            },
-            "defaultValue": "123ABC!@#$%^&"
+            }
         },
         "OrchestratorVirtualMachineSize": {
             "type": "string",
@@ -52,21 +58,6 @@
                 "description": "Size of managment VM"
             }
         },
-
-        // "DCVMNamePrefix": {
-        //     "type": "string",
-        //     "defaultValue": "entisysDC",
-        //     "metadata": {
-        //         "description": "description"
-        //     }
-        // },
-        // "DCVMSize": {
-        //     "type": "string",
-        //     "defaultValue": "Standard_A2_v2",
-        //     "metadata": {
-        //         "description": "Size of Cloud Connectors VM Size"
-        //     }
-        // },
         "virtualNetworkName": {
             "type": "string",
             "defaultValue": "Citrix-Vnet",
@@ -151,46 +142,32 @@
                 "description": "Admin username for all VMs"
             }
         },
-        "_artifactsLocation": {
-            "type": "string",
-            "metadata": {
-                "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
-            },
-            "defaultValue": "https://raw.githubusercontent.com/entisys360/ARM-Template-Sample/vinay-dev"
-        },
-        "_artifactsLocationSasToken": {
-            "type": "securestring",
-            "metadata": {
-                "description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated."
-            },
-            "defaultValue": ""
+        // "_artifactsLocation": {
+        //     "type": "string",
+        //     "metadata": {
+        //         "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
+        //     },
+        //     "defaultValue": "https://raw.githubusercontent.com/entisys360/ARM-Template-Sample/vinay-dev"
+        // },
+        // "_artifactsLocationSasToken": {
+        //     "type": "securestring",
+        //     "metadata": {
+        //         "description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated."
+        //     },
+        //     "defaultValue": ""
 
-        },
-
-        "authenticationType": {
-            "type": "string",
-            "defaultValue": "sshPublicKey",
-            "allowedValues": [
-                "sshPublicKey",
-                "password"
-            ],
-            "metadata": {
-                "description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
-            }
-        },
+        // },
         "adminPassword": {
             "type": "securestring",
             "metadata": {
                 "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
-            },
-            "defaultValue": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtdT9c3sPJH3n75w/sEI/mV1tHABIT8ikjwxBtARX17eKmmUd/feLQYZNW0hPsIrZIpL3ppW4e/Uc7wmWGnOrMaUCsvbXkpV2zkofttqi3Ni/6qVhMv/+IuZmk7h53ITI2DZO0Kel3ZIV+xUpZxnPITUiHYkFLy6u9HcBoFSxDwtQNisuNaghSoPTVwV98QJToPwFDDcWDARHGUm4AxBzU5QY4yOqKyGJU+vEaEwWjA/0/5CAk7kCd1SSy58QDduhlLDmVLuiLtyu4DtstXy3QAlSg1zYK1zryCm6CM3MvjlKH+LgHGOcZWNGhWgjiEcTmCLmKSJ02WnE96T9Hne6b vinay.sanjivaiah@entisys360.com"
+            }
         },
         "adminSShKey": {
             "type": "securestring",
             "metadata": {
                 "description": "description"
-            },
-            "defaultValue": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtdT9c3sPJH3n75w/sEI/mV1tHABIT8ikjwxBtARX17eKmmUd/feLQYZNW0hPsIrZIpL3ppW4e/Uc7wmWGnOrMaUCsvbXkpV2zkofttqi3Ni/6qVhMv/+IuZmk7h53ITI2DZO0Kel3ZIV+xUpZxnPITUiHYkFLy6u9HcBoFSxDwtQNisuNaghSoPTVwV98QJToPwFDDcWDARHGUm4AxBzU5QY4yOqKyGJU+vEaEwWjA/0/5CAk7kCd1SSy58QDduhlLDmVLuiLtyu4DtstXy3QAlSg1zYK1zryCm6CM3MvjlKH+LgHGOcZWNGhWgjiEcTmCLmKSJ02WnE96T9Hne6b vinay.sanjivaiah@entisys360.com"
+            }
         },
         "ctxZoneName": {
             "type": "string",
@@ -326,11 +303,10 @@
             "defaultValue": "e360"
         },
         "ctxApiSecret": {
-            "type": "string",
+            "type": "securestring",
             "metadata": {
                 "description": "description"
-            },
-            "defaultValue": "abcd1234anv===="
+            }
         },
         "ctxApiKey": {
             "type": "string",
@@ -402,22 +378,8 @@
                 "ZoneName": "[parameters('ctxZoneName')]"
             }
         },
-        // "DomainControllers": {
-        //    "availabilitySet": {
-        //         "availabilitySetName": "avl-DomainControllers",
-        //         "availabilitySetPlatformFaultDomainCount": 2,
-        //         "availabilitySetPlatformUpdateDomainCount": 2
-        //     }, 
-        //     "VMConfig": {
-        //         "VMPrefix": "[parameters('DCVMNamePrefix')]",
-        //         "VMSize": "[parameters('DCVMSize')]",
-        //         "storageAccountType": "Premium_LRS",
-        //         "VMAdminUserName": "[parameters('ccUserName')]",
-        //         "VMAdminPassword": "[variables('Global').Password]"
-
-        //     }
-        // },
         "CloudConnectors": {
+            "location": "[parameters('location')]",
             "availabilitySet": {
                 "availabilitySetName": "avl-cloudConnectors",
                 "availabilitySetPlatformFaultDomainCount": 2,
@@ -435,6 +397,7 @@
 
         },
         "MgmtServer": {
+            "location": "[parameters('location')]",
             "availabilitySet": {
                 "availabilitySetName": "avl-cloudConnectors",
                 "availabilitySetPlatformFaultDomainCount": 2,
@@ -451,14 +414,14 @@
             
 
         },
-        //"Owner": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')]",
+       
 
         "ansible": {
             "AnsibleHostName": "AnsibleOrch001",
             "AnsibleVMSize" : "[parameters('OrchestratorVirtualMachineSize')]",
             "AnsibleUserName": "[parameters('adminUsername')]",
             "AnsiblePassword": "[parameters('adminPassword')]",
-            "_artifactsLocation": "[parameters('_artifactsLocation')]",
+            "artifactsLocation": "[uri(deployment().properties.templateLink.uri,'/entisys360/ARM-Template-Sample/vinay-dev/install_ansible.sh')]",
             "linuxConfiguration": {
                 "disablePasswordAuthentication": true,
                 "ssh": {
@@ -480,7 +443,7 @@
             "tags": {
                 "displayName": "[parameters('StorageAccountName')]"
             },
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('location')]",
             "kind": "StorageV2",
             "sku": {
                 "name": "Standard_LRS",
@@ -492,7 +455,7 @@
             "name": "[parameters('virtualNetworkName')]",
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2019-11-01",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('location')]",
 
             "tags": {
                 "displayName": "[parameters('virtualNetworkName')]"
@@ -569,9 +532,7 @@
                     "value": "[parameters('virtualNetworkName')]"
                 },
 
-                "authenticationType": {
-                    "value": "[parameters('authenticationType')]"
-                },
+                
                 "ansible": {
                     "value": "[variables('ansible')]"
                 },
@@ -586,8 +547,10 @@
                 },
                 "JsonDeliveryGroup": {
                     "value": "[reference('PopulateVariables').outputs.JsonDeliveryGroup.value]"
+                },
+                "location": {
+                    "value": "[parameters('location')]"
                 }
-
 
             }
         },
@@ -636,7 +599,11 @@
           },
           "virtualMachineAdminPassword": {
             "value": "[variables('CloudConnectors').VMConfig.VMAdminPassword]"
-          }
+          },
+          "location": {
+                "value": "[variables('CloudConnectors').location]"
+
+          } 
         }
       }
     },
@@ -682,54 +649,14 @@
           },
           "virtualMachineAdminPassword": {
             "value": "[variables('MgmtServer').VMConfig.VMAdminPassword]"
-          }
+          },
+          "location": {
+            "value": "[variables('MgmtServer').location]"
+
+            } 
         }
       }
     }
-    // {
-    //   "name": "[concat('DomainControllersDeployment')]",
-    //   "type": "Microsoft.Resources/deployments",
-    //   "apiVersion": "2019-10-01",
-    //   "dependsOn": [
-    //     "AnsibleVMDeployment"
-    //   ],
-    //   "properties": {
-    //     "mode": "Incremental",
-    //     "templateLink": {
-    //       "uri": "[concat(parameters('_artifactsLocation'), '/nestedtemplates/DomainControllers.json', parameters('_artifactsLocationSasToken'))]",
-    //       "contentVersion": "1.0.0.0"
-    //     },
-    //     "parameters": {
-    //       "DCNamePrefix": {
-    //         "value": "[variables('DomainControllers').VMConfig.VMPrefix]"
-    //       },
-    //       "availabilitySetName": {
-    //           "value": "[variables('DomainControllers').availabilitySet.availabilitySetName]"
-    //       },
-    //       "availabilitySetPlatformFaultDomainCount": {
-    //           "value": "[variables('DomainControllers').availabilitySet.availabilitySetPlatformFaultDomainCount]"
-    //       },
-    //       "availabilitySetPlatformUpdateDomainCount": {
-    //           "value": "[variables('DomainControllers').availabilitySet.availabilitySetPlatformUpdateDomainCount]"
-    //       },
-    //       "DCvirtualMachineSize": {
-    //           "value": "[variables('DomainControllers').VMConfig.VMSize]"
-    //       },
-    //       "virtualNetworkName": {
-    //         "value": "[parameters('virtualNetworkName')]"
-    //       },
-    //       "DCSubnetName": {
-    //         "value": "[parameters('subnet1Name')]"
-    //       },
-    //       "virtualMachineAdminUserName": {
-    //         "value": "[variables('DomainControllers').VMConfig.VMAdminUserName]"
-    //       },
-    //       "virtualMachineAdminPassword": {
-    //         "value": "[variables('DomainControllers').VMConfig.VMAdminPassword]"
-    //       }
-    //     }
-    //   }
-    // }
   ],
   "outputs": {
   }
