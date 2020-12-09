@@ -2,10 +2,10 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "ccUserName": {
+        "localUserName": {
             "value": "superadmin"
         },
-        "ccPassword": {
+        "localPassword": {
             "value": "123ABC!@#$%^&"
         },
         "OrchestratorVirtualMachineSize": {
@@ -15,6 +15,12 @@
             "value": "entisyscc"
         },
         "CloudConnectorsVMSize": {
+            "value": "Standard_A2_v2"
+        },
+        "mgmtVMNamePrefix": {
+            "value": "entisysmgmt"
+        },
+        "mgmtVMSize": {
             "value": "Standard_A2_v2"
         },
         "virtualNetworkName": {
@@ -120,7 +126,7 @@
             "value": "Pacific Standard Time"
         },
         "assignedGroup": {
-            "value": "e360labs\\domain users"
+            "value": "e360labs\\\\domain users"
         },
         "ctxCustomerID": {
             "value": "e360"
