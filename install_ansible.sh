@@ -26,13 +26,15 @@ add_packages_func() {
 clone_ansible_repo_func() {
   sudo curl  https://e360artifacts.blob.core.windows.net/artifacts/citrixxd-ansible.zip --output /root/citrixxd-ansible.zip
   sudo mkdir /opt/ansible
-  sudo unzip /root/citrixxd-ansible.zip -d /opt/ansible/
+  sudo unzip -o /root/citrixxd-ansible.zip -d /opt/ansible/
   sudo rm -f /root/citrixxd-ansible.zip
 }
 
-# Execute Ansible plays
-ansible_execute_func() {
-  ansible-playbook /opt/ansible/setup.yml
+
+#inplace replace of resource group
+replace_resource_group_name() {
+  sed -i "s/e360vdilabs2/$1/g" /opt/ansible/citrixxd-ansible/azure_rm.yml
+
 }
 
 # Echo messages to log file
@@ -44,6 +46,7 @@ log_func() {
 main() {
   add_packages_func
   clone_ansible_repo_func
+  replace_resource_group_name $4
   sudo echo "$1" > /opt/ansible/citrixxd-ansible/mc.json
   sudo echo "$2" > /opt/ansible/citrixxd-ansible/hc.json
   sudo echo "$3" > /opt/ansible/citrixxd-ansible/dg.json
