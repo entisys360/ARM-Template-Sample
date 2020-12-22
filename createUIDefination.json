@@ -54,26 +54,6 @@
                 "visible": true
             },
               {
-                "name": "OwnerSubscription",
-                "type": "Microsoft.Common.OptionsGroup",
-                "label": "Subscription Owner",
-                "defaultValue": "Yes",
-                "toolTip": "Select 'Yes', You must be an 'Owner' of the subscription.",
-                "constraints": {
-                  "allowedValues": [
-                    {
-                        "label": "Yes",
-                        "value": "true"
-                    },
-                    {
-                        "label": "No",
-                        "value": "false"
-                    }   
-                ],
-                "required": true  
-                }
-            },
-              {
                 "name": "OwnerFullName",
                 "type": "Microsoft.Common.TextBox",
                 "label": "Contact Full Name",
